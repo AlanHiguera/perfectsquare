@@ -25,6 +25,9 @@ obj2 concluido: imprimir la cantidad de caminos encontrados.
 #include <string.h>
 #include "time.h"
 //PILA
+
+#define unsigned int cont 0;
+
 struct NodePila {
     struct Node *nodo;
     struct NodePila *next;
@@ -83,6 +86,25 @@ struct Node *DeleteFirst(struct Node *p){
     }
     return NULL;
 }
+
+struct Node *DeleteLast(struct Node *p){
+    struct Node *q;
+
+    if(p->next == NULL){//si solo hay un elemento
+        free(p);
+        return NULL;
+    }
+    while (p->next->next != NULL){
+        if(p->next == NULL){
+            free(p->next->next);
+            p->next = NULL;
+            return p;
+        }
+        p = p->next;
+    }
+    return NULL;
+}
+
 
 struct Node *KillAll(struct Node *p){
     while (p != NULL)
@@ -156,29 +178,97 @@ unsigned char detectar_elemento_sin_complemento(struct Node *p){//funcion que de
     }
     return 0;//no hay pivotes sin complementos
 }
+//Apariciones dirá si el valor que estamos intentando agregar al camino ya apareció la cantidad máxima de veces
+unsigned char apariciones(struct Node *listaCamino, unsigned int valor, unsigned int arrayEntrada[], unsigned int n){
+    //veremos cuantas veces aparece en la lista camino
+    //veremos cuantas veces aparece en la lista de entrada
+    // CantidadEnCamino < CantidadEnEntrada -> puedo agregar
+    unsigned int contadorCamino, contadorEntrada;
+    contadorCamino = 0;
+    contadorEntrada = 0;
+    while(listaCamino != NULL){
+        if(listaCamino->valor == valor){
+            contadorCamino = contadorCamino + 1;
+        }
+        listaCamino = listaCamino->next;
+    }
 
-/*unsigned int alcance(struct Node *listaCamino, unsigned int valor){//funcion que chequea si un valor ya esta en el camino
-    unsigned int contador, flag;
+    for(int i = 0; i < n; i = i + 1){
+        if(arrayEntrada[i] == valor){
+            contadorEntrada = contadorEntrada + 1;
+        }
+    }
+
+    if(contadorCamino < contadorEntrada){
+        return '0'; //puedo agregar
+    }
+    else{
+        return '1'; //no puedo agregar
+    }
+}
+
+unsigned int alcance(struct Node *listaCamino, unsigned int valor, unsigned int arrayEntrada[], unsigned int n){//funcion que chequea si un valor ya esta en el camino
+    unsigned int contador, flag; // hay que agregar la revision del camino para respetar la cantidad de elementos que hay en la lista original de input
     contador = 0;
     flag = 0;
     while(listaCamino != NULL){
-        if(listaCamino->valor == valor && listaCamino->tipo == '0')
-            flag = 1;
-        if flag==1{
-            contador = contador +1;
+        if(listaCamino->valor == valor && listaCamino->tipo == '0'){
+            while(listaCamino->tipo == '1'){
+                if(apariciones(listaCamino, listaCamino->valor, arrayEntrada, n)=='0'){
+                    contador = contador + 1;
+                }
+                listaCamino = listaCamino->next;
+            }
+            break;
         }
-        if(listaCamino->valor != valor && listaCamino->tipo == '0' )
-            flag = 0;
-            contador = contador -1;
-        listaCamino = listaCamino->next;
     }
     return contador;
-}*/
+}
 
-/*void rec_bfs(struct  Node *listaCamino, struct Node *listaAlcanzabilidad, struct Node *listaaux){
+//Verificar camino: necesitamos ver que el largo del camino sea n, y además que sea distinto del input del programa
+unsigned char VerificarCamino(struct Node *listaCamino, unsigned int arrayEntrada[], unsigned int n){
+    unsigned int contador;
+    unsigned char esDistinto; //0 si es igual, 1 si es distinto
+    esDistinto = '0';
+    contador = 0;
+
+    while(listaCamino != NULL){
+        contador = contador + 1;
+
+        if(listaCamino->valor != arrayEntrada[contador]){
+            esDistinto = '0';
+        }
+        listaCamino = listaCamino->next;
+    }
+    if(contador == n && esDistinto=='0'){
+        return 1; //camino valido
+    }
+    else{
+        return 0; //camino no valido
+    }
+}
+
+//Llenar alcance, vamos a tomar un valor y ver cuales son sus complementarios y echarlos a una lista
+struct Node *llenarAlcance(struct Node *listaaux, struct Node *listaAlcanzabilidad, unsigned int valor){
+    while(listaAlcanzabilidad != NULL){
+        if(listaAlcanzabilidad->valor == valor && listaAlcanzabilidad->tipo == '0'){
+            while(listaAlcanzabilidad->tipo == '1'){
+                insertar(listaaux, listaAlcanzabilidad->valor, '1');
+                listaAlcanzabilidad = listaAlcanzabilidad->next;
+            }
+            if(listaAlcanzabilidad->tipo == '0'){
+                return listaaux;
+        }
+    }
+    return NULL;
+}
+
+void rec_bfs(struct  Node *listaCamino, struct Node *listaAlcanzabilidad, struct Node *listaaux, unsigned int arrayEntrada[], unsigned int n, unsigned int cont){
     //funcion recursiva que explora las permutaciones posibles como si fuesen caminos en un grafo
-    if(alcance(listaAlcanzabilidad, listaCamino->valor)==0){
-        VerificarCamino(listaCamino);
+    if(alcance(listaAlcanzabilidad, listaCamino->valor, arrayEntrada, n)==0){
+        if(VerificarCamino(listaCamino, arrayEntrada, n)=='1'){
+            cont = cont + 1;
+        }
         printf("Camino verificado\n");
         PrintList(listaCamino);
         DeleteLast(listaCamino);
@@ -188,15 +278,17 @@ unsigned char detectar_elemento_sin_complemento(struct Node *p){//funcion que de
         while(listaaux != NULL){
             listaCamino = insertar(listaCamino, listaaux->valor, '1');
             listaaux = DeleteFirst(listaaux);
-            rec_bfs(listaCamino, listaAlcanzabilidad, listaaux);
+            rec_bfs(listaCamino, listaAlcanzabilidad, listaaux, arrayEntrada, n, cont);
         }
     }
-}*/
+}
 
 
 
 int main(int argc, char *argv[]) {
     //leer los elemetentos de la lista de entrada. Los guardamos en un array estatico.
+    struct Node *listaaux = NULL;
+    struct Node *listaCamino = NULL;
     unsigned int n;
     unsigned int arrayEntrada[n];
     n = atoi(argv[1]);
@@ -212,14 +304,8 @@ int main(int argc, char *argv[]) {
     listaAlcanzabilidad = pares_perfectos(listaAlcanzabilidad, arrayEntrada, n);
     printf("Lista de valores alcanzables:\n");
     PrintList(listaAlcanzabilidad);
-    
-    /*
-    //Empieza el objetivo 2
-    //Paso 1: Echar a la pila todos los elementos pivote de la lista de valores alcanzables.
-    struct NodePila *pila = NULL;
-    pila = guardando_pivotes_en_pila(pila, listaAlcanzabilidad);
 
-    //Paso 2: Quito 1, registro sus alcances en una pila, quito 1 de la nueva pila y repito. Por cada vez quito 1 verifico la restricción(restando las apariciones para no tener que registrar el camino. A principio, guardar camino para hacer testing) 
-    buscando_caminos(pila, listaAlcanzabilidad, arrayEntrada, n);
-    return 0;*/
+    rec_bfs(listaCamino, listaAlcanzabilidad, listaaux, arrayEntrada, n, cont);
+
+    return 0;
 }
