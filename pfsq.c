@@ -130,6 +130,21 @@ struct Node *pares_perfectos(struct Node *p, unsigned int arrayEntrada[], unsign
     return p;
 }
 
+struct Node *pares_perfectosMatriz(struct Node *p, unsigned int arrayEntrada[], unsigned int n){//funcion que genera la lista de valores alcanzables
+    unsigned int i;
+    unsigned int j;
+    for(i = 0; i < n; i = i + 1){
+        p = insertar(p, arrayEntrada[i], '0');//inserto el pivote
+        for(j = 0; j < n; j = j + 1){
+            if(i != j && is_perfect_square(arrayEntrada[i] + arrayEntrada[j]) == 1){//si no es el mismo elemento y si la suma es cuadrado perfecto
+                p = insertar(p, arrayEntrada[j], '1');//inserto el complemento
+            }
+        }//si no tiene complementos, habrá un pivote seguido de otro. Asi, detectaremos que no hay solucion.
+
+    }
+    return p;
+}
+
 unsigned char detectar_elemento_sin_complemento(struct Node *p){//funcion que detecta si hay un pivote sin complementos
     while(p != NULL){
         if(p->tipo == '0'){
@@ -141,6 +156,45 @@ unsigned char detectar_elemento_sin_complemento(struct Node *p){//funcion que de
     }
     return 0;//no hay pivotes sin complementos
 }
+
+/*unsigned int alcance(struct Node *listaCamino, unsigned int valor){//funcion que chequea si un valor ya esta en el camino
+    unsigned int contador, flag;
+    contador = 0;
+    flag = 0;
+    while(listaCamino != NULL){
+        if(listaCamino->valor == valor && listaCamino->tipo == '0')
+            flag = 1;
+        if flag==1{
+            contador = contador +1;
+        }
+        if(listaCamino->valor != valor && listaCamino->tipo == '0' )
+            flag = 0;
+            contador = contador -1;
+        listaCamino = listaCamino->next;
+    }
+    return contador;
+}*/
+
+/*void rec_bfs(struct  Node *listaCamino, struct Node *listaAlcanzabilidad, struct Node *listaaux){
+    //funcion recursiva que explora las permutaciones posibles como si fuesen caminos en un grafo
+    if(alcance(listaAlcanzabilidad, listaCamino->valor)==0){
+        VerificarCamino(listaCamino);
+        printf("Camino verificado\n");
+        PrintList(listaCamino);
+        DeleteLast(listaCamino);
+    }
+    else{
+        listaaux = llenarAlcance(listaAlcanzabilidad, listaCamino->valor);
+        while(listaaux != NULL){
+            listaCamino = insertar(listaCamino, listaaux->valor, '1');
+            listaaux = DeleteFirst(listaaux);
+            rec_bfs(listaCamino, listaAlcanzabilidad, listaaux);
+        }
+    }
+}*/
+
+
+
 int main(int argc, char *argv[]) {
     //leer los elemetentos de la lista de entrada. Los guardamos en un array estatico.
     unsigned int n;
@@ -148,8 +202,9 @@ int main(int argc, char *argv[]) {
     n = atoi(argv[1]);
     ReadData(arrayEntrada, n);
     //imprimimos el array para ver si esta todo bien
-    for (int i = 0; i < n; i = i + 1)
+    for (int i = 0; i < n; i = i + 1){
         printf("%u", arrayEntrada[i]);
+    }
     printf("\n");
 
     //Examinamos el array y vemos cuales son los pares que hacen cuadrado perfecto.
