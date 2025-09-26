@@ -170,14 +170,17 @@ unsigned char is_perfect_square(unsigned int x){//funcion que chequea si un nume
     unsigned int i;
     for(i = 0; i*i <= x; i = i + 1){
         if(i*i == x)
-            return 1;
+            return '1';
     }
-    return 0;
+    return '0';
 }
 
 void ReadData(unsigned int arrayEntrada[], unsigned int n){//lectura de input
-    for (int i = 0; i <n; i = i + 1)
+    for (int i = 0; i <n; i = i + 1){
         scanf("%u", &arrayEntrada[i]);
+        //veamos qué elementos se leyeron
+        printf("Elementos leidos: %u ", arrayEntrada[i]);
+    }
 }
 
 struct Node *pares_perfectos(struct Node *p, unsigned int arrayEntrada[], unsigned int n){//funcion que genera la lista de valores alcanzables
@@ -186,7 +189,8 @@ struct Node *pares_perfectos(struct Node *p, unsigned int arrayEntrada[], unsign
     for(i = 0; i < n; i = i + 1){
         p = insertar(p, arrayEntrada[i], '0');//inserto el pivote
         for(j = 0; j < n; j = j + 1){
-            if(i != j && is_perfect_square(arrayEntrada[i] + arrayEntrada[j]) == 1){//si no es el mismo elemento y si la suma es cuadrado perfecto
+            if(i != j && is_perfect_square(arrayEntrada[i] + arrayEntrada[j])=='1'){//si no es el mismo elemento y si la suma es cuadrado perfecto
+                printf("cuadrado perfecto encontrado entre %u y %u\n", arrayEntrada[i], arrayEntrada[j]);
                 p = insertar(p, arrayEntrada[j], '1');//inserto el complemento
             }
         }//si no tiene complementos, habrá un pivote seguido de otro. Asi, detectaremos que no hay solucion.
@@ -274,24 +278,16 @@ unsigned int alcance(struct Node *listaAlcanzabilidad, unsigned int valor, unsig
 //Verificar camino: necesitamos ver que el largo del camino sea n, y además que sea distinto del input del programa
 unsigned char VerificarCamino(struct Node *listaCamino, unsigned int arrayEntrada[], unsigned int n){
     unsigned int contador;
-    unsigned char esDistinto; //0 si es igual, 1 si es distinto
-    esDistinto = '0';
     contador = 0;
-
     while(listaCamino != NULL){
         contador = contador + 1;
 
         if(listaCamino->valor != arrayEntrada[contador]){
-            esDistinto = '0';
+            return '1'; //es distinto
         }
         listaCamino = listaCamino->next;
     }
-    if(contador == n && esDistinto=='0'){
-        return 1; //camino valido
-    }
-    else{
-        return 0; //camino no valido
-    }
+    return '0';//igual al input
 }
 
 //Llenar alcance, vamos a tomar un valor y ver cuales son sus complementarios y echarlos a una lista
@@ -429,7 +425,7 @@ int main(int argc, char *argv[]){
             
             else {//(listaaux == NULL && k_tipo=='0'){
                 k_tipo = '1'; 
-                if(len==n){
+                if(len==n && VerificarCamino(listaCamino, arrayEntrada, n)=='1'){
                     printf("llego a len = n\n");
                     cont = cont + 1;//imprime camino y verifica len y la solucion
                     printf("------------------Camino verificado-----------------\n");
