@@ -146,7 +146,7 @@ unsigned char isEmpty(Stack *stack) {
 
 void push(Stack *stack, unsigned int valor, unsigned char tipo) {
     if (isFull(stack)=='1') {
-        printf("Stack Overflow\n");
+        //printf("Stack Overflow\n");
         return;
     }
     stack->top++;
@@ -156,7 +156,7 @@ void push(Stack *stack, unsigned int valor, unsigned char tipo) {
 
 unsigned int pop(Stack *stack, unsigned char *tipo) {
     if (isEmpty(stack)=='1') {
-        printf("Stack Underflow\n");
+        //printf("Stack Underflow\n");
         return 0;
     }
     unsigned int valor = stack->arr[stack->top];
@@ -190,7 +190,7 @@ struct Node *pares_perfectos(struct Node *p, unsigned int arrayEntrada[], unsign
         p = insertar(p, arrayEntrada[i], '0');//inserto el pivote
         for(j = 0; j < n; j = j + 1){
             if(i != j && is_perfect_square(arrayEntrada[i] + arrayEntrada[j])=='1'){//si no es el mismo elemento y si la suma es cuadrado perfecto
-                printf("cuadrado perfecto encontrado entre %u y %u\n", arrayEntrada[i], arrayEntrada[j]);
+                //printf("cuadrado perfecto encontrado entre %u y %u\n", arrayEntrada[i], arrayEntrada[j]);
                 p = insertar(p, arrayEntrada[j], '1');//inserto el complemento
             }
         }//si no tiene complementos, habrá un pivote seguido de otro. Asi, detectaremos que no hay solucion.
@@ -238,7 +238,7 @@ unsigned char apariciones(unsigned int valor, unsigned int arrayEntrada[], unsig
     }
 
     if(contadorCamino < contadorEntrada){
-        printf("se puede agregar el valor: %u\n ya que aparecen en camino %u veces y en entrada %u veces\n", valor, contadorCamino, contadorEntrada);
+        //printf("se puede agregar el valor: %u\n ya que aparecen en camino %u veces y en entrada %u veces\n", valor, contadorCamino, contadorEntrada);
         return '0'; //puedo agregar
     }
     else{
@@ -252,26 +252,26 @@ unsigned int alcance(struct Node *listaAlcanzabilidad, unsigned int valor, unsig
     contador = 0;
     flag = 0;
 
-    printf("  alcance del valor: %u \n ", valor);
+    //printf("  alcance del valor: %u \n ", valor);
 
     while(listaAlcanzabilidad != NULL){
         if(listaAlcanzabilidad->valor == valor && listaAlcanzabilidad->tipo == '0'){
             listaAlcanzabilidad = listaAlcanzabilidad->next;
             while(listaAlcanzabilidad->tipo == '1'){
-                printf("valor a chequear en alcance %u\n", listaAlcanzabilidad->valor);
+                //printf("valor a chequear en alcance %u\n", listaAlcanzabilidad->valor);
                 if(apariciones(listaAlcanzabilidad->valor, arrayEntrada, n, listaCamino)=='0'){
                     contador = contador + 1;
                     //CHEQUEAR APARICIONES!!!
                 }
                 listaAlcanzabilidad = listaAlcanzabilidad->next;
             }
-            printf(" contador1 %u\n", contador);
+            //printf(" contador1 %u\n", contador);
             return contador;
         }
-        printf(" contador2%u\n", contador);
+        //printf(" contador2%u\n", contador);
         return contador;
     }
-    printf(" contador3 %u\n", contador);
+    //printf(" contador3 %u\n", contador);
     return contador;
 }
 
@@ -296,15 +296,15 @@ struct Node *llenarAlcance(struct Node *listaaux, struct Node *listaAlcanzabilid
         if(listaAlcanzabilidad->valor == valor && listaAlcanzabilidad->tipo == '0'){
             listaAlcanzabilidad = listaAlcanzabilidad->next;
             while(listaAlcanzabilidad != NULL && listaAlcanzabilidad->tipo == '1'){
-                printf("valor a insertar en lista aux %u\n", listaAlcanzabilidad->valor);
+                //printf("valor a insertar en lista aux %u\n", listaAlcanzabilidad->valor);
                 if(apariciones(listaAlcanzabilidad->valor, arrayEntrada, n, listaCamino)=='0'){
                     listaaux = insertar(listaaux, listaAlcanzabilidad->valor, '0');
                 }
                 listaAlcanzabilidad = listaAlcanzabilidad->next;
             }
             if(listaAlcanzabilidad == NULL || listaAlcanzabilidad->tipo == '0'){
-                printf("Lista de alcance:\n");
-                PrintList(listaaux);
+                //printf("Lista de alcance:\n");
+                //PrintList(listaaux);
                 return listaaux;
             }
         }
@@ -397,12 +397,12 @@ int main(int argc, char *argv[]){
     init = '1';
     len = 0; 
     for (unsigned int i = 0; i < n; i = i + 1){
-        printf("Inicia ciclo for elemento = %u\n", arrayEntrada[i]);
+        //printf("Inicia ciclo for elemento = %u\n", arrayEntrada[i]);
         push(&pila, arrayEntrada[i], '0');
         while(isEmpty(&pila) == '0' || init =='0'){
-            printf("seguimiento %u\n", seguimiento);
+            //printf("seguimiento %u\n", seguimiento);
             k_valor = pop(&pila, &k_tipo);
-            printf("Nodo k sacado de la pila: %u\n", k_valor);
+            //printf("Nodo k sacado de la pila: %u\n", k_valor);
             
             listaCamino = insertar(listaCamino, k_valor, '0');
             len = len +1;
@@ -411,15 +411,15 @@ int main(int argc, char *argv[]){
             listaaux = llenarAlcance(listaaux, listaAlcanzabilidad, k_valor, listaCamino, arrayEntrada, n);
             
             push(&pila, k_valor, '1'); //vuelvo a poner k en la pila para marcarlo como revisado dsp
-            printf("Lista camino actual:\n");
-            PrintList(listaCamino);
+            //printf("Lista camino actual:\n");
+            //PrintList(listaCamino);
 
             if(listaaux != NULL){
-                printf(" listaaux no es nula\n");
+                //printf(" listaaux no es nula\n");
                 llenarPila(&pila, listaaux, listaCamino, arrayEntrada, n);
-                printf("pila despues de llenar pila:\n");
+                //printf("pila despues de llenar pila:\n");
                 listaaux = KillAll(listaaux);
-                PrintStack(&pila);
+                //PrintStack(&pila);
             }
 
             
@@ -434,17 +434,17 @@ int main(int argc, char *argv[]){
                 }
                 while(isEmpty(&pila)=='0'){
                     popvaloraux = pop(&pila, &poptipoaux);
-                    printf("valor quitado: %u\n", popvaloraux);
+                    //printf("valor quitado: %u\n", popvaloraux);
                     if(poptipoaux == '0') {
-                        printf("valor: %u es de tipo %c \n", popvaloraux, poptipoaux);
+                        //printf("valor: %u es de tipo %c \n", popvaloraux, poptipoaux);
                         push(&pila, popvaloraux, '0'); // Volver a poner si no es '1'
                         break;
                     }
                     else{
-                        printf("se quita el valor: %u de la lista camino \n", popvaloraux);
+                        //printf("se quita el valor: %u de la lista camino \n", popvaloraux);
                         listaCamino = DeleteLast(listaCamino);
-                        printf("Lista camino despues de eliminar:\n");
-                        PrintList(listaCamino);
+                        //printf("Lista camino despues de eliminar:\n");
+                        //PrintList(listaCamino);
                         len = len - 1;
                     }
                 }
