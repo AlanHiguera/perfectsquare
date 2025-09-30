@@ -277,17 +277,23 @@ unsigned int alcance(struct Node *listaAlcanzabilidad, unsigned int valor, unsig
 
 //Verificar camino: necesitamos ver que el largo del camino sea n, y además que sea distinto del input del programa
 unsigned char VerificarCamino(struct Node *listaCamino, unsigned int arrayEntrada[], unsigned int n){
-    unsigned int contador;
-    contador = 0;
-    while(listaCamino != NULL){
-        contador = contador + 1;
-
-        if(listaCamino->valor != arrayEntrada[contador]){
-            return '1'; //es distinto
+    unsigned int iterador;
+    unsigned char flag; // hay que agregar la revision del camino para respetar la cantidad de elementos que hay en la lista original de input
+    iterador = 0;
+    flag = '0';
+    printf("entra a verificar camino\n");
+    while(iterador < n && listaCamino != NULL){
+        printf("iterador: %u\n", iterador);
+        if(listaCamino->valor != arrayEntrada[iterador]){
+            flag = '1'; //es distinto
         }
+        
+        
+        printf("valor en camino %u y valor en input %u\n", listaCamino->valor, arrayEntrada[iterador]);
+        iterador = iterador + 1;
         listaCamino = listaCamino->next;
     }
-    return '0';//igual al input
+    return flag;
 }
 
 //Llenar alcance, vamos a tomar un valor y ver cuales son sus complementarios y echarlos a una lista
@@ -369,11 +375,13 @@ int main(int argc, char *argv[]){
     n = atoi(argv[1]);
     unsigned int arrayEntrada[n];
     ReadData(arrayEntrada, n);
+    printf("array entrada:");
     //imprimimos el array para ver si esta todo bien
     for (int i = 0; i < n; i = i + 1){
         printf("%u", arrayEntrada[i]);
     }
     printf("\n");
+
 
     //Examinamos el array y vemos cuales son los pares que hacen cuadrado perfecto.
     
@@ -396,6 +404,11 @@ int main(int argc, char *argv[]){
     seguimiento = 0;
     init = '1';
     len = 0; 
+    printf("--------ARRAY ENTRADA----------");
+    for(int i = 0; i<n; i = i+1){
+        printf(" array entrada: %u \n", arrayEntrada[i]);
+    }
+
     for (unsigned int i = 0; i < n; i = i + 1){
         //printf("Inicia ciclo for elemento = %u\n", arrayEntrada[i]);
         push(&pila, arrayEntrada[i], '0');
@@ -425,12 +438,17 @@ int main(int argc, char *argv[]){
             
             else {//(listaaux == NULL && k_tipo=='0'){
                 k_tipo = '1'; 
+                printf("--------ARRAY ENTRADA----------\n");
+                for(int i = 0; i<n; i = i+1){
+                    printf(" array entrada: %u \n", arrayEntrada[i]);
+                }
                 if(len==n && VerificarCamino(listaCamino, arrayEntrada, n)=='1'){
-                    printf("llego a len = n\n");
+                    //printf("llego a len = n\n");
+
                     cont = cont + 1;//imprime camino y verifica len y la solucion
                     printf("------------------Camino verificado-----------------\n");
                     PrintList(listaCamino);
-                    printf("------------------Camino verificado-----------------\n");
+                    printf("-----------------------------------\n");
                 }
                 while(isEmpty(&pila)=='0'){
                     popvaloraux = pop(&pila, &poptipoaux);
