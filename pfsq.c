@@ -288,25 +288,41 @@ unsigned char VerificarCamino(struct Node *listaCamino, unsigned int arrayEntrad
             flag = '1'; //es distinto
         }
         
-        
         printf("valor en camino %u y valor en input %u\n", listaCamino->valor, arrayEntrada[iterador]);
         iterador = iterador + 1;
         listaCamino = listaCamino->next;
     }
     return flag;
 }
+unsigned char Estaen(struct Node *listaaux, unsigned int valor){
+    while(listaaux != NULL){
+        if(listaaux->valor == valor){
+            return '1';
+        }
+        listaaux = listaaux->next;
+    }
+    return '0';
+}
+
 
 //Llenar alcance, vamos a tomar un valor y ver cuales son sus complementarios y echarlos a una lista
-struct Node *llenarAlcance(struct Node *listaaux, struct Node *listaAlcanzabilidad, unsigned int valor, struct Node *listaCamino, unsigned int arrayEntrada[], unsigned int n){
+struct Node *llenarAlcance(struct Node *listaaux, struct Node *listaAlcanzabilidad, unsigned int valor, struct Node *listaCamino, unsigned int arrayEntrada[], unsigned int n, unsigned int len){
     while(listaAlcanzabilidad != NULL){
         if(listaAlcanzabilidad->valor == valor && listaAlcanzabilidad->tipo == '0'){
             listaAlcanzabilidad = listaAlcanzabilidad->next;
             while(listaAlcanzabilidad != NULL && listaAlcanzabilidad->tipo == '1'){
                 //printf("valor a insertar en lista aux %u\n", listaAlcanzabilidad->valor);
-                if(apariciones(listaAlcanzabilidad->valor, arrayEntrada, n, listaCamino)=='0'){
+                printf("len en llenar alcance: %u\n", len);
+                if(len!=n-1 && apariciones(listaAlcanzabilidad->valor, arrayEntrada, n, listaCamino)=='0'){
                     listaaux = insertar(listaaux, listaAlcanzabilidad->valor, '0');
+                    printf("inserta en lista aux el valor %u\n", listaAlcanzabilidad->valor);
                 }
                 listaAlcanzabilidad = listaAlcanzabilidad->next;
+                if(len==n-1 && apariciones(listaAlcanzabilidad->valor, arrayEntrada, n, listaCamino)=='0' && Estaen(listaaux, listaAlcanzabilidad->valor)=='0'){
+                    printf("insertAA en lista aux el valor final %u\n", listaAlcanzabilidad->valor);
+                    listaaux = insertar(listaaux, listaAlcanzabilidad->valor, '0');
+                }
+
             }
             if(listaAlcanzabilidad == NULL || listaAlcanzabilidad->tipo == '0'){
                 //printf("Lista de alcance:\n");
@@ -404,14 +420,11 @@ int main(int argc, char *argv[]){
     seguimiento = 0;
     init = '1';
     len = 0; 
-    printf("--------ARRAY ENTRADA----------");
-    for(int i = 0; i<n; i = i+1){
-        printf(" array entrada: %u \n", arrayEntrada[i]);
-    }
 
     for (unsigned int i = 0; i < n; i = i + 1){
         //printf("Inicia ciclo for elemento = %u\n", arrayEntrada[i]);
         push(&pila, arrayEntrada[i], '0');
+        printf("Pila en la itracion i: %u\n", arrayEntrada[i]);
         while(isEmpty(&pila) == '0' || init =='0'){
             //printf("seguimiento %u\n", seguimiento);
             k_valor = pop(&pila, &k_tipo);
@@ -421,7 +434,7 @@ int main(int argc, char *argv[]){
             len = len +1;
             
             //llenar el alcance desde k
-            listaaux = llenarAlcance(listaaux, listaAlcanzabilidad, k_valor, listaCamino, arrayEntrada, n);
+            listaaux = llenarAlcance(listaaux, listaAlcanzabilidad, k_valor, listaCamino, arrayEntrada, n, len);
             
             push(&pila, k_valor, '1'); //vuelvo a poner k en la pila para marcarlo como revisado dsp
             //printf("Lista camino actual:\n");
@@ -435,14 +448,11 @@ int main(int argc, char *argv[]){
                 //PrintStack(&pila);
             }
 
-            
-            else {//(listaaux == NULL && k_tipo=='0'){
+            else if(listaaux == NULL && k_tipo=='0'){
+                printf("Pila antes de verificar camino:\n");
+                PrintStack(&pila);
                 k_tipo = '1'; 
-                printf("--------ARRAY ENTRADA----------\n");
-                for(int i = 0; i<n; i = i+1){
-                    printf(" array entrada: %u \n", arrayEntrada[i]);
-                }
-                if(len==n && VerificarCamino(listaCamino, arrayEntrada, n)=='1'){
+                if(len==n /*&& VerificarCamino(listaCamino, arrayEntrada, n)=='1'*/){
                     //printf("llego a len = n\n");
 
                     cont = cont + 1;//imprime camino y verifica len y la solucion
