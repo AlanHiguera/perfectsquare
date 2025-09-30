@@ -317,12 +317,12 @@ struct Node *llenarAlcance(struct Node *listaaux, struct Node *listaAlcanzabilid
                     listaaux = insertar(listaaux, listaAlcanzabilidad->valor, '0');
                     printf("inserta en lista aux el valor %u\n", listaAlcanzabilidad->valor);
                 }
-                listaAlcanzabilidad = listaAlcanzabilidad->next;
+                
                 if(len==n-1 && apariciones(listaAlcanzabilidad->valor, arrayEntrada, n, listaCamino)=='0' && Estaen(listaaux, listaAlcanzabilidad->valor)=='0'){
                     printf("insertAA en lista aux el valor final %u\n", listaAlcanzabilidad->valor);
                     listaaux = insertar(listaaux, listaAlcanzabilidad->valor, '0');
                 }
-
+                listaAlcanzabilidad = listaAlcanzabilidad->next;
             }
             if(listaAlcanzabilidad == NULL || listaAlcanzabilidad->tipo == '0'){
                 //printf("Lista de alcance:\n");
