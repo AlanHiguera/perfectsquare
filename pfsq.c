@@ -264,7 +264,7 @@ struct ElementoPila pop(Stack *stack) {
     return elemento;
 }
 
-void llenarPila(Stack *pila, struct NodeReg *listaaux, struct NodeReg *listaCamino, unsigned int arrayEntrada[], unsigned int n){
+void llenarPila(Stack *pila, struct NodeReg *listaaux){
     while(listaaux != NULL){
         push(pila, listaaux->valor, '0', listaaux->posicion);
         listaaux = listaaux->next;
@@ -545,7 +545,7 @@ int main(int argc, char *argv[]){
 
             if(listaaux != NULL){
                 //printf(" listaaux no es nula\n");
-                llenarPila(&pila, listaaux, listaCamino, arrayEntrada, n);
+                llenarPila(&pila, listaaux);
                 //printf("pila despues de llenar pila:\n");
                 listaaux = KillAllReg(listaaux);
                 //PrintStack(&pila);
