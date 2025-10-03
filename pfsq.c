@@ -24,6 +24,7 @@ obj2 concluido: imprimir la cantidad de caminos encontrados.
 #include <stdlib.h>
 #include <string.h>
 #include "time.h"
+#include <math.h>
 //PILA
 
 
@@ -31,7 +32,8 @@ obj2 concluido: imprimir la cantidad de caminos encontrados.
 
 // Define the maximim capacity of the stack
 #define MAX_SIZE 100
-
+unsigned int lenalc = 0;
+unsigned char flag = '0'; //flag que indica si la lista de alcanzabilidad se puede permutar o no
 // Define a structure for the stack
 
 
@@ -304,15 +306,23 @@ void ReadData(unsigned int arrayEntrada[], unsigned int n){
 struct Node *pares_perfectos(struct Node *p, unsigned int arrayEntrada[], unsigned int n){
     unsigned int i;
     unsigned int j;
+    unsigned char imposiblepermutar;
     for(i = 0; i < n; i = i + 1){
         p = insertar(p, arrayEntrada[i], '0');//inserto el pivote
+        lenalc = lenalc + 1;
+        imposiblepermutar = '0';
         for(j = 0; j < n; j = j + 1){
             if(i != j && is_perfect_square(arrayEntrada[i] + arrayEntrada[j])=='1'){//si no es el mismo elemento y si la suma es cuadrado perfecto
                 //printf("cuadrado perfecto encontrado entre %u y %u\n", arrayEntrada[i], arrayEntrada[j]);
                 p = insertar(p, arrayEntrada[j], '1');//inserto el complemento
+                lenalc = lenalc + 1;
+                imposiblepermutar = '1';
             }
         }//si no tiene complementos, habrá un pivote seguido de otro. Asi, detectaremos que no hay solucion.
-
+        if(imposiblepermutar=='0'){
+            flag = '1'; //la lista no se puede permutar porque hay un elemento que no forma cuadrado perfecto con ningun otro
+            return p;
+        }
     }
     return p;
 }
@@ -355,14 +365,14 @@ unsigned char VerificarCamino(struct NodeReg *listaCamino, unsigned int arrayEnt
     unsigned char flag; // hay que agregar la revision del camino para respetar la cantidad de elementos que hay en la lista original de input
     iterador = 0;
     flag = '0';
-    printf("entra a verificar camino\n");
+    //printf("entra a verificar camino\n");
     while(iterador < n && listaCamino != NULL){
-        printf("iterador: %u\n", iterador);
+        //printf("iterador: %u\n", iterador);
         if(listaCamino->valor != arrayEntrada[iterador]){
             flag = '1'; //es distinto
         }
         
-        printf("valor en camino %u y valor en input %u\n", listaCamino->valor, arrayEntrada[iterador]);
+        //printf("valor en camino %u y valor en input %u\n", listaCamino->valor, arrayEntrada[iterador]);
         iterador = iterador + 1;
         listaCamino = listaCamino->next;
     }
@@ -373,7 +383,7 @@ unsigned char VerificarCamino(struct NodeReg *listaCamino, unsigned int arrayEnt
 unsigned char Estaen(struct NodeReg *listaCamino, unsigned int posicion){
     while(listaCamino != NULL){
         if(listaCamino->posicion == posicion){
-            printf("La posicion %u ya esta en la lista camino\n", posicion);
+            //printf("La posicion %u ya esta en la lista camino\n", posicion);
             return '1';
         }
         listaCamino = listaCamino->next;
@@ -394,7 +404,7 @@ struct NodeReg *llenarAlcance(struct NodeReg *listaaux, struct Node *listaAlcanz
                 printf("posicion: %u \n", posicion);
                 if(apariciones(listaAlcanzabilidad->valor, arrayEntrada, n, listaCamino)=='0' && Estaen(listaCamino, posicion)=='0'){ 
                     listaaux = insertaReg(listaaux, listaAlcanzabilidad->valor, posicion);
-                    printf("inserta en lista aux el valor %u de la posicion: %u\n", listaAlcanzabilidad->valor, posicion);
+                    //printf("inserta en lista aux el valor %u de la posicion: %u\n", listaAlcanzabilidad->valor, posicion);
                 }
                 
                 listaAlcanzabilidad = listaAlcanzabilidad->next;
@@ -425,55 +435,91 @@ unsigned int posicionDeValor(unsigned int valor, struct Node *listaAlcanzabilida
     }
     return posicion; 
 }
+
+//Revisa si el input ya es un camino valido, asi descontamos un camino de cont
+unsigned char RevisaInput(unsigned int arrayEntrada[], unsigned int n){
+    unsigned int i;
+    unsigned char valido;
+    valido = '1';
+    for(i = 0; i < n-1; i = i + 1){
+        if(is_perfect_square(arrayEntrada[i] + arrayEntrada[i+1])=='0'){
+            valido = '0';//si no es perfect square entonces no es valido
+            return valido;
+        }
+    }
+    return valido;
+}
+
+unsigned int factorialiterativo(unsigned int j){
+    unsigned int resultado;
+    resultado = 1;
+    for(unsigned int i = 2; i <= j; i = i + 1){
+        resultado = resultado * i;
+    }
+    return resultado;
+}
+
 int main(int argc, char *argv[]){
     //leer los elemetentos de la lista de entrada. Los guardamos en un array estatico.
     struct NodeReg *listaaux = NULL;
     struct NodeReg *listaCamino = NULL;
     struct Node *listaAlcanzabilidad = NULL;
-
-    unsigned int cont = 0;
-    unsigned int n;
+    struct ElementoPila elementoPilaAux;
+    struct ElementoPila verificador;
     Stack pila;
-    
+
+    unsigned int len;
+    unsigned char init;
+    unsigned int seguimiento;
+    unsigned int posicion;
+    unsigned int cont;
+    unsigned int n;
+    unsigned char op;
+
+
+    posicion = 0;
+    seguimiento = 0;
+    init = '1';
+    len = 0; 
+    cont = 0;
+    op = argv[2][0];
     initialize(&pila); 
 
     n = atoi(argv[1]);
     unsigned int arrayEntrada[n];
     ReadData(arrayEntrada, n);
-    printf("array entrada:");
+
+    //printf("array entrada:");
     //imprimimos el array para ver si esta todo bien
-    for (int i = 0; i < n; i = i + 1){
-        printf("%u", arrayEntrada[i]);
-    }
-    printf("\n");
+    //for (int i = 0; i < n; i = i + 1){
+     //   printf("%u", arrayEntrada[i]);
+    //}
+    //printf("\n");
+
+    //revisamos si el input es camino valido
 
 
     //Examinamos el array y vemos cuales son los pares que hacen cuadrado perfecto.
     
     listaAlcanzabilidad = pares_perfectos(listaAlcanzabilidad, arrayEntrada, n);
+
     printf("Lista de valores alcanzables:\n");
     PrintList(listaAlcanzabilidad);
 
-    //Inicializamos la lista y el stack con el primer elemento solo para probar
+    //printf("lenalc = %u\n", lenalc);
 
+    if(flag == '1'){
+        printf("Hay un elemento que no forma cuadrado perfecto con ningun otro.\n");
+        printf("Cantidad de caminos encontrados: 0\n");
+        return 0;
+    }
+    if(flag == '0' && lenalc==n*n && op == '0'){//Ejecutamos el computo de factorial
+        //peor caso
+        cont = cont + factorialiterativo(n);
+    }
 
-    unsigned int k_valor;
-    unsigned char k_tipo;
-
-    struct ElementoPila verificador;
-
-
-    unsigned int len;
-    unsigned char init;
-    unsigned int seguimiento;
-    seguimiento = 0;
-    init = '1';
-    len = 0; 
-    unsigned int posicion;
-    
-    struct ElementoPila elementoPilaAux;
-    
-    for (unsigned int i = 0; i < n; i = i + 1){
+    if(flag == '0' && ((lenalc == n*n && op == '1') || lenalc!=n*n)){ //Ejecutamos el algoritmo de pila
+        for (unsigned int i = 0; i < n; i = i + 1){
         //printf("Inicia ciclo for elemento = %u\n", arrayEntrada[i]);
         posicion = posicionDeValor(arrayEntrada[i], listaAlcanzabilidad);
         push(&pila, arrayEntrada[i], '0', posicion);
@@ -487,11 +533,11 @@ int main(int argc, char *argv[]){
             listaCamino = insertaReg(listaCamino, elementoPilaAux.valor, elementoPilaAux.posicion);
             len = len +1;
             
-            PrintListReg(listaCamino);
+            //PrintListReg(listaCamino);
             //llenar el alcance desde k
             listaaux = llenarAlcance(listaaux, listaAlcanzabilidad, elementoPilaAux.valor, listaCamino, arrayEntrada, n, len);
-            printf("Lista de alcance:------------\n");
-            PrintListReg(listaaux);
+            //printf("Lista de alcance:------------\n");
+            //PrintListReg(listaaux);
 
             push(&pila, elementoPilaAux.valor, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado dsp
             //printf("Lista camino actual:\n");
@@ -506,8 +552,8 @@ int main(int argc, char *argv[]){
             }
 
             else if(listaaux == NULL && elementoPilaAux.tipo=='0'){
-                printf("Pila antes de verificar camino:\n");
-                PrintStack(&pila);
+                //printf("Pila antes de verificar camino:\n");
+                //PrintStack(&pila);
                 elementoPilaAux.tipo = '1'; 
                 if(len==n /*&& VerificarCamino(listaCamino, arrayEntrada, n)=='1'*/){
                     //printf("llego a len = n\n");
@@ -534,16 +580,21 @@ int main(int argc, char *argv[]){
                     }
                 }
             }
-            printf("listaCamino------");
-            PrintListReg(listaCamino);
-            PrintStack(&pila);
+            //printf("listaCamino------");
+            //PrintListReg(listaCamino);
+            //PrintStack(&pila);
             init = '1';
             seguimiento = seguimiento + 1;
 
         }
+        }
     }
-
-
+    KillAllReg(listaCamino);
+    KillAll(listaAlcanzabilidad);
+    //Revisamos si tenemos que restar 1 por si el input ya viene como un camino valido
+    if(RevisaInput(arrayEntrada, n)=='1'){
+        cont = cont - 1;
+    }
     printf("Cantidad de caminos encontrados: %u\n", cont);
     return 0;
 }
