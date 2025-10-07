@@ -25,16 +25,13 @@ obj2 concluido: imprimir la cantidad de caminos encontrados.
 #include <string.h>
 #include "time.h"
 #include <math.h>
-//PILA
 
 
 #include <stdbool.h>
 
-// Define the maximim capacity of the stack
-#define MAX_SIZE 100
+
 unsigned int lenalc = 0;
 unsigned char flag = '0'; //flag que indica si la lista de alcanzabilidad se puede permutar o no
-// Define a structure for the stack
 
 
 struct Node {
@@ -213,24 +210,34 @@ struct ElementoPila {
 };
 
 typedef struct {
-    struct ElementoPila arr[MAX_SIZE];  // Solo valores, no punteros
+    struct ElementoPila *arr;  
     int top;
+    int maxSize;              
 } Stack;
 
-void initialize(Stack *stack) {
-    // Set top index to -1 to indicate an empty stack
-    stack->top = -1;  
+void initialize(Stack *stack, unsigned int n){
+    stack->maxSize = n;  
+    stack->arr = calloc(stack->maxSize, sizeof(struct ElementoPila));
+    
+    /*if (stack->arr == NULL) {
+        printf("Error: No se pudo asignar memoria para la pila\n");
+        stack->maxSize = 0;
+        stack->top = -1;
+        return;
+    }*/
+    
+    stack->top = -1;
+    printf("Pila inicializada con capacidad para %d elementos\n", stack->maxSize);
 }
-unsigned char isFull(Stack *stack) {
-    // If top is MAX_SIZE - 1, the stack is full
-    if(stack->top == MAX_SIZE - 1)
+
+unsigned char isFull(Stack *stack){
+    if(stack->top == stack->maxSize - 1)
         return '1';
     else        
         return '0';  
 }
-// Function to check if the stack is empty
-unsigned char isEmpty(Stack *stack) {
-    // If top is -1, the stack is empty
+
+unsigned char isEmpty(Stack *stack){
     if(stack->top == -1)
         return '1';
     else
@@ -239,29 +246,32 @@ unsigned char isEmpty(Stack *stack) {
 
 void push(Stack *stack, unsigned int valor, unsigned char tipo, unsigned int posicion) {
     if (isFull(stack)=='1') {
-        //printf("Stack Overflow\n");
         return;
     }
 
     struct ElementoPila nuevoElemento;
-    
     nuevoElemento.valor = valor;
     nuevoElemento.tipo = tipo;
     nuevoElemento.posicion = posicion;
 
-    stack->top++;
+    stack->top = stack->top + 1;
     stack->arr[stack->top] = nuevoElemento;
 }
 
-struct ElementoPila pop(Stack *stack) {
-    struct ElementoPila elemento;
-    if (isEmpty(stack)=='1') {
+struct ElementoPila pop(Stack *stack){
+    struct ElementoPila elementoaux;
+    elementoaux.valor = 0; 
+    elementoaux.tipo = '0'; 
+    elementoaux.posicion = 0; 
+    
+    if (isEmpty(stack)=='1'){
         printf("Stack Underflow\n");
-        return elemento;
+        return elementoaux;
     }
-    elemento = stack->arr[stack->top];
-    stack->top--;
-    return elemento;
+
+    elementoaux = stack->arr[stack->top];
+    stack->top = stack->top - 1;
+    return elementoaux;
 }
 
 void llenarPila(Stack *pila, struct NodeReg *listaaux){
@@ -272,11 +282,9 @@ void llenarPila(Stack *pila, struct NodeReg *listaaux){
 }
 
 void PrintStack(Stack *pila){
-
-    Stack *p = pila;
     struct ElementoPila elemento;
-    for(int i = p->top; i >= 0; i--) {
-        elemento = p->arr[i];
+    for(int i = pila->top; i >= 0; i--) {
+        elemento = pila->arr[i];
         printf("Value %u, Tipo %c, Posicion %u\n", elemento.valor, elemento.tipo, elemento.posicion);
     }
     printf("\n");
@@ -326,7 +334,7 @@ struct Node *pares_perfectos(struct Node *p, unsigned int arrayEntrada[], unsign
     }
     return p;
 }
-
+/*
 //Apariciones dirá si el valor que estamos intentando agregar al camino ya apareció la cantidad máxima de veces
 unsigned char apariciones(unsigned int valor, unsigned int arrayEntrada[], unsigned int n, struct NodeReg *listaCamino){
     //veremos cuantas veces aparece en la lista camino
@@ -378,7 +386,7 @@ unsigned char VerificarCamino(struct NodeReg *listaCamino, unsigned int arrayEnt
     }
     return flag;
 }
-
+*/
 //Verifica si un valor esta o no en la lista
 unsigned char Estaen(struct NodeReg *listaCamino, unsigned int posicion){
     while(listaCamino != NULL){
@@ -393,7 +401,7 @@ unsigned char Estaen(struct NodeReg *listaCamino, unsigned int posicion){
 
 
 //Llenar alcance, vamos a tomar un valor y ver cuales son sus complementarios y echarlos a una lista
-struct NodeReg *llenarAlcance(struct NodeReg *listaaux, struct Node *listaAlcanzabilidad, unsigned int valor, struct NodeReg *listaCamino, unsigned int arrayEntrada[], unsigned int n, unsigned int len){
+struct NodeReg *llenarAlcance(struct NodeReg *listaaux, struct Node *listaAlcanzabilidad, unsigned int valor, struct NodeReg *listaCamino){
     unsigned int posicion;
     posicion = 0;
     while(listaAlcanzabilidad != NULL){
@@ -401,8 +409,8 @@ struct NodeReg *llenarAlcance(struct NodeReg *listaaux, struct Node *listaAlcanz
             listaAlcanzabilidad = listaAlcanzabilidad->next;
             posicion = posicion + 1;
             while(listaAlcanzabilidad != NULL && listaAlcanzabilidad->tipo == '1'){
-                printf("posicion: %u \n", posicion);
-                if(apariciones(listaAlcanzabilidad->valor, arrayEntrada, n, listaCamino)=='0' && Estaen(listaCamino, posicion)=='0'){ 
+                //printf("posicion: %u \n", posicion);
+                if(Estaen(listaCamino, posicion)=='0'){ 
                     listaaux = insertaReg(listaaux, listaAlcanzabilidad->valor, posicion);
                     //printf("inserta en lista aux el valor %u de la posicion: %u\n", listaAlcanzabilidad->valor, posicion);
                 }
@@ -459,6 +467,15 @@ unsigned int factorialiterativo(unsigned int j){
     return resultado;
 }
 
+void destroyStack(Stack *stack) {
+    if (stack->arr != NULL) {
+        free(stack->arr);
+        stack->arr = NULL;
+    }
+    stack->maxSize = 0;
+    stack->top = -1;
+}
+
 int main(int argc, char *argv[]){
     //leer los elemetentos de la lista de entrada. Los guardamos en un array estatico.
     struct NodeReg *listaaux = NULL;
@@ -476,17 +493,16 @@ int main(int argc, char *argv[]){
     unsigned int n;
     unsigned char op;
 
-
     posicion = 0;
     seguimiento = 0;
     init = '1';
     len = 0; 
     cont = 0;
     op = argv[2][0];
-    initialize(&pila); 
-
+    
     n = atoi(argv[1]);
     unsigned int arrayEntrada[n];
+    initialize(&pila, n*n);
     ReadData(arrayEntrada, n);
 
     //printf("array entrada:");
@@ -535,7 +551,7 @@ int main(int argc, char *argv[]){
             
             //PrintListReg(listaCamino);
             //llenar el alcance desde k
-            listaaux = llenarAlcance(listaaux, listaAlcanzabilidad, elementoPilaAux.valor, listaCamino, arrayEntrada, n, len);
+            listaaux = llenarAlcance(listaaux, listaAlcanzabilidad, elementoPilaAux.valor, listaCamino);
             //printf("Lista de alcance:------------\n");
             //PrintListReg(listaaux);
 
@@ -559,9 +575,9 @@ int main(int argc, char *argv[]){
                     //printf("llego a len = n\n");
 
                     cont = cont + 1;//imprime camino y verifica len y la solucion
-                    printf("------------------Camino verificado-----------------\n");
-                    PrintListReg(listaCamino);
-                    printf("-----------------------------------\n");
+                    //printf("------------------Camino verificado-----------------\n");
+                    //PrintListReg(listaCamino);
+                    //printf("-----------------------------------\n");
                 }
                 while(isEmpty(&pila)=='0'){
                     verificador = pop(&pila);
@@ -591,6 +607,7 @@ int main(int argc, char *argv[]){
     }
     KillAllReg(listaCamino);
     KillAll(listaAlcanzabilidad);
+    destroyStack(&pila);
     //Revisamos si tenemos que restar 1 por si el input ya viene como un camino valido
     if(RevisaInput(arrayEntrada, n)=='1'){
         cont = cont - 1;
