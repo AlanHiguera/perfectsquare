@@ -1,0 +1,53 @@
+CAMINO
+          Btree    Pila  lista
+insertar  logn      1      n
+Busqueda  logn      n      n
+delete    logn      1      n
+
+Alcanzabilidad Arbol 
+Nodo.id
+Nodo.AlcanceDelId
+
+Camino Arbol
+Nodo.id
+
+Esta en el camino? busco en arbol
+inserto un elemento en el camino
+Elementos ya revisados los tengo que quitar del camino, recibo un id del elemento a quitar y lo hago.
+
+Entonces la pila va hacer preguntas sobre el arbol de alcance
+desde aqui adonde puedo ir? voy a buscar en el arbol
+quito del camino con el id que tenga en la pila
+-----------------------------------------------------------------------------------------------
+Pila de permutaciones
+Id segun la entrada
+valor
+marca
+
+Arbol camino
+Id segun entrada
+
+Arbol alcance
+Id segun entrada
+Id de los que alcanza
+Valor de los que alcanza
+-----------------------------------------------Funcionamiento------------------------------------------
+Por cada elemento de entrada se asigna una posicion(id)
+
+(Arbol Alcance)Adapto Pares perfectos(recibe array entrada) para que cree nodos segun id y una lista de alcance(podria saber cuantos elementos hay)
+inserto al arbol esos nodos, de tal forma que sea AVL.
+
+(Adaptar Pila)
+ID
+Marca
+Valor
+
+(Crear Arbol AVL para Camino)
+Solo el atributo de ID.
+------Main-------
+quito de la pila saco el alcance segun ese id
+
+agrego el elemento con su id devuelta a la pila
+luego agrego todo su alcance(el alcance tiene los Id de donde llega y cuales son los valores asociados a esos Id, los insertamos con marca 0)
+
+Si el alcance es nulo, quitamos el elemento de la pila y segun ese id lo quitamos tambien en arbol camino.
