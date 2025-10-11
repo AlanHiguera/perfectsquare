@@ -1,31 +1,20 @@
-/*input: lista
+/*
+ *#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "time.h"
+#include <math.h>
+#include <stdbool.h>
+#include "tree.h"  // ✅ Importar tu árbol AVLc n 1 < input.txt
+ *
+ **/
 
-obj1: generar estructura de valores alcanzables.
-
-paso1: tomo cada elemento de la lista como pivote y veo con cuales otros puedo hacer pareja que sumen cuadrado perfecto.
-paso2: y anoto así: [x0, x1, x2, ..., xn] luego para el siguiente [y0, x1, x2, ..., xi] Podria hacer una lista grande bivariada, indicando si el elemento es pivote o si es complementar.
-
-ejemplo de lista [x0(piv), x1, x2, ..., xn, y0(piv), x1, x2, ..., xi]
-
-Paso3: si hay un elemento que este en la lista input pero que no esté en la lista de valores alcanzables ACABAR Y RETORNAR solución = 0.
-Obj1 concluido
-
-obj2: Revisar todos los caminos. Restricción: Caminos deben ser de largo n y deben respetar la cantidad original de cada elemento lista de input a lo largo del camino(Lista dinamica de restricción).
-
-paso1: Echar a la pila todos los elementos pivote de la lista de valores alcanzables.
-paso2: Quito 1, registro sus alcances en una pila, quito 1 de la pila y así voy. Por cada vez quito 1 verifico la restricción(restando las apariciones para no tener que registrar el camino. A principio, guardar camino para hacer testing)
-paso3: si el camino es de largo n y pasó todas las restricciones, imprimirlo, sumar 1 a la solución y limpiar la lista del camino.
-
-sino, no hacer nada y seguir con el siguiente elemento de la pila hasta que todas esten vacias.
-obj2 concluido: imprimir la cantidad de caminos encontrados.
-*/
-//estructura para la fila bivariada
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "time.h"
 #include <math.h>
-
+#include <tree.h>
 
 #include <stdbool.h>
 
@@ -289,6 +278,7 @@ void PrintStack(Stack *pila){
     }
     printf("\n");
 }
+
 
 //---------------------------Funciones principales---------------------------//
 //funcion que chequea si un numero es cuadrado perfecto
