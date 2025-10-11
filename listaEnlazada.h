@@ -1,28 +1,26 @@
-#ifndef LISTAENLAZADA_H
-#define LISTAENLAZADA_H
+#ifndef L_enlazada_H
+#define L_enlazada_H
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-struct NodeReg {
-    unsigned int valor;
+struct L_enlazada {
     unsigned int posicion;
-    struct NodeReg *next;
+    struct L_enlazada *next;
 };
 
-struct NodeReg *insertaReg(struct NodeReg *p, unsigned int x, unsigned int y) {//Función de manipulación de lista en la cual se guardarán los nodos visitados.
-    struct NodeReg *q, *l;
+// Funciones para L_enlazada (lista simple)
+struct L_enlazada *insertaLista(struct L_enlazada *p, unsigned int x) {
+    struct L_enlazada *q, *l;
     if (p == NULL) { // p is an empty list
-        q = calloc(1, sizeof(struct NodeReg));
-        q->valor = x;
-        q->posicion = y;
+        q = calloc(1, sizeof(struct L_enlazada));
+        q->posicion = x;
         q->next = NULL;
         p = q;
     } else {
-        q = calloc(1, sizeof(struct NodeReg));
-        q->valor = x;
-        q->posicion = y;
+        q = calloc(1, sizeof(struct L_enlazada));
+        q->posicion = x;
         q->next = NULL;
         l = p;
         while (l->next != NULL)
@@ -32,8 +30,8 @@ struct NodeReg *insertaReg(struct NodeReg *p, unsigned int x, unsigned int y) {/
     return p;
 }
 
-struct NodeReg *DeleteFirstReg(struct NodeReg *p){
-    struct NodeReg *q;
+struct L_enlazada *DeleteFirstLista(struct L_enlazada *p){
+    struct L_enlazada *q;
     if (p != NULL) {
         q = p->next;
         free(p);
@@ -42,9 +40,9 @@ struct NodeReg *DeleteFirstReg(struct NodeReg *p){
     return NULL;
 }
 
-struct NodeReg *DeleteLastReg(struct NodeReg *p){
-    struct NodeReg *q;
-    struct NodeReg *head = p; // Guardar referencia al primer nodo
+struct L_enlazada *DeleteLastLista(struct L_enlazada *p){
+    struct L_enlazada *q;
+    struct L_enlazada *head = p; // Guardar referencia al primer nodo
 
     // Verificar que la lista no esté vacía
     if(p == NULL){
@@ -70,18 +68,35 @@ struct NodeReg *DeleteLastReg(struct NodeReg *p){
     return head;      // Retornar el primer nodo
 }
 
-
-struct NodeReg *KillAllReg(struct NodeReg *p){
+struct L_enlazada *KillAllLista(struct L_enlazada *p){
     while (p != NULL)
-        p = DeleteFirstReg(p);
+        p = DeleteFirstLista(p);
     return NULL;
 }
 
-void PrintListReg(struct NodeReg *p){
+void PrintLista(struct L_enlazada *p){
     while (p != NULL) {
-        printf("[ %u, %u] ",p->valor, p->posicion);
+        printf("[ %u ] ",p->posicion);
         p = p->next;
     }
     printf("\n");
 }
-#endif // LISTAENLAZADA_H
+
+// Función para copiar una lista (crear una nueva lista con los mismos elementos)
+struct L_enlazada *copiarLista(struct L_enlazada *original) {
+    if (original == NULL) {
+        return NULL;
+    }
+    
+    struct L_enlazada *nuevaLista = NULL;
+    struct L_enlazada *actual = original;
+    
+    while (actual != NULL) {
+        nuevaLista = insertaLista(nuevaLista, actual->posicion);
+        actual = actual->next;
+    }
+    
+    return nuevaLista;
+}
+
+#endif // L_enlazada_H

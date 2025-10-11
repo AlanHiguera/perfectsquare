@@ -14,8 +14,9 @@
 #include <string.h>
 #include "time.h"
 #include <math.h>
-#include <tree.h>
-
+#include "tree.h"
+#include "listaEnlazada.h"
+#include "avlpath.h"
 #include <stdbool.h>
 
 
@@ -109,91 +110,10 @@ void PrintList(struct Node *p){
 //Ahora crearemos otro tipode lista para la lista auxiliar que llevará tanto el valor como un unsgined int para la posicion
 //en la lista de alcanzabilidad
 
-//-----------------------------------Node tipo Registro: listaCamino y listaaux seran de este tipo------------------------------//
-struct NodeReg {
-    unsigned int valor;
-    unsigned int posicion;
-    struct NodeReg *next;
-};
-
-struct NodeReg *insertaReg(struct NodeReg *p, unsigned int x, unsigned int y) {//Función de manipulación de lista en la cual se guardarán los nodos visitados.
-    struct NodeReg *q, *l;
-    if (p == NULL) { // p is an empty list
-        q = calloc(1, sizeof(struct NodeReg));
-        q->valor = x;
-        q->posicion = y;
-        q->next = NULL;
-        p = q;
-    } else {
-        q = calloc(1, sizeof(struct NodeReg));
-        q->valor = x;
-        q->posicion = y;
-        q->next = NULL;
-        l = p;
-        while (l->next != NULL)
-            l = l->next;
-        l->next = q;
-    }
-    return p;
-}
-
-struct NodeReg *DeleteFirstReg(struct NodeReg *p){
-    struct NodeReg *q;
-    if (p != NULL) {
-        q = p->next;
-        free(p);
-        return q;
-    }
-    return NULL;
-}
-
-struct NodeReg *DeleteLastReg(struct NodeReg *p){
-    struct NodeReg *q;
-    struct NodeReg *head = p; // Guardar referencia al primer nodo
-
-    // Verificar que la lista no esté vacía
-    if(p == NULL){
-        return NULL;
-    }
-
-    // Si solo hay un elemento
-    if(p->next == NULL){
-        free(p);
-        return NULL;
-    }
-    
-    // Encontrar el penúltimo nodo
-    while (p->next->next != NULL){
-        p = p->next;
-    }
-    
-    // Ahora p apunta al penúltimo nodo
-    q = p->next;      // Guardar referencia al último nodo
-    p->next = NULL;   // Desconectar el último nodo
-    free(q);          // Liberar el último nodo
-    
-    return head;      // Retornar el primer nodo
-}
-
-
-struct NodeReg *KillAllReg(struct NodeReg *p){
-    while (p != NULL)
-        p = DeleteFirstReg(p);
-    return NULL;
-}
-
-void PrintListReg(struct NodeReg *p){
-    while (p != NULL) {
-        printf("[ %u, %u] ",p->valor, p->posicion);
-        p = p->next;
-    }
-    printf("\n");
-}
 //------------------------------Pila------------------------------//
 //Esta pila va manejar un struct que va tener el valor, el tipo(para saber si ya fue revisado) y la posicion en lista alcanzabilidad.
 
 struct ElementoPila {
-    unsigned int valor;
     unsigned char tipo; //0 para no revisado, 1 para revisado
     unsigned int posicion; //posicion en la lista de alcanzabilidad
 };
@@ -233,13 +153,12 @@ unsigned char isEmpty(Stack *stack){
         return '0';  
 }
 
-void push(Stack *stack, unsigned int valor, unsigned char tipo, unsigned int posicion) {
+void push(Stack *stack, unsigned char tipo, unsigned int posicion) {
     if (isFull(stack)=='1') {
         return;
     }
 
     struct ElementoPila nuevoElemento;
-    nuevoElemento.valor = valor;
     nuevoElemento.tipo = tipo;
     nuevoElemento.posicion = posicion;
 
@@ -249,7 +168,6 @@ void push(Stack *stack, unsigned int valor, unsigned char tipo, unsigned int pos
 
 struct ElementoPila pop(Stack *stack){
     struct ElementoPila elementoaux;
-    elementoaux.valor = 0; 
     elementoaux.tipo = '0'; 
     elementoaux.posicion = 0; 
     
@@ -263,9 +181,9 @@ struct ElementoPila pop(Stack *stack){
     return elementoaux;
 }
 
-void llenarPila(Stack *pila, struct NodeReg *listaaux){
+void llenarPila(Stack *pila, struct L_enlazada *listaaux){
     while(listaaux != NULL){
-        push(pila, listaaux->valor, '0', listaaux->posicion);
+        push(pila, '0', listaaux->posicion);
         listaaux = listaaux->next;
     }
 }
@@ -274,7 +192,7 @@ void PrintStack(Stack *pila){
     struct ElementoPila elemento;
     for(int i = pila->top; i >= 0; i--) {
         elemento = pila->arr[i];
-        printf("Value %u, Tipo %c, Posicion %u\n", elemento.valor, elemento.tipo, elemento.posicion);
+        printf("Tipo %c, Posicion %u\n", elemento.tipo, elemento.posicion);
     }
     printf("\n");
 }
@@ -301,32 +219,46 @@ void ReadData(unsigned int arrayEntrada[], unsigned int n){
 }
 
 //funcion que genera la lista de valores alcanzables
-struct Node *pares_perfectos(struct Node *p, unsigned int arrayEntrada[], unsigned int n){
+struct AVL *pares_perfectos(struct AVL *p, unsigned int arrayEntrada[], unsigned int n){
+    printf("\nGenerando lista de valores alcanzables...\n");
     unsigned int i;
     unsigned int j;
     unsigned char imposiblepermutar;
+    struct L_enlazada *aux = NULL;
+    struct L_enlazada *auxCopia = NULL;
     for(i = 0; i < n; i = i + 1){
-        p = insertar(p, arrayEntrada[i], '0');//inserto el pivote
         lenalc = lenalc + 1;
         imposiblepermutar = '0';
+        aux = NULL; // Resetear aux para cada iteración del bucle externo
         for(j = 0; j < n; j = j + 1){
             if(i != j && is_perfect_square(arrayEntrada[i] + arrayEntrada[j])=='1'){//si no es el mismo elemento y si la suma es cuadrado perfecto
                 //printf("cuadrado perfecto encontrado entre %u y %u\n", arrayEntrada[i], arrayEntrada[j]);
-                p = insertar(p, arrayEntrada[j], '1');//inserto el complemento
+                //printf("antes de insertar en lista aux\n");
+                //printf("i: %u, j: %u\n", i, j);
+                aux = insertaLista(aux, j); // Insertar la posición j, no el valor
+                //printf("despues de insertar en lista aux\n");
                 lenalc = lenalc + 1;
                 imposiblepermutar = '1';
             }
-        }//si no tiene complementos, habrá un pivote seguido de otro. Asi, detectaremos que no hay solucion.
+        }
+        //si no tiene complementos, habrá un pivote seguido de otro. Asi, detectaremos que no hay solucion.
         if(imposiblepermutar=='0'){
             flag = '1'; //la lista no se puede permutar porque hay un elemento que no forma cuadrado perfecto con ningun otro
             return p;
         }
+        printf("antes de insertar en arbol\n");
+        // Crear una copia de la lista para el árbol AVL
+        auxCopia = copiarLista(aux);
+        p = insert_AVL(p, i, auxCopia); //inserto el pivote con su copia de complementos
+        printf("despues de insertar en arbol\n");
+        // Ahora puedo liberar la lista original de forma segura
+        aux = KillAllLista(aux);
     }
     return p;
 }
 /*
 //Apariciones dirá si el valor que estamos intentando agregar al camino ya apareció la cantidad máxima de veces
-unsigned char apariciones(unsigned int valor, unsigned int arrayEntrada[], unsigned int n, struct NodeReg *listaCamino){
+unsigned char apariciones(unsigned int valor, unsigned int arrayEntrada[], unsigned int n, struct L_enlazada *listaCamino){
     //veremos cuantas veces aparece en la lista camino
     //veremos cuantas veces aparece en la lista de entrada
     // CantidadEnCamino < CantidadEnEntrada -> puedo agregar
@@ -358,7 +290,7 @@ unsigned char apariciones(unsigned int valor, unsigned int arrayEntrada[], unsig
 }
 
 //Verificar camino: necesitamos ver que el largo del camino sea n, y además que sea distinto del input del programa
-unsigned char VerificarCamino(struct NodeReg *listaCamino, unsigned int arrayEntrada[], unsigned int n){
+unsigned char VerificarCamino(struct L_enlazada *listaCamino, unsigned int arrayEntrada[], unsigned int n){
     unsigned int iterador;
     unsigned char flag; // hay que agregar la revision del camino para respetar la cantidad de elementos que hay en la lista original de input
     iterador = 0;
@@ -378,7 +310,7 @@ unsigned char VerificarCamino(struct NodeReg *listaCamino, unsigned int arrayEnt
 }
 */
 //Verifica si un valor esta o no en la lista
-unsigned char Estaen(struct NodeReg *listaCamino, unsigned int posicion){
+unsigned char Estaen(struct L_enlazada *listaCamino, unsigned int posicion){
     while(listaCamino != NULL){
         if(listaCamino->posicion == posicion){
             //printf("La posicion %u ya esta en la lista camino\n", posicion);
@@ -391,32 +323,20 @@ unsigned char Estaen(struct NodeReg *listaCamino, unsigned int posicion){
 
 
 //Llenar alcance, vamos a tomar un valor y ver cuales son sus complementarios y echarlos a una lista
-struct NodeReg *llenarAlcance(struct NodeReg *listaaux, struct Node *listaAlcanzabilidad, unsigned int valor, struct NodeReg *listaCamino){
-    unsigned int posicion;
-    posicion = 0;
-    while(listaAlcanzabilidad != NULL){
-        if(listaAlcanzabilidad->valor == valor && listaAlcanzabilidad->tipo == '0'){
-            listaAlcanzabilidad = listaAlcanzabilidad->next;
-            posicion = posicion + 1;
-            while(listaAlcanzabilidad != NULL && listaAlcanzabilidad->tipo == '1'){
-                //printf("posicion: %u \n", posicion);
-                if(Estaen(listaCamino, posicion)=='0'){ 
-                    listaaux = insertaReg(listaaux, listaAlcanzabilidad->valor, posicion);
-                    //printf("inserta en lista aux el valor %u de la posicion: %u\n", listaAlcanzabilidad->valor, posicion);
-                }
-                
-                listaAlcanzabilidad = listaAlcanzabilidad->next;
-                posicion = posicion + 1;
-            }
-            if(listaAlcanzabilidad == NULL || listaAlcanzabilidad->tipo == '0'){
-                //printf("Lista de alcance:\n");
-                //PrintList(listaaux);
-                return listaaux;
-            }
+struct L_enlazada *llenarAlcance(struct L_enlazada *listaaux, struct AVL *Alcanzabilidad, unsigned int valor, struct AVLPATH *Camino_tree ,struct L_enlazada *listaCamino){
+    //Con el valor dado, buscamos en el arbol cual es la lista y la guardamos en aux
+    //Dado el alcance tendremos que verificar en el arbol camino que estos elementos no esten ahi
+    struct L_enlazada *aux = NULL;
+    aux = getNodeList(Alcanzabilidad, valor);
+    
+    //buscamos que no esten en el arbol camino
+    while(aux != NULL){
+        if(searchPath(Camino_tree, aux->posicion) == '0'){ //si no existe en el arbol camino
+            listaaux = insertaLista(listaaux, aux->posicion);
         }
-        listaAlcanzabilidad = listaAlcanzabilidad->next;
-        posicion = posicion + 1;
+        aux = aux->next;
     }
+    KillAllLista(aux);
     return listaaux;
 }
 
@@ -468,12 +388,14 @@ void destroyStack(Stack *stack) {
 
 int main(int argc, char *argv[]){
     //leer los elemetentos de la lista de entrada. Los guardamos en un array estatico.
-    struct NodeReg *listaaux = NULL;
-    struct NodeReg *listaCamino = NULL;
-    struct Node *listaAlcanzabilidad = NULL;
+    struct L_enlazada *listaaux = NULL;
+    struct L_enlazada *listaCamino = NULL;
     struct ElementoPila elementoPilaAux;
     struct ElementoPila verificador;
     Stack pila;
+
+    struct AVL *alcanzabilidad_tree = NULL; // Árbol AVL para la lista de alcanzabilidad
+    struct AVLPATH *Camino_tree = NULL;
 
     unsigned int len;
     unsigned char init;
@@ -494,26 +416,21 @@ int main(int argc, char *argv[]){
     unsigned int arrayEntrada[n];
     initialize(&pila, n*n);
     ReadData(arrayEntrada, n);
-
-    //printf("array entrada:");
-    //imprimimos el array para ver si esta todo bien
-    //for (int i = 0; i < n; i = i + 1){
-     //   printf("%u", arrayEntrada[i]);
-    //}
-    //printf("\n");
-
-    //revisamos si el input es camino valido
-
-
-    //Examinamos el array y vemos cuales son los pares que hacen cuadrado perfecto.
     
-    listaAlcanzabilidad = pares_perfectos(listaAlcanzabilidad, arrayEntrada, n);
+    //veamos el array entrada
+    printf("Array de entrada:\n");
+    for (unsigned int i = 0; i < n; i = i + 1){
+        printf("%u ", arrayEntrada[i]);
+    }
+    printf("\n");
+
+
+    alcanzabilidad_tree = pares_perfectos(alcanzabilidad_tree, arrayEntrada, n);
 
     printf("Lista de valores alcanzables:\n");
-    PrintList(listaAlcanzabilidad);
-
+    inOrder(alcanzabilidad_tree);
     //printf("lenalc = %u\n", lenalc);
-
+    /*
     if(flag == '1'){
         printf("Hay un elemento que no forma cuadrado perfecto con ningun otro.\n");
         printf("Cantidad de caminos encontrados: 0\n");
@@ -527,8 +444,8 @@ int main(int argc, char *argv[]){
     if(flag == '0' && ((lenalc == n*n && op == '1') || lenalc!=n*n)){ //Ejecutamos el algoritmo de pila
         for (unsigned int i = 0; i < n; i = i + 1){
         //printf("Inicia ciclo for elemento = %u\n", arrayEntrada[i]);
-        posicion = posicionDeValor(arrayEntrada[i], listaAlcanzabilidad);
-        push(&pila, arrayEntrada[i], '0', posicion);
+        //posicion = posicionDeValor(arrayEntrada[i], listaAlcanzabilidad);
+        push(&pila, arrayEntrada[i], '0', i);
         //printf("Pila en la itracion i: %u\n", arrayEntrada[i]);
 
         while(isEmpty(&pila) == '0' || init =='0'){
@@ -561,9 +478,9 @@ int main(int argc, char *argv[]){
                 //printf("Pila antes de verificar camino:\n");
                 //PrintStack(&pila);
                 elementoPilaAux.tipo = '1'; 
-                if(len==n /*&& VerificarCamino(listaCamino, arrayEntrada, n)=='1'*/){
+                if(len==n /*&& VerificarCamino(listaCamino, arrayEntrada, n)=='1'*///){
                     //printf("llego a len = n\n");
-
+                    /*
                     cont = cont + 1;//imprime camino y verifica len y la solucion
                     //printf("------------------Camino verificado-----------------\n");
                     //PrintListReg(listaCamino);
@@ -596,12 +513,12 @@ int main(int argc, char *argv[]){
         }
     }
     KillAllReg(listaCamino);
-    KillAll(listaAlcanzabilidad);
+    //KillAll(listaAlcanzabilidad);
     destroyStack(&pila);
     //Revisamos si tenemos que restar 1 por si el input ya viene como un camino valido
     if(RevisaInput(arrayEntrada, n)=='1'){
         cont = cont - 1;
     }
-    printf("Cantidad de caminos encontrados: %u\n", cont);
+    printf("Cantidad de caminos encontrados: %u\n", cont);*/
     return 0;
 }

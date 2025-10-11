@@ -14,7 +14,7 @@ struct AVL {
     struct AVL* left;
     struct AVL* right;
     int height;
-    struct NodeReg *listaAlcance;  // ✅ Agregado punto y coma faltante
+    struct L_enlazada *listaAlcance;  // ✅ Agregado punto y coma faltante
 };
 
 int getHeight(struct AVL* n)
@@ -25,7 +25,7 @@ int getHeight(struct AVL* n)
 }
 
 // Function to create a new AVL
-struct AVL* createAVL(unsigned int key, struct NodeReg* lista)
+struct AVL* createAVL(unsigned int key, struct L_enlazada* lista)
 {
     struct AVL* AVL = (struct AVL*)calloc(1, sizeof(struct AVL));
     AVL->key = key;
@@ -84,16 +84,16 @@ struct AVL* leftRotate(struct AVL* x)
 }
 
 // Function to insert a key into AVL tree
-struct AVL* insert(struct AVL* AVL, unsigned int key, struct NodeReg* lista)
+struct AVL* insert_AVL(struct AVL* AVL, unsigned int key, struct L_enlazada* lista)
 {
     // 1. Perform standard BST insertion
     if (AVL == NULL)
         return createAVL(key, lista);
 
     if (key < AVL->key)
-        AVL->left = insert(AVL->left, key, lista);
+        AVL->left = insert_AVL(AVL->left, key, lista);
     else if (key > AVL->key)
-        AVL->right = insert(AVL->right, key, lista);
+        AVL->right = insert_AVL(AVL->right, key, lista);
     else // Equal keys are not allowed in BST - pero podríamos actualizar la lista
         return AVL;
 
@@ -140,31 +140,31 @@ void inOrder(struct AVL* root)
         inOrder(root->left);
         printf("%u ", root->key);  // Imprimir la key del nodo
         printf("Lista: ");
-        PrintListReg(root->listaAlcance);  // Imprimir la lista enlazada separadamente
+        PrintLista(root->listaAlcance);  // Imprimir la lista enlazada separadamente
         inOrder(root->right);
     }
 }
 
 // ✅ Función para agregar elementos a la lista del nodo
-struct AVL* insertInNodeList(struct AVL* root, unsigned int key, unsigned int valor, unsigned int posicion)
+struct AVL* insertInNodeList(struct AVL* root, unsigned int key, unsigned int posicion)
 {
     if (root == NULL)
         return NULL;
         
     if (key == root->key) {
         // Agregar elemento a la lista enlazada de este nodo
-        root->listaAlcance = insertaReg(root->listaAlcance, valor, posicion);
+        root->listaAlcance = insertaLista(root->listaAlcance, posicion);
         return root;
     }
     
     if (key < root->key)
-        return insertInNodeList(root->left, key, valor, posicion);
+        return insertInNodeList(root->left, key, posicion);
     else
-        return insertInNodeList(root->right, key, valor, posicion);
+        return insertInNodeList(root->right, key, posicion);
 }
 
 // ✅ Función para obtener la lista de un nodo específico
-struct NodeReg* getNodeList(struct AVL* root, unsigned int key)
+struct L_enlazada* getNodeList(struct AVL* root, unsigned int key)
 {
     if (root == NULL)
         return NULL;
@@ -179,15 +179,15 @@ struct NodeReg* getNodeList(struct AVL* root, unsigned int key)
 }
 
 // ✅ Función para liberar memoria del árbol incluyendo las listas
-void freeAVL(struct AVL* root)
+void free_AVL(struct AVL* root)
 {
     if (root != NULL) {
-        freeAVL(root->left);
-        freeAVL(root->right);
+        free_AVL(root->left);
+        free_AVL(root->right);
         
         // Liberar la lista enlazada del nodo
         if (root->listaAlcance != NULL) {
-            root->listaAlcance = KillAllReg(root->listaAlcance);
+            root->listaAlcance = KillAllLista(root->listaAlcance);
         }
         
         free(root);
