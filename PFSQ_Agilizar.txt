@@ -51,3 +51,6 @@ agrego el elemento con su id devuelta a la pila
 luego agrego todo su alcance(el alcance tiene los Id de donde llega y cuales son los valores asociados a esos Id, los insertamos con marca 0)
 
 Si el alcance es nulo, quitamos el elemento de la pila y segun ese id lo quitamos tambien en arbol camino.
+
+Con el elcance listo puedo empezar a hacer los cambios sobre AVLPATH Camino
+enseguida hago tmb una lista normal para el camino para tener un chequeo visual
