@@ -147,6 +147,97 @@ unsigned char searchPath(struct AVLPATH* root, unsigned int key)
         return searchPath(root->right, key);
 }
 
+// Función auxiliar para encontrar el nodo con valor mínimo (más a la izquierda)
+struct AVLPATH* findMinPath(struct AVLPATH* node)
+{
+    while (node->left != NULL)
+        node = node->left;
+    return node;
+}
+
+struct AVLPATH* DeletePath(struct AVLPATH* root, unsigned int key)
+{
+    // Caso base: árbol vacío
+    if (root == NULL) {
+        return NULL;
+    }
+
+    // Si la clave a eliminar es menor que la clave del nodo actual
+    if (key < root->key) {
+        root->left = DeletePath(root->left, key);
+    }
+    // Si la clave a eliminar es mayor que la clave del nodo actual
+    else if (key > root->key) {
+        root->right = DeletePath(root->right, key);
+    }
+    // Si encontramos el nodo a eliminar
+    else {
+        // Caso 1: Nodo hoja (sin hijos)
+        if (root->left == NULL && root->right == NULL) {
+            free(root);
+            return NULL;
+        }
+        
+        // Caso 2: Nodo con un solo hijo
+        else if (root->left == NULL) {
+            struct AVLPATH* temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL) {
+            struct AVLPATH* temp = root->left;
+            free(root);
+            return temp;
+        }
+        
+        // Caso 3: Nodo con dos hijos
+        else {
+            // Encontrar el sucesor inorden (el menor en el subárbol derecho)
+            struct AVLPATH* temp = findMinPath(root->right);
+            
+            // Copiar la clave del sucesor al nodo actual
+            root->key = temp->key;
+            
+            // Eliminar el sucesor
+            root->right = DeletePath(root->right, temp->key);
+        }
+    }
+
+    // Si el árbol tenía solo un nodo, ya se eliminó
+    if (root == NULL)
+        return root;
+
+    // Actualizar altura del nodo actual
+    root->height = 1 + maxPath(getHeightPath(root->left), getHeightPath(root->right));
+
+    // Obtener el factor de balance
+    int balance = getBalanceFactorPath(root);
+
+    // Si el nodo se desbalanceó, hay 4 casos de rotación
+
+    // Caso Left Left
+    if (balance > 1 && getBalanceFactorPath(root->left) >= 0)
+        return rightRotatePath(root);
+
+    // Caso Left Right
+    if (balance > 1 && getBalanceFactorPath(root->left) < 0) {
+        root->left = leftRotatePath(root->left);
+        return rightRotatePath(root);
+    }
+
+    // Caso Right Right
+    if (balance < -1 && getBalanceFactorPath(root->right) <= 0)
+        return leftRotatePath(root);
+
+    // Caso Right Left
+    if (balance < -1 && getBalanceFactorPath(root->right) > 0) {
+        root->right = rightRotatePath(root->right);
+        return leftRotatePath(root);
+    }
+
+    // Retornar el nodo (posiblemente modificado)
+    return root;
+}
 
 // Function to free memory of AVLPATH tree (solo nodos, sin listas)
 void freePath_AVL(struct AVLPATH* root)
@@ -157,5 +248,7 @@ void freePath_AVL(struct AVLPATH* root)
         free(root);
     }
 }
+
+
 
 #endif // AVLPATH_H
