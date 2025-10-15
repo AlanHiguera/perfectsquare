@@ -1,0 +1,1103 @@
+desc: (none)
+cmd: ./pfsq_debug 8 1
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=354079
+mem_heap_B=7112
+mem_heap_extra_B=696
+mem_stacks_B=0
+heap_tree=peak
+n7: 7112 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 5120 0x496C1B4: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 5120 0x497C523: _IO_doallocbuf (genops.c:347)
+   n1: 4096 0x4979883: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:486)
+    n1: 4096 0x497C5D1: _IO_default_uflow (genops.c:362)
+     n1: 4096 0x49531C3: __vfscanf_internal (vfscanf-internal.c:676)
+      n1: 4096 0x4946EC5: __isoc99_scanf (isoc99_scanf.c:30)
+       n1: 4096 0x10A7A1: ReadData (pfsq.c:205)
+        n0: 4096 0x10ACA8: main (pfsq.c:405)
+   n1: 1024 0x4979F8F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x497AAAE: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x497AAAE: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x4947CC8: __printf_buffer_flush_to_file (printf_buffer_to_file.c:59)
+       n1: 1024 0x4947CC8: __printf_buffer_to_file_done (printf_buffer_to_file.c:120)
+        n1: 1024 0x4952742: __vfprintf_internal (vfprintf-internal.c:1545)
+         n1: 1024 0x49471B2: printf (printf.c:33)
+          n1: 1024 0x10A536: initialize (pfsq.c:129)
+           n0: 1024 0x10AC94: main (pfsq.c:404)
+ n2: 768 0x109343: insertaLista (listaEnlazada.h:22)
+  n1: 768 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 768 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 768 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 512 0x10A504: initialize (pfsq.c:119)
+  n0: 512 0x10AC94: main (pfsq.c:404)
+ n1: 320 0x10957E: createAVL (tree.h:27)
+  n2: 320 0x1097AF: insert_AVL (tree.h:93)
+   n2: 280 0x109806: insert_AVL (tree.h:98)
+    n2: 240 0x109806: insert_AVL (tree.h:98)
+     n1: 160 0x109806: insert_AVL (tree.h:98)
+      n1: 160 0x10A8DD: pares_perfectos (pfsq.c:240)
+       n0: 160 0x10AD1E: main (pfsq.c:415)
+     n1: 80 0x10A8DD: pares_perfectos (pfsq.c:240)
+      n0: 80 0x10AD1E: main (pfsq.c:415)
+    n0: 40 in 1 place, below massif's threshold (1.00%)
+   n0: 40 in 1 place, below massif's threshold (1.00%)
+ n1: 256 0x109B4C: createAVLPath (avlpath.h:25)
+  n3: 256 0x109D61: insertPath_AVL (avlpath.h:81)
+   n2: 128 0x109DB0: insertPath_AVL (avlpath.h:86)
+    n1: 96 0x109D86: insertPath_AVL (avlpath.h:84)
+     n0: 96 in 2 places, all below massif's threshold (1.00%)
+    n0: 32 in 1 place, below massif's threshold (1.00%)
+   n1: 96 0x109D86: insertPath_AVL (avlpath.h:84)
+    n1: 96 0x109DB0: insertPath_AVL (avlpath.h:86)
+     n0: 96 in 2 places, all below massif's threshold (1.00%)
+   n0: 32 in 1 place, below massif's threshold (1.00%)
+ n2: 128 0x109311: insertaLista (listaEnlazada.h:17)
+  n1: 128 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 128 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 128 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n0: 8 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=2
+#-----------
+time=3560473
+mem_heap_B=7072
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=5526972
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=detailed
+n7: 7088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 5120 0x496C1B4: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 5120 0x497C523: _IO_doallocbuf (genops.c:347)
+   n1: 4096 0x4979883: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:486)
+    n1: 4096 0x497C5D1: _IO_default_uflow (genops.c:362)
+     n1: 4096 0x49531C3: __vfscanf_internal (vfscanf-internal.c:676)
+      n1: 4096 0x4946EC5: __isoc99_scanf (isoc99_scanf.c:30)
+       n1: 4096 0x10A7A1: ReadData (pfsq.c:205)
+        n0: 4096 0x10ACA8: main (pfsq.c:405)
+   n1: 1024 0x4979F8F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x497AAAE: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x497AAAE: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x4947CC8: __printf_buffer_flush_to_file (printf_buffer_to_file.c:59)
+       n1: 1024 0x4947CC8: __printf_buffer_to_file_done (printf_buffer_to_file.c:120)
+        n1: 1024 0x4952742: __vfprintf_internal (vfprintf-internal.c:1545)
+         n1: 1024 0x49471B2: printf (printf.c:33)
+          n1: 1024 0x10A536: initialize (pfsq.c:129)
+           n0: 1024 0x10AC94: main (pfsq.c:404)
+ n2: 768 0x109343: insertaLista (listaEnlazada.h:22)
+  n1: 768 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 768 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 768 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 512 0x10A504: initialize (pfsq.c:119)
+  n0: 512 0x10AC94: main (pfsq.c:404)
+ n1: 320 0x10957E: createAVL (tree.h:27)
+  n2: 320 0x1097AF: insert_AVL (tree.h:93)
+   n2: 280 0x109806: insert_AVL (tree.h:98)
+    n2: 240 0x109806: insert_AVL (tree.h:98)
+     n1: 160 0x109806: insert_AVL (tree.h:98)
+      n1: 160 0x10A8DD: pares_perfectos (pfsq.c:240)
+       n0: 160 0x10AD1E: main (pfsq.c:415)
+     n1: 80 0x10A8DD: pares_perfectos (pfsq.c:240)
+      n0: 80 0x10AD1E: main (pfsq.c:415)
+    n0: 40 in 1 place, below massif's threshold (1.00%)
+   n0: 40 in 1 place, below massif's threshold (1.00%)
+ n1: 224 0x109B4C: createAVLPath (avlpath.h:25)
+  n2: 224 0x109D61: insertPath_AVL (avlpath.h:81)
+   n2: 160 0x109DB0: insertPath_AVL (avlpath.h:86)
+    n2: 128 0x109D86: insertPath_AVL (avlpath.h:84)
+     n0: 128 0x10AE2A: main (pfsq.c:445)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+    n0: 32 in 2 places, all below massif's threshold (1.00%)
+   n0: 64 in 2 places, all below massif's threshold (1.00%)
+ n2: 128 0x109311: insertaLista (listaEnlazada.h:17)
+  n1: 128 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 128 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 128 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n0: 16 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=4
+#-----------
+time=8592946
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=detailed
+n7: 7088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 5120 0x496C1B4: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 5120 0x497C523: _IO_doallocbuf (genops.c:347)
+   n1: 4096 0x4979883: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:486)
+    n1: 4096 0x497C5D1: _IO_default_uflow (genops.c:362)
+     n1: 4096 0x49531C3: __vfscanf_internal (vfscanf-internal.c:676)
+      n1: 4096 0x4946EC5: __isoc99_scanf (isoc99_scanf.c:30)
+       n1: 4096 0x10A7A1: ReadData (pfsq.c:205)
+        n0: 4096 0x10ACA8: main (pfsq.c:405)
+   n1: 1024 0x4979F8F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x497AAAE: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x497AAAE: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x4947CC8: __printf_buffer_flush_to_file (printf_buffer_to_file.c:59)
+       n1: 1024 0x4947CC8: __printf_buffer_to_file_done (printf_buffer_to_file.c:120)
+        n1: 1024 0x4952742: __vfprintf_internal (vfprintf-internal.c:1545)
+         n1: 1024 0x49471B2: printf (printf.c:33)
+          n1: 1024 0x10A536: initialize (pfsq.c:129)
+           n0: 1024 0x10AC94: main (pfsq.c:404)
+ n2: 768 0x109343: insertaLista (listaEnlazada.h:22)
+  n1: 768 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 768 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 768 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 512 0x10A504: initialize (pfsq.c:119)
+  n0: 512 0x10AC94: main (pfsq.c:404)
+ n1: 320 0x10957E: createAVL (tree.h:27)
+  n2: 320 0x1097AF: insert_AVL (tree.h:93)
+   n2: 280 0x109806: insert_AVL (tree.h:98)
+    n2: 240 0x109806: insert_AVL (tree.h:98)
+     n1: 160 0x109806: insert_AVL (tree.h:98)
+      n1: 160 0x10A8DD: pares_perfectos (pfsq.c:240)
+       n0: 160 0x10AD1E: main (pfsq.c:415)
+     n1: 80 0x10A8DD: pares_perfectos (pfsq.c:240)
+      n0: 80 0x10AD1E: main (pfsq.c:415)
+    n0: 40 in 1 place, below massif's threshold (1.00%)
+   n0: 40 in 1 place, below massif's threshold (1.00%)
+ n1: 224 0x109B4C: createAVLPath (avlpath.h:25)
+  n2: 224 0x109D61: insertPath_AVL (avlpath.h:81)
+   n1: 160 0x109DB0: insertPath_AVL (avlpath.h:86)
+    n0: 160 in 3 places, all below massif's threshold (1.00%)
+   n0: 64 in 2 places, all below massif's threshold (1.00%)
+ n2: 128 0x109311: insertaLista (listaEnlazada.h:17)
+  n1: 128 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 128 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 128 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n0: 16 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=5
+#-----------
+time=11713458
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=15499595
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=17966825
+mem_heap_B=7056
+mem_heap_extra_B=656
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=22263859
+mem_heap_B=7104
+mem_heap_extra_B=704
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=25235839
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=28206595
+mem_heap_B=7104
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=30096987
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=33070573
+mem_heap_B=7072
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=34880252
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=37843418
+mem_heap_B=7056
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=39960848
+mem_heap_B=7104
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=42924776
+mem_heap_B=7104
+mem_heap_extra_B=704
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=44618357
+mem_heap_B=7056
+mem_heap_extra_B=656
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=47585118
+mem_heap_B=7104
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=50126019
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=53514155
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=21
+#-----------
+time=56404151
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=58835298
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=61265275
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=64505383
+mem_heap_B=7056
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=66936029
+mem_heap_B=7120
+mem_heap_extra_B=688
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=70175167
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=72604784
+mem_heap_B=7072
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=75844200
+mem_heap_B=7104
+mem_heap_extra_B=704
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=79084682
+mem_heap_B=7024
+mem_heap_extra_B=648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=81514797
+mem_heap_B=7024
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=85564663
+mem_heap_B=7024
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=87995393
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=detailed
+n7: 7088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 5120 0x496C1B4: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 5120 0x497C523: _IO_doallocbuf (genops.c:347)
+   n1: 4096 0x4979883: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:486)
+    n1: 4096 0x497C5D1: _IO_default_uflow (genops.c:362)
+     n1: 4096 0x49531C3: __vfscanf_internal (vfscanf-internal.c:676)
+      n1: 4096 0x4946EC5: __isoc99_scanf (isoc99_scanf.c:30)
+       n1: 4096 0x10A7A1: ReadData (pfsq.c:205)
+        n0: 4096 0x10ACA8: main (pfsq.c:405)
+   n1: 1024 0x4979F8F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x497AAAE: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x497AAAE: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x4947CC8: __printf_buffer_flush_to_file (printf_buffer_to_file.c:59)
+       n1: 1024 0x4947CC8: __printf_buffer_to_file_done (printf_buffer_to_file.c:120)
+        n1: 1024 0x4952742: __vfprintf_internal (vfprintf-internal.c:1545)
+         n1: 1024 0x49471B2: printf (printf.c:33)
+          n1: 1024 0x10A536: initialize (pfsq.c:129)
+           n0: 1024 0x10AC94: main (pfsq.c:404)
+ n2: 768 0x109343: insertaLista (listaEnlazada.h:22)
+  n1: 768 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 768 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 768 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 512 0x10A504: initialize (pfsq.c:119)
+  n0: 512 0x10AC94: main (pfsq.c:404)
+ n1: 320 0x10957E: createAVL (tree.h:27)
+  n2: 320 0x1097AF: insert_AVL (tree.h:93)
+   n2: 280 0x109806: insert_AVL (tree.h:98)
+    n2: 240 0x109806: insert_AVL (tree.h:98)
+     n1: 160 0x109806: insert_AVL (tree.h:98)
+      n1: 160 0x10A8DD: pares_perfectos (pfsq.c:240)
+       n0: 160 0x10AD1E: main (pfsq.c:415)
+     n1: 80 0x10A8DD: pares_perfectos (pfsq.c:240)
+      n0: 80 0x10AD1E: main (pfsq.c:415)
+    n0: 40 in 1 place, below massif's threshold (1.00%)
+   n0: 40 in 1 place, below massif's threshold (1.00%)
+ n1: 224 0x109B4C: createAVLPath (avlpath.h:25)
+  n2: 224 0x109D61: insertPath_AVL (avlpath.h:81)
+   n1: 160 0x109DB0: insertPath_AVL (avlpath.h:86)
+    n0: 160 in 3 places, all below massif's threshold (1.00%)
+   n0: 64 in 2 places, all below massif's threshold (1.00%)
+ n2: 128 0x109311: insertaLista (listaEnlazada.h:17)
+  n1: 128 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 128 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 128 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n0: 16 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=33
+#-----------
+time=92046572
+mem_heap_B=7104
+mem_heap_extra_B=704
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=95286980
+mem_heap_B=7024
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=97312834
+mem_heap_B=7056
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=101363149
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=105412878
+mem_heap_B=7056
+mem_heap_extra_B=656
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=108450496
+mem_heap_B=7024
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=110475554
+mem_heap_B=7072
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=113512898
+mem_heap_B=7056
+mem_heap_extra_B=656
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=117562508
+mem_heap_B=7056
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=120600442
+mem_heap_B=7104
+mem_heap_extra_B=704
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=123637855
+mem_heap_B=7024
+mem_heap_extra_B=648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=127687667
+mem_heap_B=7072
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=45
+#-----------
+time=130724879
+mem_heap_B=7104
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=133763807
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=137814454
+mem_heap_B=7104
+mem_heap_extra_B=704
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=141863996
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=49
+#-----------
+time=145914280
+mem_heap_B=7104
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=147608035
+mem_heap_B=7072
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=detailed
+n7: 7072 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 5120 0x496C1B4: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 5120 0x497C523: _IO_doallocbuf (genops.c:347)
+   n1: 4096 0x4979883: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:486)
+    n1: 4096 0x497C5D1: _IO_default_uflow (genops.c:362)
+     n1: 4096 0x49531C3: __vfscanf_internal (vfscanf-internal.c:676)
+      n1: 4096 0x4946EC5: __isoc99_scanf (isoc99_scanf.c:30)
+       n1: 4096 0x10A7A1: ReadData (pfsq.c:205)
+        n0: 4096 0x10ACA8: main (pfsq.c:405)
+   n1: 1024 0x4979F8F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x497AAAE: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x497AAAE: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x4947CC8: __printf_buffer_flush_to_file (printf_buffer_to_file.c:59)
+       n1: 1024 0x4947CC8: __printf_buffer_to_file_done (printf_buffer_to_file.c:120)
+        n1: 1024 0x4952742: __vfprintf_internal (vfprintf-internal.c:1545)
+         n1: 1024 0x49471B2: printf (printf.c:33)
+          n1: 1024 0x10A536: initialize (pfsq.c:129)
+           n0: 1024 0x10AC94: main (pfsq.c:404)
+ n2: 784 0x109343: insertaLista (listaEnlazada.h:22)
+  n1: 768 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 768 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 768 0x10AD1E: main (pfsq.c:415)
+  n0: 16 in 2 places, all below massif's threshold (1.00%)
+ n1: 512 0x10A504: initialize (pfsq.c:119)
+  n0: 512 0x10AC94: main (pfsq.c:404)
+ n1: 320 0x10957E: createAVL (tree.h:27)
+  n2: 320 0x1097AF: insert_AVL (tree.h:93)
+   n2: 280 0x109806: insert_AVL (tree.h:98)
+    n2: 240 0x109806: insert_AVL (tree.h:98)
+     n1: 160 0x109806: insert_AVL (tree.h:98)
+      n1: 160 0x10A8DD: pares_perfectos (pfsq.c:240)
+       n0: 160 0x10AD1E: main (pfsq.c:415)
+     n1: 80 0x10A8DD: pares_perfectos (pfsq.c:240)
+      n0: 80 0x10AD1E: main (pfsq.c:415)
+    n0: 40 in 1 place, below massif's threshold (1.00%)
+   n0: 40 in 1 place, below massif's threshold (1.00%)
+ n1: 192 0x109B4C: createAVLPath (avlpath.h:25)
+  n2: 192 0x109D61: insertPath_AVL (avlpath.h:81)
+   n2: 128 0x109D86: insertPath_AVL (avlpath.h:84)
+    n1: 96 0x109DB0: insertPath_AVL (avlpath.h:86)
+     n0: 96 in 3 places, all below massif's threshold (1.00%)
+    n0: 32 in 2 places, all below massif's threshold (1.00%)
+   n0: 64 in 2 places, all below massif's threshold (1.00%)
+ n2: 128 0x109311: insertaLista (listaEnlazada.h:17)
+  n1: 128 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 128 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 128 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n0: 16 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=51
+#-----------
+time=149302701
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=150996412
+mem_heap_B=7056
+mem_heap_extra_B=656
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=152690068
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=154383934
+mem_heap_B=7024
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=55
+#-----------
+time=156077922
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=56
+#-----------
+time=157772704
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=159466793
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=58
+#-----------
+time=161160865
+mem_heap_B=7056
+mem_heap_extra_B=656
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=59
+#-----------
+time=162854973
+mem_heap_B=7104
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=60
+#-----------
+time=164548840
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=detailed
+n7: 7088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 5120 0x496C1B4: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 5120 0x497C523: _IO_doallocbuf (genops.c:347)
+   n1: 4096 0x4979883: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:486)
+    n1: 4096 0x497C5D1: _IO_default_uflow (genops.c:362)
+     n1: 4096 0x49531C3: __vfscanf_internal (vfscanf-internal.c:676)
+      n1: 4096 0x4946EC5: __isoc99_scanf (isoc99_scanf.c:30)
+       n1: 4096 0x10A7A1: ReadData (pfsq.c:205)
+        n0: 4096 0x10ACA8: main (pfsq.c:405)
+   n1: 1024 0x4979F8F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x497AAAE: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x497AAAE: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x4947CC8: __printf_buffer_flush_to_file (printf_buffer_to_file.c:59)
+       n1: 1024 0x4947CC8: __printf_buffer_to_file_done (printf_buffer_to_file.c:120)
+        n1: 1024 0x4952742: __vfprintf_internal (vfprintf-internal.c:1545)
+         n1: 1024 0x49471B2: printf (printf.c:33)
+          n1: 1024 0x10A536: initialize (pfsq.c:129)
+           n0: 1024 0x10AC94: main (pfsq.c:404)
+ n2: 768 0x109343: insertaLista (listaEnlazada.h:22)
+  n1: 768 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 768 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 768 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 512 0x10A504: initialize (pfsq.c:119)
+  n0: 512 0x10AC94: main (pfsq.c:404)
+ n1: 320 0x10957E: createAVL (tree.h:27)
+  n2: 320 0x1097AF: insert_AVL (tree.h:93)
+   n2: 280 0x109806: insert_AVL (tree.h:98)
+    n2: 240 0x109806: insert_AVL (tree.h:98)
+     n1: 160 0x109806: insert_AVL (tree.h:98)
+      n1: 160 0x10A8DD: pares_perfectos (pfsq.c:240)
+       n0: 160 0x10AD1E: main (pfsq.c:415)
+     n1: 80 0x10A8DD: pares_perfectos (pfsq.c:240)
+      n0: 80 0x10AD1E: main (pfsq.c:415)
+    n0: 40 in 1 place, below massif's threshold (1.00%)
+   n0: 40 in 1 place, below massif's threshold (1.00%)
+ n1: 224 0x109B4C: createAVLPath (avlpath.h:25)
+  n3: 224 0x109D61: insertPath_AVL (avlpath.h:81)
+   n2: 128 0x109DB0: insertPath_AVL (avlpath.h:86)
+    n1: 96 0x109D86: insertPath_AVL (avlpath.h:84)
+     n0: 96 in 3 places, all below massif's threshold (1.00%)
+    n0: 32 in 2 places, all below massif's threshold (1.00%)
+   n1: 96 0x109D86: insertPath_AVL (avlpath.h:84)
+    n0: 96 in 3 places, all below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 128 0x109311: insertaLista (listaEnlazada.h:17)
+  n1: 128 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 128 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 128 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n0: 16 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=61
+#-----------
+time=166242782
+mem_heap_B=7040
+mem_heap_extra_B=656
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=167936865
+mem_heap_B=7072
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=63
+#-----------
+time=169630696
+mem_heap_B=7056
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=64
+#-----------
+time=171324521
+mem_heap_B=7072
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=65
+#-----------
+time=173018216
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=66
+#-----------
+time=174712267
+mem_heap_B=7056
+mem_heap_extra_B=656
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=67
+#-----------
+time=176405917
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=68
+#-----------
+time=178099737
+mem_heap_B=7072
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=69
+#-----------
+time=179793671
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=70
+#-----------
+time=181487711
+mem_heap_B=7056
+mem_heap_extra_B=656
+mem_stacks_B=0
+heap_tree=detailed
+n7: 7056 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 5120 0x496C1B4: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 5120 0x497C523: _IO_doallocbuf (genops.c:347)
+   n1: 4096 0x4979883: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:486)
+    n1: 4096 0x497C5D1: _IO_default_uflow (genops.c:362)
+     n1: 4096 0x49531C3: __vfscanf_internal (vfscanf-internal.c:676)
+      n1: 4096 0x4946EC5: __isoc99_scanf (isoc99_scanf.c:30)
+       n1: 4096 0x10A7A1: ReadData (pfsq.c:205)
+        n0: 4096 0x10ACA8: main (pfsq.c:405)
+   n1: 1024 0x4979F8F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x497AAAE: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x497AAAE: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x4947CC8: __printf_buffer_flush_to_file (printf_buffer_to_file.c:59)
+       n1: 1024 0x4947CC8: __printf_buffer_to_file_done (printf_buffer_to_file.c:120)
+        n1: 1024 0x4952742: __vfprintf_internal (vfprintf-internal.c:1545)
+         n1: 1024 0x49471B2: printf (printf.c:33)
+          n1: 1024 0x10A536: initialize (pfsq.c:129)
+           n0: 1024 0x10AC94: main (pfsq.c:404)
+ n2: 768 0x109343: insertaLista (listaEnlazada.h:22)
+  n1: 768 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 768 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 768 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 512 0x10A504: initialize (pfsq.c:119)
+  n0: 512 0x10AC94: main (pfsq.c:404)
+ n1: 320 0x10957E: createAVL (tree.h:27)
+  n2: 320 0x1097AF: insert_AVL (tree.h:93)
+   n2: 280 0x109806: insert_AVL (tree.h:98)
+    n2: 240 0x109806: insert_AVL (tree.h:98)
+     n1: 160 0x109806: insert_AVL (tree.h:98)
+      n1: 160 0x10A8DD: pares_perfectos (pfsq.c:240)
+       n0: 160 0x10AD1E: main (pfsq.c:415)
+     n1: 80 0x10A8DD: pares_perfectos (pfsq.c:240)
+      n0: 80 0x10AD1E: main (pfsq.c:415)
+    n0: 40 in 1 place, below massif's threshold (1.00%)
+   n0: 40 in 1 place, below massif's threshold (1.00%)
+ n1: 192 0x109B4C: createAVLPath (avlpath.h:25)
+  n2: 192 0x109D61: insertPath_AVL (avlpath.h:81)
+   n2: 128 0x109DB0: insertPath_AVL (avlpath.h:86)
+    n1: 96 0x109D86: insertPath_AVL (avlpath.h:84)
+     n0: 96 in 3 places, all below massif's threshold (1.00%)
+    n0: 32 in 2 places, all below massif's threshold (1.00%)
+   n0: 64 in 2 places, all below massif's threshold (1.00%)
+ n2: 128 0x109311: insertaLista (listaEnlazada.h:17)
+  n1: 128 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 128 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 128 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n0: 16 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=71
+#-----------
+time=183182113
+mem_heap_B=7104
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=72
+#-----------
+time=184875981
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=73
+#-----------
+time=186569922
+mem_heap_B=7104
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=74
+#-----------
+time=188263823
+mem_heap_B=7024
+mem_heap_extra_B=648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=75
+#-----------
+time=189958114
+mem_heap_B=7088
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=76
+#-----------
+time=191651705
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=77
+#-----------
+time=193346355
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=78
+#-----------
+time=195040380
+mem_heap_B=7056
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=79
+#-----------
+time=196734551
+mem_heap_B=7104
+mem_heap_extra_B=704
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=80
+#-----------
+time=198428236
+mem_heap_B=7120
+mem_heap_extra_B=688
+mem_stacks_B=0
+heap_tree=detailed
+n7: 7120 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 5120 0x496C1B4: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 5120 0x497C523: _IO_doallocbuf (genops.c:347)
+   n1: 4096 0x4979883: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:486)
+    n1: 4096 0x497C5D1: _IO_default_uflow (genops.c:362)
+     n1: 4096 0x49531C3: __vfscanf_internal (vfscanf-internal.c:676)
+      n1: 4096 0x4946EC5: __isoc99_scanf (isoc99_scanf.c:30)
+       n1: 4096 0x10A7A1: ReadData (pfsq.c:205)
+        n0: 4096 0x10ACA8: main (pfsq.c:405)
+   n1: 1024 0x4979F8F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x497AAAE: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x497AAAE: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x4947CC8: __printf_buffer_flush_to_file (printf_buffer_to_file.c:59)
+       n1: 1024 0x4947CC8: __printf_buffer_to_file_done (printf_buffer_to_file.c:120)
+        n1: 1024 0x4952742: __vfprintf_internal (vfprintf-internal.c:1545)
+         n1: 1024 0x49471B2: printf (printf.c:33)
+          n1: 1024 0x10A536: initialize (pfsq.c:129)
+           n0: 1024 0x10AC94: main (pfsq.c:404)
+ n2: 768 0x109343: insertaLista (listaEnlazada.h:22)
+  n1: 768 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 768 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 768 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 512 0x10A504: initialize (pfsq.c:119)
+  n0: 512 0x10AC94: main (pfsq.c:404)
+ n1: 320 0x10957E: createAVL (tree.h:27)
+  n2: 320 0x1097AF: insert_AVL (tree.h:93)
+   n2: 280 0x109806: insert_AVL (tree.h:98)
+    n2: 240 0x109806: insert_AVL (tree.h:98)
+     n1: 160 0x109806: insert_AVL (tree.h:98)
+      n1: 160 0x10A8DD: pares_perfectos (pfsq.c:240)
+       n0: 160 0x10AD1E: main (pfsq.c:415)
+     n1: 80 0x10A8DD: pares_perfectos (pfsq.c:240)
+      n0: 80 0x10AD1E: main (pfsq.c:415)
+    n0: 40 in 1 place, below massif's threshold (1.00%)
+   n0: 40 in 1 place, below massif's threshold (1.00%)
+ n1: 256 0x109B4C: createAVLPath (avlpath.h:25)
+  n3: 256 0x109D61: insertPath_AVL (avlpath.h:81)
+   n1: 128 0x109D86: insertPath_AVL (avlpath.h:84)
+    n0: 128 in 3 places, all below massif's threshold (1.00%)
+   n2: 128 0x109DB0: insertPath_AVL (avlpath.h:86)
+    n1: 128 0x109D86: insertPath_AVL (avlpath.h:84)
+     n0: 128 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 128 0x109311: insertaLista (listaEnlazada.h:17)
+  n1: 128 0x10951C: copiarLista (listaEnlazada.h:93)
+   n1: 128 0x10A8C4: pares_perfectos (pfsq.c:239)
+    n0: 128 0x10AD1E: main (pfsq.c:415)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n0: 16 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=81
+#-----------
+time=200122003
+mem_heap_B=7088
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=82
+#-----------
+time=201816205
+mem_heap_B=7072
+mem_heap_extra_B=680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=83
+#-----------
+time=203510164
+mem_heap_B=7056
+mem_heap_extra_B=664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=84
+#-----------
+time=205203930
+mem_heap_B=7056
+mem_heap_extra_B=656
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=85
+#-----------
+time=206897643
+mem_heap_B=7056
+mem_heap_extra_B=656
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=86
+#-----------
+time=208591912
+mem_heap_B=7104
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=87
+#-----------
+time=210285995
+mem_heap_B=7056
+mem_heap_extra_B=672
+mem_stacks_B=0
+heap_tree=empty

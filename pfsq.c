@@ -7,6 +7,7 @@
 #include "listaEnlazada.h"
 #include "avlpath.h"
 #include <stdbool.h>
+#include <gmp.h>  // ✅ Librería para números grandes
 
 
 unsigned int lenalc = 0;
@@ -387,7 +388,7 @@ int main(int argc, char *argv[]){
     unsigned char init;
     unsigned int seguimiento;
     unsigned int posicion;
-    unsigned int cont;
+    mpz_t cont;  // ✅ Variable para números grandes
     unsigned int n;
     unsigned char op;
 
@@ -395,7 +396,7 @@ int main(int argc, char *argv[]){
     seguimiento = 0;
     init = '1';
     len = 0; 
-    cont = 0;
+    mpz_init(cont);  // ✅ Inicializar la variable mpz
     op = argv[2][0];
     
     n = atoi(argv[1]);
@@ -422,10 +423,11 @@ int main(int argc, char *argv[]){
         printf("Cantidad de caminos encontrados: 0\n");
         return 0;
     }
-    if(flag == '0' && lenalc==n*n && op == '0'){//Ejecutamos el computo de factorial
+    /*if(flag == '0' && lenalc==n*n && op == '0'){//Ejecutamos el computo de factorial
         //peor caso
-        cont = cont + factorialiterativo(n);
-    }
+        unsigned int factorial_n = factorialiterativo(n);
+        mpz_add_ui(cont, cont, factorial_n);  // ✅ Sumar usando GMP
+    }*/
 
     //tomamos el tiempo de ejecucion
     clock_t start, end;
@@ -458,7 +460,7 @@ int main(int argc, char *argv[]){
             else if(listaaux == NULL && elementoPilaAux.tipo=='0'){
                 elementoPilaAux.tipo = '1'; 
                 if(len==n){      
-                    cont = cont + 1;//imprime camino y verifica len y la solucion
+                    mpz_add_ui(cont, cont, 1);  // ✅ Incrementar usando GMP
                     //printf("------------------Camino verificado-----------------\n");
                     //PrintLista(listaCamino);
                 }
@@ -494,8 +496,13 @@ int main(int argc, char *argv[]){
     destroyStack(&pila);
     //Revisamos si tenemos que restar 1 por si el input ya viene como un camino valido
     if(RevisaInput(arrayEntrada, n)=='1'){
-        cont = cont - 1;
+        mpz_sub_ui(cont, cont, 1);  // ✅ Restar usando GMP
     }
-    printf("Cantidad de caminos encontrados: %u\n", cont);
+    
+    printf("Cantidad de caminos encontrados: ");
+    mpz_out_str(stdout, 10, cont);  // ✅ Imprimir número grande
+    printf("\n");
+    
+    mpz_clear(cont);  // ✅ Liberar memoria de GMP
     return 0;
 }
