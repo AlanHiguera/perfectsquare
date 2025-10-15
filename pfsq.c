@@ -454,7 +454,7 @@ int main(int argc, char *argv[]){
             elementoPilaAux = pop(&pila);
             //printf("Nodo k sacado de la pila: %u\n", k_valor);
 
-            listaCamino = insertaLista(listaCamino, elementoPilaAux.posicion);
+            //listaCamino = insertaLista(listaCamino, elementoPilaAux.posicion);
             Camino_tree = insertPath_AVL(Camino_tree, elementoPilaAux.posicion);
             len = len +1;
             
@@ -500,7 +500,7 @@ int main(int argc, char *argv[]){
                     }
                     else{
                         //printf("se quita el valor: %u de la lista camino \n", popvaloraux);
-                        listaCamino = DeleteLastLista(listaCamino);
+                        //listaCamino = DeleteLastLista(listaCamino);
                         Camino_tree = DeletePath(Camino_tree, verificador.posicion);
                         //printf("Lista camino despues de eliminar:\n");
                         //PrintList(listaCamino);
