@@ -9,37 +9,39 @@
 #include "listaEnlazada.h"
 
 // Declaración de la estructura AVL con unsigned int key y lista enlazada
-struct AVL {
-    unsigned int key;              // ✅ Cambiado a unsigned int
+struct AVL{
+    unsigned int key;
     struct AVL* left;
     struct AVL* right;
     int height;
-    struct L_enlazada *listaAlcance;  // ✅ Agregado punto y coma faltante
+    struct L_enlazada *listaAlcance;
 };
 
-int getHeight(struct AVL* n)
-{
+int getHeight(struct AVL* n){
     if (n == NULL)
         return 0;
     return n->height;
 }
 
-// Function to create a new AVL
-struct AVL* createAVL(unsigned int key, struct L_enlazada* lista)
-{
+struct AVL* createAVL(unsigned int key, struct L_enlazada* lista){
     struct AVL* AVL = (struct AVL*)calloc(1, sizeof(struct AVL));
     AVL->key = key;
-    AVL->listaAlcance = lista;  // Asignar la lista proporcionada
-    AVL->height = 1; // New AVL is initially added at leaf
+    AVL->listaAlcance = lista;
+    AVL->height = 1;
     return AVL;
 }
 
 // Utility function to get the maximum of two integers
-int max(int a, int b) { return (a > b) ? a : b; }
+int max(int a, int b) { 
+    if(a > b) {
+        return a; 
+    } else {
+        return b; 
+    }
+}
 
 // Function to get balance factor of a AVL
-int getBalanceFactor(struct AVL* n)
-{
+int getBalanceFactor(struct AVL* n){
     if (n == NULL)
         return 0;
     return getHeight(n->left) - getHeight(n->right);
@@ -145,14 +147,13 @@ void inOrder(struct AVL* root)
     }
 }
 
-// ✅ Función para agregar elementos a la lista del nodo
+//Función para agregar elementos a la lista del nodo
 struct AVL* insertInNodeList(struct AVL* root, unsigned int key, unsigned int posicion)
 {
     if (root == NULL)
         return NULL;
         
     if (key == root->key) {
-        // Agregar elemento a la lista enlazada de este nodo
         root->listaAlcance = insertaLista(root->listaAlcance, posicion);
         return root;
     }
@@ -163,7 +164,7 @@ struct AVL* insertInNodeList(struct AVL* root, unsigned int key, unsigned int po
         return insertInNodeList(root->right, key, posicion);
 }
 
-// ✅ Función para obtener la lista de un nodo específico
+//Función para obtener la lista de un nodo específico
 struct L_enlazada* getNodeList(struct AVL* root, unsigned int key)
 {
     if (root == NULL)
@@ -178,7 +179,7 @@ struct L_enlazada* getNodeList(struct AVL* root, unsigned int key)
         return getNodeList(root->right, key);
 }
 
-// ✅ Función para liberar memoria del árbol incluyendo las listas
+//Función para liberar memoria del árbol incluyendo las listas
 void free_AVL(struct AVL* root)
 {
     if (root != NULL) {

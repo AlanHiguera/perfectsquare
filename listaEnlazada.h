@@ -60,12 +60,10 @@ struct L_enlazada *DeleteLastLista(struct L_enlazada *p){
         p = p->next;
     }
     
-    // Ahora p apunta al penúltimo nodo
-    q = p->next;      // Guardar referencia al último nodo
-    p->next = NULL;   // Desconectar el último nodo
-    free(q);          // Liberar el último nodo
-    
-    return head;      // Retornar el primer nodo
+    q = p->next;
+    p->next = NULL;
+    free(q);
+    return head;
 }
 
 struct L_enlazada *KillAllLista(struct L_enlazada *p){

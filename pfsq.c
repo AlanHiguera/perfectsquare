@@ -1,14 +1,3 @@
-/*
- *#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "time.h"
-#include <math.h>
-#include <stdbool.h>
-#include "tree.h"  // ✅ Importar tu árbol AVLc n 1 < input.txt
- *
- **/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -444,15 +433,11 @@ int main(int argc, char *argv[]){
     start = clock();
     if(flag == '0' && ((lenalc == n*n && op == '1') || lenalc!=n*n)){ //Ejecutamos el algoritmo de pila
         for (unsigned int i = 0; i < n; i = i + 1){
-        //printf("Inicia ciclo for elemento = %u\n", arrayEntrada[i]);
-        //posicion = posicionDeValor(arrayEntrada[i], listaAlcanzabilidad);
+
         push(&pila, '0', i);//SOLO IMPORTA LA POSICION
-        //printf("Pila en la itracion i: %u\n", arrayEntrada[i]);
 
         while(isEmpty(&pila) == '0' || init =='0'){
-            //printf("seguimiento %u\n", seguimiento);
             elementoPilaAux = pop(&pila);
-            //printf("Nodo k sacado de la pila: %u\n", k_valor);
 
             //listaCamino = insertaLista(listaCamino, elementoPilaAux.posicion);
             Camino_tree = insertPath_AVL(Camino_tree, elementoPilaAux.posicion);
@@ -461,49 +446,31 @@ int main(int argc, char *argv[]){
             //PrintListReg(listaCamino);
             //llenar el alcance desde k
             listaaux = llenarAlcance(listaaux, alcanzabilidad_tree, elementoPilaAux.posicion, Camino_tree);
-            //printf("Lista de alcance:------------\n");
-            //PrintListReg(listaaux);
 
             push(&pila, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado dsp
-            //printf("Lista camino actual:\n");
-            //PrintList(listaCamino);
+
 
             if(listaaux != NULL){
-                //printf(" listaaux no es nula\n");
                 llenarPila(&pila, listaaux);
-                //printf("pila despues de llenar pila:\n");
                 listaaux = KillAllLista(listaaux);
-                //PrintStack(&pila);
             }
 
             else if(listaaux == NULL && elementoPilaAux.tipo=='0'){
-                //printf("Pila antes de verificar camino:\n");
-                //PrintStack(&pila);
                 elementoPilaAux.tipo = '1'; 
-                if(len==n /*&& VerificarCamino(listaCamino, arrayEntrada, n)=='1'*/){
-                    //printf("llego a len = n\n");
-                    
+                if(len==n){      
                     cont = cont + 1;//imprime camino y verifica len y la solucion
                     //printf("------------------Camino verificado-----------------\n");
                     //PrintLista(listaCamino);
-                    //printf("---------------Camino Arbol--------------------\n");
-                    //inOrderPath(Camino_tree);
-                    //printf("-----------------------------------\n");
                 }
                 while(isEmpty(&pila)=='0'){
                     verificador = pop(&pila);
-                    //printf("valor quitado: %u\n", popvaloraux);
                     if(verificador.tipo == '0') {
-                        //printf("valor: %u es de tipo %c \n", popvaloraux, poptipoaux);
                         push(&pila, '0', verificador.posicion); // Volver a poner si no es '1'
                         break;
                     }
                     else{
-                        //printf("se quita el valor: %u de la lista camino \n", popvaloraux);
                         //listaCamino = DeleteLastLista(listaCamino);
                         Camino_tree = DeletePath(Camino_tree, verificador.posicion);
-                        //printf("Lista camino despues de eliminar:\n");
-                        //PrintList(listaCamino);
                         len = len - 1;
                     }
                 }
@@ -524,7 +491,6 @@ int main(int argc, char *argv[]){
     freePath_AVL(Camino_tree);
     free_AVL(alcanzabilidad_tree);
 
-    //KillAll(listaAlcanzabilidad);
     destroyStack(&pila);
     //Revisamos si tenemos que restar 1 por si el input ya viene como un camino valido
     if(RevisaInput(arrayEntrada, n)=='1'){
