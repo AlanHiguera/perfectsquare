@@ -377,7 +377,7 @@ int main(int argc, char *argv[]){
     unsigned int seguimiento;
     unsigned int posicion;
     unsigned int n;
-    mpz_t cont;  // ✅ Variable para números grandes 
+    mpz_t cont;
 
     posicion = 0;
     seguimiento = 0;
@@ -401,21 +401,6 @@ int main(int argc, char *argv[]){
     
     pares_perfectos(Alcance, arrayEntrada, n);
 
-    /*
-    printf("Array de entrada:\n");
-    for(int i = 0; i < n; i++) {
-        printf("%u ", arrayEntrada[i]);
-    }
-    printf("\n");
-    
-    printf("Listas de valores alcanzables:\n");
-    for(int i = 0; i < n; i++) {
-        printf("%d Lista: ", i);
-        PrintLista(Alcance[i]);
-    }*/
-
-    //printf("lenalc = %u\n", lenalc);
-
     if(flag == '1'){
         printf("Hay un elemento que no forma cuadrado perfecto con ningun otro.\n");
         printf("Cantidad de caminos encontrados: 0\n");
@@ -433,39 +418,25 @@ int main(int argc, char *argv[]){
 
         while(isEmpty(&pila) == '0' || init =='0'){
             elementoPilaAux = pop(&pila);
-            //veamos el elemento que se insertó
-            //printf("Elemento insertado en el camino: %u\n", elementoPilaAux.posicion);
 
             Camino_tree = insertPath_AVL(Camino_tree, elementoPilaAux.posicion);
             len = len +1;
-            //printf("Checkpoint camino \n");
-            //inOrderPath(Camino_tree); // Comentamos para evitar debug output
-            //printf("------------\n");
-            //llenar el alcance desde k
-            listaaux = llenarAlcance(listaaux, Alcance, elementoPilaAux.posicion, Camino_tree);
-                //printf("Lista de alcance:------------\n");
-                //PrintListReg(listaaux);
 
-            //printf("checkpoint para listaaux\n");
-            //PrintLista(listaaux);
-            //printf("------------------\n");
+            listaaux = llenarAlcance(listaaux, Alcance, elementoPilaAux.posicion, Camino_tree);
+
             push(&pila, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado dsp
-            //printf("Lista camino actual:\n");
-            //PrintList(listaCamino);
+
 
             if(listaaux != NULL){
-                //printf(" listaaux no es nula\n");
                 llenarPila(&pila, listaaux);
-                //printf("pila despues de llenar pila:\n");
                 listaaux = KillAllLista(listaaux);
-                //PrintStack(&pila);
+
             }
             else if(listaaux == NULL && elementoPilaAux.tipo=='0'){
                 elementoPilaAux.tipo = '1'; 
                 if(len==n){      
-                    mpz_add_ui(cont, cont, 1);  // ✅ Incrementar usando GMP
-                    //printf("------------------Camino verificado-----------------\n");
-                    //PrintLista(listaCamino);
+                    mpz_add_ui(cont, cont, 1);
+
                 }
                 while(isEmpty(&pila)=='0'){
                     verificador = pop(&pila);
@@ -474,15 +445,12 @@ int main(int argc, char *argv[]){
                         break;
                     }
                     else{
-                        //listaCamino = DeleteLastLista(listaCamino);
                         Camino_tree = DeletePath(Camino_tree, verificador.posicion);
                         len = len - 1;
                     }
                 }
             }
-            //printf("listaCamino------");
-            //PrintListReg(listaCamino);
-            //PrintStack(&pila);
+
             init = '1';
             seguimiento = seguimiento + 1;
 
