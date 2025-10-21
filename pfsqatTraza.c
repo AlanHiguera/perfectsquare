@@ -12,12 +12,97 @@
 
 
 unsigned char flag = '0'; //flag que indica si la lista de alcanzabilidad se puede permutar o no
+struct Node {
+    unsigned int valor;
+    unsigned int posicion;
+    unsigned char tipo; //0 para pivote 1 para complementario
+    struct Node *next;
+};
+
+struct Node *insertar(struct Node *p, unsigned int x, unsigned int pos, unsigned char y) {//Función de manipulación de lista en la cual se guardarán los nodos visitados.
+    struct Node *q, *l;
+    if (p == NULL) { // p is an empty list
+        q = calloc(1, sizeof(struct Node));
+        q->valor = x;
+        q->posicion = pos;
+        q->tipo = y;
+        q->next = NULL;
+        p = q;
+    } else {
+        q = calloc(1, sizeof(struct Node));
+        q->valor = x;
+        q->posicion = pos;
+        q->tipo = y;
+        q->next = NULL;
+        l = p;
+        while (l->next != NULL)
+            l = l->next;
+        l->next = q;
+    }
+    return p;
+}
+
+struct Node *DeleteFirst(struct Node *p){
+    struct Node *q;
+    if (p != NULL) {
+        q = p->next;
+        free(p);
+        return q;
+    }
+    return NULL;
+}
+
+struct Node *DeleteLast(struct Node *p){
+    struct Node *q;
+    struct Node *head = p; // Guardar referencia al primer nodo
+
+    // Verificar que la lista no esté vacía
+    if(p == NULL){
+        return NULL;
+    }
+
+    // Si solo hay un elemento
+    if(p->next == NULL){
+        free(p);
+        return NULL;
+    }
+    
+    // Encontrar el penúltimo nodo
+    while (p->next->next != NULL){
+        p = p->next;
+    }
+    
+    // Ahora p apunta al penúltimo nodo
+    q = p->next;      // Guardar referencia al último nodo
+    p->next = NULL;   // Desconectar el último nodo
+    free(q);          // Liberar el último nodo
+    
+    return head;      // Retornar el primer nodo
+}
 
 
+struct Node *KillAll(struct Node *p){
+    while (p != NULL)
+        p = DeleteFirst(p);
+    return NULL;
+}
+
+void PrintList(struct Node *p){
+    printf("Valor || Posicion\n");
+    while (p != NULL) {
+        if(p->tipo == '0')
+            printf("\n [ %u, %u]",p->valor, p->posicion);
+        else
+            printf("[ %u, %u]",p->valor, p->posicion);
+        p = p->next;
+    }
+    printf("\n\n");
+}
 //------------------------------Pila------------------------------//
 //Esta pila va manejar un struct que va tener el valor, el tipo(para saber si ya fue revisado) y la posicion en lista alcanzabilidad.
 
 struct ElementoPila {
+    unsigned int valor;
     unsigned char tipo; //0 para no revisado, 1 para revisado
     unsigned int posicion; //posicion en la lista de alcanzabilidad
 };
@@ -49,12 +134,13 @@ unsigned char isEmpty(struct Stack *stack){
         return '0';  
 }
 
-void push(struct Stack *stack, unsigned char tipo, unsigned int posicion) {
+void push(struct Stack *stack, unsigned int valor, unsigned char tipo, unsigned int posicion) {
     if (isFull(stack)=='1') {
         return;
     }
 
     struct ElementoPila nuevoElemento;
+    nuevoElemento.valor = valor;
     nuevoElemento.tipo = tipo;
     nuevoElemento.posicion = posicion;
 
@@ -66,9 +152,9 @@ struct ElementoPila pop(struct Stack *stack){
     struct ElementoPila elementoaux;
     elementoaux.tipo = '0'; 
     elementoaux.posicion = 0; 
+    elementoaux.valor = 0;
     
     if (isEmpty(stack)=='1'){
-        printf("Stack Underflow\n");
         return elementoaux;
     }
 
@@ -77,9 +163,9 @@ struct ElementoPila pop(struct Stack *stack){
     return elementoaux;
 }
 
-void llenarPila(struct Stack *pila, struct L_enlazada *listaaux){
+void llenarPila(struct Stack *pila, struct Node *listaaux){
     while(listaaux != NULL){
-        push(pila, '0', listaaux->posicion);
+        push(pila, listaaux->valor, '0', listaaux->posicion);
         listaaux = listaaux->next;
     }
 }
@@ -144,7 +230,7 @@ void pares_perfectos(struct L_enlazada *Alcance[], unsigned int arrayEntrada[], 
 
 
 //Llenar alcance, vamos a tomar un valor y ver cuales son sus complementarios y echarlos a una lista
-struct L_enlazada *llenarAlcance(struct L_enlazada *listaaux, struct L_enlazada *Alcance[], unsigned int posicion, struct AVLPATH *Camino_tree){
+struct Node *llenarAlcance(struct Node *listaaux, struct L_enlazada *Alcance[], unsigned int posicion, struct AVLPATH *Camino_tree, unsigned int arrayEntrada[]){
     //Con el valor dado, buscamos en el arbol cual es la lista y la guardamos en aux
     //Dado el alcance tendremos que verificar en el arbol camino que estos elementos no esten ahi
     struct L_enlazada *aux = NULL;
@@ -153,7 +239,7 @@ struct L_enlazada *llenarAlcance(struct L_enlazada *listaaux, struct L_enlazada 
     //buscamos que no esten en el arbol camino
     while(aux != NULL){
         if(searchPath(Camino_tree, aux->posicion) == '0'){ //si no existe en el arbol camino
-            listaaux = insertaLista(listaaux, aux->posicion);
+            listaaux = insertar(listaaux, arrayEntrada[aux->posicion], aux->posicion, '0');
         }
         aux = aux->next;
     }
@@ -186,11 +272,12 @@ void destroyStack(struct Stack *stack) {
 
 int main(int argc, char *argv[]){
     //leer los elemetentos de la lista de entrada. Los guardamos en un array estatico.
-    struct L_enlazada *listaaux = NULL;
+    struct Node *listaaux = NULL;
     struct L_enlazada *listaAlcanzabilidad = NULL;
     struct ElementoPila elementoPilaAux;
     struct ElementoPila verificador;
     struct Stack pila;
+    struct Node *listaCamino = NULL;
 
     struct AVLPATH *Camino_tree = NULL;
 
@@ -237,38 +324,40 @@ int main(int argc, char *argv[]){
     if(flag == '0'){ //Ejecutamos el algoritmo de backtracking
         for (unsigned int i = 0; i < n; i = i + 1){
 
-        push(&pila, '0', i);
+        push(&pila, arrayEntrada[i], '0', i);
 
         while(isEmpty(&pila) == '0' || init =='0'){
             elementoPilaAux = pop(&pila);//quitamos de la pila
 
             Camino_tree = insertPath_AVL(Camino_tree, elementoPilaAux.posicion); //ingresamos al camino
+            listaCamino = insertar(listaCamino, elementoPilaAux.valor, elementoPilaAux.posicion, elementoPilaAux.tipo);
             len = len +1;
 
-            listaaux = llenarAlcance(listaaux, Alcance, elementoPilaAux.posicion, Camino_tree); //calculamos el alcance y lo guardamos en lista auxiliar
+            listaaux = llenarAlcance(listaaux, Alcance, elementoPilaAux.posicion, Camino_tree, arrayEntrada); //calculamos el alcance y lo guardamos en lista auxiliar
 
-            push(&pila, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado dsp
+            push(&pila, elementoPilaAux.valor, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado dsp
 
 
             if(listaaux != NULL){//llenamos la pila con el alcance
                 llenarPila(&pila, listaaux);
-                listaaux = KillAllLista(listaaux);
+                listaaux = KillAll(listaaux);
 
             }//verificamos si la listaaux es vacía, significa que llegamos al final de una rama de computo.
             else if(listaaux == NULL && elementoPilaAux.tipo=='0'){
                 elementoPilaAux.tipo = '1'; 
                 if(len==n){//chequamos el largo del camino para saber si es valido o no      
                     mpz_add_ui(cont, cont, 1);
-
+                    PrintList(listaCamino);
                 }
                 while(isEmpty(&pila)=='0'){//despues de verificar borramos elementos de la pila y del camino hasta encontrar la sgte rama de computo
                     verificador = pop(&pila);
                     if(verificador.tipo == '0') {
-                        push(&pila, '0', verificador.posicion);
+                        push(&pila, verificador.valor, '0', verificador.posicion);
                         break;
                     }
                     else{
                         Camino_tree = DeletePath(Camino_tree, verificador.posicion);
+                        listaCamino = DeleteLast(listaCamino);
                         len = len - 1;
                     }
                 }

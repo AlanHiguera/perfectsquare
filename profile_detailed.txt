@@ -1,0 +1,322 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ns/call  ns/call  name    
+ 17.62      0.21     0.21 88776900     2.42     2.42  searchPath
+ 16.80      0.42     0.20 23356990     8.78    10.06  push
+ 10.66      0.55     0.13  9864100    13.18    41.06  llenarAlcance
+  9.84      0.67     0.12  9864100    12.17    24.66  insertPath_AVL
+  9.02      0.78     0.11  9864100    11.15    20.46  DeletePath
+  8.20      0.88     0.10 246560188     0.41     0.41  getHeightPath
+  4.92      0.94     0.06  9864180     6.08     6.08  insertaLista
+  3.28      0.98     0.04  9864100     4.06     4.06  createAVLPath
+  2.87      1.01     0.04 57479492     0.61     1.42  getBalanceFactorPath
+  2.87      1.05     0.04 46714000     0.75     0.75  isEmpty
+  2.46      1.08     0.03 23356990     1.28     1.28  isFull
+  2.46      1.11     0.03                             main
+  2.05      1.14     0.03  1472856    16.97    16.97  findMinPath
+  1.64      1.16     0.02 23356990     0.86     1.61  pop
+  1.64      1.18     0.02                             copiarLista
+  1.23      1.19     0.01 65800602     0.23     0.23  maxPath
+  0.82      1.20     0.01  9864180     1.01     1.01  DeleteFirstLista
+  0.82      1.21     0.01  6235310     1.60     3.21  KillAllLista
+  0.82      1.22     0.01                             _init
+  0.00      1.22     0.00  6235300     0.00    15.92  llenarPila
+  0.00      1.22     0.00  2207705     0.00     2.08  rightRotatePath
+  0.00      1.22     0.00  2092962     0.00     2.08  leftRotatePath
+  0.00      1.22     0.00       99     0.00     0.00  is_perfect_square
+  0.00      1.22     0.00        1     0.00     0.00  ReadData
+  0.00      1.22     0.00        1     0.00     0.00  RevisaInput
+  0.00      1.22     0.00        1     0.00     0.00  destroyStack
+  0.00      1.22     0.00        1     0.00     0.00  freePath_AVL
+  0.00      1.22     0.00        1     0.00     0.00  initialize
+  0.00      1.22     0.00        1     0.00   547.44  pares_perfectos
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2024 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.82% of 1.22 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     97.5    0.03    1.16                 main [1]
+                0.13    0.27 9864100/9864100     llenarAlcance [2]
+                0.12    0.12 9864100/9864100     insertPath_AVL [3]
+                0.11    0.09 9864100/9864100     DeletePath [6]
+                0.12    0.02 13492900/23356990     push [4]
+                0.00    0.10 6235300/6235300     llenarPila [8]
+                0.02    0.02 23356990/23356990     pop [12]
+                0.01    0.01 6235310/6235310     KillAllLista [16]
+                0.02    0.00 23357010/46714000     isEmpty [13]
+                0.00    0.00       1/1           pares_perfectos [23]
+                0.00    0.00       1/1           initialize [29]
+                0.00    0.00       1/1           ReadData [25]
+                0.00    0.00       1/1           freePath_AVL [28]
+                0.00    0.00       1/1           destroyStack [27]
+                0.00    0.00       1/1           RevisaInput [26]
+-----------------------------------------------
+                0.13    0.27 9864100/9864100     main [1]
+[2]     33.2    0.13    0.27 9864100         llenarAlcance [2]
+                0.21    0.00 88776900/88776900     searchPath [5]
+                0.06    0.00 9864090/9864180     insertaLista [10]
+-----------------------------------------------
+                             30434309             insertPath_AVL [3]
+                0.12    0.12 9864100/9864100     main [1]
+[3]     19.9    0.12    0.12 9864100+30434309 insertPath_AVL [3]
+                0.02    0.02 30434309/57479492     getBalanceFactorPath [9]
+                0.04    0.00 9864100/9864100     createAVLPath [11]
+                0.02    0.00 60868618/246560188     getHeightPath [7]
+                0.01    0.00 30434309/65800602     maxPath [18]
+                0.00    0.00 2042783/2207705     rightRotatePath [21]
+                0.00    0.00 1977660/2092962     leftRotatePath [22]
+                             30434309             insertPath_AVL [3]
+-----------------------------------------------
+                0.09    0.01 9864090/23356990     llenarPila [8]
+                0.12    0.02 13492900/23356990     main [1]
+[4]     19.3    0.20    0.03 23356990         push [4]
+                0.03    0.00 23356990/23356990     isFull [14]
+-----------------------------------------------
+                             163819434             searchPath [5]
+                0.21    0.00 88776900/88776900     llenarAlcance [2]
+[5]     17.6    0.21    0.00 88776900+163819434 searchPath [5]
+                             163819434             searchPath [5]
+-----------------------------------------------
+                             26764959             DeletePath [6]
+                0.11    0.09 9864100/9864100     main [1]
+[6]     16.5    0.11    0.09 9864100+26764959 DeletePath [6]
+                0.02    0.02 27045183/57479492     getBalanceFactorPath [9]
+                0.03    0.00 1472856/1472856     findMinPath [15]
+                0.02    0.00 53529918/246560188     getHeightPath [7]
+                0.01    0.00 26764959/65800602     maxPath [18]
+                0.00    0.00  164922/2207705     rightRotatePath [21]
+                0.00    0.00  115302/2092962     leftRotatePath [22]
+                             26764959             DeletePath [6]
+-----------------------------------------------
+                0.00    0.00 8371848/246560188     leftRotatePath [22]
+                0.00    0.00 8830820/246560188     rightRotatePath [21]
+                0.02    0.00 53529918/246560188     DeletePath [6]
+                0.02    0.00 60868618/246560188     insertPath_AVL [3]
+                0.05    0.00 114958984/246560188     getBalanceFactorPath [9]
+[7]      8.2    0.10    0.00 246560188         getHeightPath [7]
+-----------------------------------------------
+                0.00    0.10 6235300/6235300     main [1]
+[8]      8.1    0.00    0.10 6235300         llenarPila [8]
+                0.09    0.01 9864090/23356990     push [4]
+-----------------------------------------------
+                0.02    0.02 27045183/57479492     DeletePath [6]
+                0.02    0.02 30434309/57479492     insertPath_AVL [3]
+[9]      6.7    0.04    0.05 57479492         getBalanceFactorPath [9]
+                0.05    0.00 114958984/246560188     getHeightPath [7]
+-----------------------------------------------
+                0.00    0.00      90/9864180     pares_perfectos [23]
+                0.06    0.00 9864090/9864180     llenarAlcance [2]
+[10]     4.9    0.06    0.00 9864180         insertaLista [10]
+-----------------------------------------------
+                0.04    0.00 9864100/9864100     insertPath_AVL [3]
+[11]     3.3    0.04    0.00 9864100         createAVLPath [11]
+-----------------------------------------------
+                0.02    0.02 23356990/23356990     main [1]
+[12]     3.1    0.02    0.02 23356990         pop [12]
+                0.02    0.00 23356990/46714000     isEmpty [13]
+-----------------------------------------------
+                0.02    0.00 23356990/46714000     pop [12]
+                0.02    0.00 23357010/46714000     main [1]
+[13]     2.9    0.04    0.00 46714000         isEmpty [13]
+-----------------------------------------------
+                0.03    0.00 23356990/23356990     push [4]
+[14]     2.5    0.03    0.00 23356990         isFull [14]
+-----------------------------------------------
+                0.03    0.00 1472856/1472856     DeletePath [6]
+[15]     2.0    0.03    0.00 1472856         findMinPath [15]
+-----------------------------------------------
+                0.01    0.01 6235310/6235310     main [1]
+[16]     1.6    0.01    0.01 6235310         KillAllLista [16]
+                0.01    0.00 9864180/9864180     DeleteFirstLista [19]
+-----------------------------------------------
+                                                 <spontaneous>
+[17]     1.6    0.02    0.00                 copiarLista [17]
+-----------------------------------------------
+                0.00    0.00 4185924/65800602     leftRotatePath [22]
+                0.00    0.00 4415410/65800602     rightRotatePath [21]
+                0.01    0.00 26764959/65800602     DeletePath [6]
+                0.01    0.00 30434309/65800602     insertPath_AVL [3]
+[18]     1.2    0.01    0.00 65800602         maxPath [18]
+-----------------------------------------------
+                0.01    0.00 9864180/9864180     KillAllLista [16]
+[19]     0.8    0.01    0.00 9864180         DeleteFirstLista [19]
+-----------------------------------------------
+                                                 <spontaneous>
+[20]     0.8    0.01    0.00                 _init [20]
+-----------------------------------------------
+                0.00    0.00  164922/2207705     DeletePath [6]
+                0.00    0.00 2042783/2207705     insertPath_AVL [3]
+[21]     0.4    0.00    0.00 2207705         rightRotatePath [21]
+                0.00    0.00 8830820/246560188     getHeightPath [7]
+                0.00    0.00 4415410/65800602     maxPath [18]
+-----------------------------------------------
+                0.00    0.00  115302/2092962     DeletePath [6]
+                0.00    0.00 1977660/2092962     insertPath_AVL [3]
+[22]     0.4    0.00    0.00 2092962         leftRotatePath [22]
+                0.00    0.00 8371848/246560188     getHeightPath [7]
+                0.00    0.00 4185924/65800602     maxPath [18]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[23]     0.0    0.00    0.00       1         pares_perfectos [23]
+                0.00    0.00      90/9864180     insertaLista [10]
+                0.00    0.00      90/99          is_perfect_square [24]
+-----------------------------------------------
+                0.00    0.00       9/99          RevisaInput [26]
+                0.00    0.00      90/99          pares_perfectos [23]
+[24]     0.0    0.00    0.00      99         is_perfect_square [24]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[25]     0.0    0.00    0.00       1         ReadData [25]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[26]     0.0    0.00    0.00       1         RevisaInput [26]
+                0.00    0.00       9/99          is_perfect_square [24]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[27]     0.0    0.00    0.00       1         destroyStack [27]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[28]     0.0    0.00    0.00       1         freePath_AVL [28]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[29]     0.0    0.00    0.00       1         initialize [29]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2024 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [19] DeleteFirstLista       [28] freePath_AVL            [2] llenarAlcance
+   [6] DeletePath              [9] getBalanceFactorPath    [8] llenarPila
+  [16] KillAllLista            [7] getHeightPath           [1] main
+  [25] ReadData               [29] initialize             [18] maxPath
+  [26] RevisaInput             [3] insertPath_AVL         [23] pares_perfectos
+  [20] _init                  [10] insertaLista           [12] pop
+  [17] copiarLista            [13] isEmpty                 [4] push
+  [11] createAVLPath          [14] isFull                 [21] rightRotatePath
+  [27] destroyStack           [24] is_perfect_square       [5] searchPath
+  [15] findMinPath            [22] leftRotatePath

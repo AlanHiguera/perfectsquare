@@ -3,16 +3,12 @@ Flat profile:
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
  time   seconds   seconds    calls  ns/call  ns/call  name    
- 65.92      1.18     1.18  9864100   119.63   119.63  llenarAlcance
- 25.70      1.64     0.46                             main
-  5.59      1.74     0.10 13492890     7.41     7.41  pop
-  1.68      1.77     0.03  9864100     3.04     3.04  DeleteLastReg
-  1.12      1.79     0.02                             _init
-  0.00      1.79     0.00        1     0.00     0.00  PrintList
-  0.00      1.79     0.00        1     0.00     0.00  ReadData
-  0.00      1.79     0.00        1     0.00     0.00  RevisaInput
-  0.00      1.79     0.00        1     0.00     0.00  initialize
-  0.00      1.79     0.00        1     0.00     0.00  pares_perfectos
+ 62.69      0.42     0.42                             main
+ 20.90      0.56     0.14  9864100    14.19    14.19  insertPath_AVL
+ 16.42      0.67     0.11  9864100    11.15    11.15  DeletePath
+  0.00      0.67     0.00 13492890     0.00     0.00  pop
+  0.00      0.67     0.00        1     0.00     0.00  RevisaInput
+  0.00      0.67     0.00        1     0.00     0.00  pares_perfectos
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -50,46 +46,35 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 4 byte(s) for 0.56% of 1.79 seconds
+granularity: each sample hit covers 4 byte(s) for 1.49% of 0.67 seconds
 
 index % time    self  children    called     name
                                                  <spontaneous>
-[1]     98.9    0.46    1.31                 main [1]
-                1.18    0.00 9864100/9864100     llenarAlcance [2]
-                0.10    0.00 13492890/13492890     pop [3]
-                0.03    0.00 9864100/9864100     DeleteLastReg [4]
-                0.00    0.00       1/1           initialize [9]
-                0.00    0.00       1/1           pares_perfectos [10]
-                0.00    0.00       1/1           ReadData [7]
-                0.00    0.00       1/1           PrintList [6]
-                0.00    0.00       1/1           RevisaInput [8]
+[1]    100.0    0.42    0.25                 main [1]
+                0.14    0.00 9864100/9864100     insertPath_AVL [2]
+                0.11    0.00 9864100/9864100     DeletePath [3]
+                0.00    0.00 13492890/13492890     pop [4]
+                0.00    0.00       1/1           pares_perfectos [6]
+                0.00    0.00       1/1           RevisaInput [5]
 -----------------------------------------------
-                1.18    0.00 9864100/9864100     main [1]
-[2]     65.9    1.18    0.00 9864100         llenarAlcance [2]
+                             30434309             insertPath_AVL [2]
+                0.14    0.00 9864100/9864100     main [1]
+[2]     20.9    0.14    0.00 9864100+30434309 insertPath_AVL [2]
+                             30434309             insertPath_AVL [2]
 -----------------------------------------------
-                0.10    0.00 13492890/13492890     main [1]
-[3]      5.6    0.10    0.00 13492890         pop [3]
+                             26764959             DeletePath [3]
+                0.11    0.00 9864100/9864100     main [1]
+[3]     16.4    0.11    0.00 9864100+26764959 DeletePath [3]
+                             26764959             DeletePath [3]
 -----------------------------------------------
-                0.03    0.00 9864100/9864100     main [1]
-[4]      1.7    0.03    0.00 9864100         DeleteLastReg [4]
------------------------------------------------
-                                                 <spontaneous>
-[5]      1.1    0.02    0.00                 _init [5]
+                0.00    0.00 13492890/13492890     main [1]
+[4]      0.0    0.00    0.00 13492890         pop [4]
 -----------------------------------------------
                 0.00    0.00       1/1           main [1]
-[6]      0.0    0.00    0.00       1         PrintList [6]
+[5]      0.0    0.00    0.00       1         RevisaInput [5]
 -----------------------------------------------
                 0.00    0.00       1/1           main [1]
-[7]      0.0    0.00    0.00       1         ReadData [7]
------------------------------------------------
-                0.00    0.00       1/1           main [1]
-[8]      0.0    0.00    0.00       1         RevisaInput [8]
------------------------------------------------
-                0.00    0.00       1/1           main [1]
-[9]      0.0    0.00    0.00       1         initialize [9]
------------------------------------------------
-                0.00    0.00       1/1           main [1]
-[10]     0.0    0.00    0.00       1         pares_perfectos [10]
+[6]      0.0    0.00    0.00       1         pares_perfectos [6]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
@@ -182,7 +167,5 @@ notice and this notice are preserved.
 
 Index by function name
 
-   [4] DeleteLastReg           [5] _init                  [10] pares_perfectos
-   [6] PrintList               [9] initialize              [3] pop
-   [7] ReadData                [2] llenarAlcance
-   [8] RevisaInput             [1] main
+   [3] DeletePath              [2] insertPath_AVL          [6] pares_perfectos
+   [5] RevisaInput             [1] main                    [4] pop
