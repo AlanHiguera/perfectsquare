@@ -264,7 +264,7 @@ void llenarPila(Stack *pila, struct L_enlazada *listaaux){
 void PrintStack(Stack *pila){
     struct ElementoPila elemento;
     for(int i = pila->top; i >= 0; i--) {
-        elemento = pila->arr[i];
+        elemento = *(pila->arr + i);
         printf("Value %u, Tipo %c, Posicion %u\n", elemento.valor, elemento.tipo, elemento.posicion);
     }
     printf("\n");
@@ -273,7 +273,12 @@ void PrintStack(Stack *pila){
 //---------------------------Funciones principales---------------------------//
 //funcion que chequea si un numero es cuadrado perfecto
 unsigned char is_perfect_square(unsigned int x){
+
     unsigned int i;
+    if(x%4!=0 && x%4!=1){ // los cuadrados perfectos solo pueden ser congruentes con 0 o 1 modulo 4
+        return '0';
+    }
+
     for(i = 0; i*i <= x; i = i + 1){
         if(i*i == x)
             return '1';
@@ -300,9 +305,9 @@ void pares_perfectos(struct L_enlazada *Alcance[], unsigned int arrayEntrada[], 
         
         // Buscamos los valores que forman cuadrado perfecto con el elemento i
         for(j = 0; j < n; j = j + 1){
-            if(i != j && is_perfect_square(arrayEntrada[i] + arrayEntrada[j])=='1'){//si no es el mismo elemento y si la suma es cuadrado perfecto
+            if(i != j && is_perfect_square(*(arrayEntrada + i) + *(arrayEntrada + j))=='1'){//si no es el mismo elemento y si la suma es cuadrado perfecto
                 //printf("cuadrado perfecto encontrado entre %u y %u\n", arrayEntrada[i], arrayEntrada[j]);
-                Alcance[i] = insertaLista(Alcance[i], j); //inserto el VALOR del complemento
+                Alcance[i] = insertaLista(*(Alcance+i), j); //inserto el VALOR del complemento
                 lenalc = lenalc + 1;
                 imposiblepermutar = '1';
             }
@@ -344,7 +349,9 @@ unsigned char RevisaInput(unsigned int arrayEntrada[], unsigned int n){
     unsigned char valido;
     valido = '1';
     for(i = 0; i < n-1; i = i + 1){
-        if(is_perfect_square(arrayEntrada[i] + arrayEntrada[i+1])=='0'){
+        //chequeamos los sumandos
+        printf("Chequeando si %u + %u es cuadrado perfecto\n", (*(arrayEntrada + i)), (*(arrayEntrada + i + 1)));
+        if(is_perfect_square((*(arrayEntrada + i)) + (*(arrayEntrada + i + 1)))=='0'){
             valido = '0';//si no es perfect square entonces no es valido
             return valido;
         }
@@ -371,7 +378,7 @@ int main(int argc, char *argv[]){
 
     struct AVLPATH *Camino_tree = NULL;
 
-    
+    char *str;
     unsigned int len;
     unsigned char init;
     unsigned int seguimiento;
@@ -384,7 +391,7 @@ int main(int argc, char *argv[]){
     init = '1';
     len = 0; 
     mpz_init(cont);
-    mpz_set_ui(cont, 0);  // Inicializar explícitamente en 0
+    mpz_set_ui(cont, 0);
     
     n = atoi(argv[1]);
     unsigned int arrayEntrada[n];
@@ -395,8 +402,8 @@ int main(int argc, char *argv[]){
     struct L_enlazada *Alcance[n];
     
     // Inicializamos el array
-    for(int i = 0; i < n; i++) {
-        Alcance[i] = NULL;
+    for(unsigned int i = 0; i < n; i = i + 1) {
+        *(Alcance + i) = NULL;
     }
     
     pares_perfectos(Alcance, arrayEntrada, n);
@@ -411,37 +418,37 @@ int main(int argc, char *argv[]){
     clock_t start, end;
     double cpu_time_used;
     start = clock();
-    if(flag == '0'){ //Ejecutamos el algoritmo de pila
+    if(flag == '0'){ //Ejecutamos el algoritmo de backtracking
         for (unsigned int i = 0; i < n; i = i + 1){
 
         push(&pila, '0', i);
 
         while(isEmpty(&pila) == '0' || init =='0'){
-            elementoPilaAux = pop(&pila);
+            elementoPilaAux = pop(&pila);//quitamos de la pila
 
-            Camino_tree = insertPath_AVL(Camino_tree, elementoPilaAux.posicion);
+            Camino_tree = insertPath_AVL(Camino_tree, elementoPilaAux.posicion); //ingresamos al camino
             len = len +1;
 
-            listaaux = llenarAlcance(listaaux, Alcance, elementoPilaAux.posicion, Camino_tree);
+            listaaux = llenarAlcance(listaaux, Alcance, elementoPilaAux.posicion, Camino_tree); //calculamos el alcance y lo guardamos en lista auxiliar
 
             push(&pila, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado dsp
 
 
-            if(listaaux != NULL){
+            if(listaaux != NULL){//llenamos la pila con el alcance
                 llenarPila(&pila, listaaux);
                 listaaux = KillAllLista(listaaux);
 
-            }
+            }//verificamos si la listaaux es vacía, significa que llegamos al final de una rama de computo.
             else if(listaaux == NULL && elementoPilaAux.tipo=='0'){
                 elementoPilaAux.tipo = '1'; 
-                if(len==n){      
+                if(len==n){//chequamos el largo del camino para saber si es valido o no      
                     mpz_add_ui(cont, cont, 1);
 
                 }
-                while(isEmpty(&pila)=='0'){
+                while(isEmpty(&pila)=='0'){//desoues de verificar borramos elementos de la pila y del camino hasta encontrar la sgte rama de computo
                     verificador = pop(&pila);
                     if(verificador.tipo == '0') {
-                        push(&pila, '0', verificador.posicion); // Volver a poner si no es '1'
+                        push(&pila, '0', verificador.posicion);
                         break;
                     }
                     else{
@@ -462,15 +469,19 @@ int main(int argc, char *argv[]){
     printf("Tiempo de ejecucion: %f segundos\n", cpu_time_used);
     freePath_AVL(Camino_tree);
     for(int i = 0; i < n; i = i + 1){
-        KillAllLista(Alcance[i]);
+        KillAllLista(*(Alcance + i));
     }
+
     destroyStack(&pila);
+
     //Revisamos si tenemos que restar 1 por si el input ya viene como un camino valido
     if(RevisaInput(arrayEntrada, n)=='1'){
-        mpz_sub_ui(cont, cont, 1);  // ✅ Restar usando GMP
+        mpz_sub_ui(cont, cont, 1); 
     }
+
     printf("Cantidad de caminos encontrados: ");
-    char *str = mpz_get_str(NULL, 10, cont);
+    
+    str = mpz_get_str(NULL, 10, cont);
     printf("%s\n", str);
     free(str);
     mpz_clear(cont);
