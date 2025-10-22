@@ -98,14 +98,20 @@ void PrintStack(struct Stack *pila){
 unsigned char is_perfect_square(unsigned int x){
 
     unsigned int i;
-    if(x%4!=0 && x%4!=1){ // los cuadrados perfectos solo pueden ser congruentes con 0 o 1 modulo 4
-        return '0';
-    }
+    //if(x%4!=0 && x%4!=1){ // los cuadrados perfectos solo pueden ser congruentes con 0 o 1 modulo 4
+    //    return '0';
+    //}
 
-    for(i = 0; i*i <= x; i = i + 1){
-        if(i*i == x)
-            return '1';
+    i = sqrt(x);
+
+    if(i*i == x){
+        return '1';
     }
+    
+    if((i+1)*(i+1) == x){
+        return '1';
+    }
+    
     return '0';
 }
 
