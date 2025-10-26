@@ -149,13 +149,13 @@ void pares_perfectos(struct L_enlazada *Alcance[], unsigned int arrayEntrada[], 
 
 
 
-//Llenar alcance, vamos a tomar un valor y ver cuales son sus complementarios y echarlos a una lista
+//Llenar alcance, vamos a tomar un valor y ver cuales son sus complementos y echarlos a una lista
 struct L_enlazada *llenarAlcance(struct L_enlazada *listaaux, struct L_enlazada *Alcance[], unsigned int posicion, struct AVLPATH *Camino_tree){
     //Con el valor dado, buscamos en el arbol cual es la lista y la guardamos en aux
     //Dado el alcance tendremos que verificar en el arbol camino que estos elementos no esten ahi
     struct L_enlazada *aux = NULL;
 
-    aux = Alcance[posicion];
+    aux = *(Alcance + posicion);
     //buscamos que no esten en el arbol camino
     while(aux != NULL){
         if(searchPath(Camino_tree, aux->posicion) == '0'){ //si no existe en el arbol camino
