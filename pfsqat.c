@@ -12,12 +12,12 @@
 
 
 unsigned char flag = '0'; //flag que indica si la lista de alcanzabilidad se puede permutar o no
-
-
+unsigned int cantpila = 0; //contador de la cantidad de elementos en la pila
+unsigned int maxpila = 0; //máximo tamaño de pila alcanzado
 //------------------------------Pila------------------------------//
 //Esta pila va manejar un struct que va tener el valor, el tipo(para saber si ya fue revisado) y la posicion en lista alcanzabilidad.
 
-struct ElementoPila {
+struct ElementoPila{
     unsigned char tipo; //0 para no revisado, 1 para revisado
     unsigned int posicion; //posicion en la lista de alcanzabilidad
 };
@@ -60,6 +60,12 @@ void push(struct Stack *stack, unsigned char tipo, unsigned int posicion) {
 
     stack->top = stack->top + 1;
     stack->arr[stack->top] = nuevoElemento;
+    cantpila = cantpila + 1;  // AGREGADO: incrementar contador
+    
+    // Actualizar máximo si es necesario
+    if(cantpila > maxpila){
+        maxpila = cantpila;
+    }
 }
 
 struct ElementoPila pop(struct Stack *stack){
@@ -74,12 +80,14 @@ struct ElementoPila pop(struct Stack *stack){
 
     elementoaux = stack->arr[stack->top];
     stack->top = stack->top - 1;
+    cantpila = cantpila - 1;  // AGREGADO: decrementar contador
     return elementoaux;
 }
 
 void llenarPila(struct Stack *pila, struct L_enlazada *listaaux){
     while(listaaux != NULL){
         push(pila, '0', listaaux->posicion);
+        // REMOVIDO: cantpila ya se incrementa en push()
         listaaux = listaaux->next;
     }
 }
@@ -193,7 +201,6 @@ void destroyStack(struct Stack *stack) {
 int main(int argc, char *argv[]){
     //leer los elemetentos de la lista de entrada. Los guardamos en un array estatico.
     struct L_enlazada *listaaux = NULL;
-    struct L_enlazada *listaAlcanzabilidad = NULL;
     struct ElementoPila elementoPilaAux;
     struct ElementoPila verificador;
     struct Stack pila;
@@ -240,21 +247,24 @@ int main(int argc, char *argv[]){
     clock_t start, end;
     double cpu_time_used;
     start = clock();
+
+    // maxpila ya está declarada globalmente
+
     if(flag == '0'){ //Ejecutamos el algoritmo de backtracking
         for (unsigned int i = 0; i < n; i = i + 1){
-
+        cantpila = 0;
         push(&pila, '0', i);
-
+        // REMOVIDO: cantpila ya se incrementa en push()
         while(isEmpty(&pila) == '0' || init =='0'){
             elementoPilaAux = pop(&pila);//quitamos de la pila
-
+            // REMOVIDO: cantpila ya se decrementa en pop()
             Camino_tree = insertPath_AVL(Camino_tree, elementoPilaAux.posicion); //ingresamos al camino
             len = len +1;
 
             listaaux = llenarAlcance(listaaux, Alcance, elementoPilaAux.posicion, Camino_tree); //calculamos el alcance y lo guardamos en lista auxiliar
 
             push(&pila, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado dsp
-
+            // REMOVIDO: cantpila ya se incrementa en push()
 
             if(listaaux != NULL){//llenamos la pila con el alcance
                 llenarPila(&pila, listaaux);
@@ -269,8 +279,10 @@ int main(int argc, char *argv[]){
                 }
                 while(isEmpty(&pila)=='0'){//despues de verificar borramos elementos de la pila y del camino hasta encontrar la sgte rama de computo
                     verificador = pop(&pila);
+                    // REMOVIDO: cantpila ya se decrementa en pop()
                     if(verificador.tipo == '0') {
                         push(&pila, '0', verificador.posicion);
+                        // REMOVIDO: cantpila ya se incrementa en push()
                         break;
                     }
                     else{
@@ -279,10 +291,10 @@ int main(int argc, char *argv[]){
                     }
                 }
             }
-
             init = '1';
             seguimiento = seguimiento + 1;
 
+        // maxpila se actualiza automáticamente en push()
         }
         }
     }
@@ -295,7 +307,7 @@ int main(int argc, char *argv[]){
     }
 
     destroyStack(&pila);
-
+    printf("Maximo tamaño de la pila alcanzado: %u\n", maxpila);
     //Revisamos si tenemos que restar 1 por si el input ya viene como un camino valido
     if(RevisaInput(arrayEntrada, n)=='1'){
         mpz_sub_ui(cont, cont, 1); 
