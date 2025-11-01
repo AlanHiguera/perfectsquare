@@ -6,7 +6,8 @@
 #include <math.h>
 #include "listaEnlazada.h"
 #include "avlpath.h"
-
+#include "Stack.h"
+#include "tipStack.h"
 #include <stdbool.h>
 #include <gmp.h>  
 
@@ -15,101 +16,11 @@ unsigned char flag = '0'; //flag que indica si la lista de alcanzabilidad se pue
 unsigned int cantpila = 0; //contador de la cantidad de elementos en la pila
 unsigned int maxpila = 0; //máximo tamaño de pila alcanzado
 //------------------------------Pila------------------------------//
-//Esta pila va manejar un struct que va tener el valor, el tipo(para saber si ya fue revisado) y la posicion en lista alcanzabilidad.
-
-struct ElementoPila{
-    unsigned char tipo; //0 para no revisado, 1 para revisado
-    unsigned int posicion; //posicion en la lista de alcanzabilidad
-};
-
-struct Stack {
-    struct ElementoPila *arr;  
-    int top;
-    int maxSize;              
-};
-
-void initialize(struct Stack *stack, unsigned int n){
-    stack->maxSize = n;  
-    stack->arr = calloc(stack->maxSize, sizeof(struct ElementoPila));
-
-    stack->top = -1;
-}
-
-unsigned char isFull(struct Stack *stack){
-    if(stack->top == stack->maxSize - 1)
-        return '1';
-    else        
-        return '0';  
-}
-
-unsigned char isEmpty(struct Stack *stack){
-    if(stack->top == -1)
-        return '1';
-    else
-        return '0';  
-}
-
-void push(struct Stack *stack, unsigned char tipo, unsigned int posicion) {
-    if (isFull(stack)=='1') {
-        return;
-    }
-
-    struct ElementoPila nuevoElemento;
-    nuevoElemento.tipo = tipo;
-    nuevoElemento.posicion = posicion;
-
-    stack->top = stack->top + 1;
-    stack->arr[stack->top] = nuevoElemento;
-    cantpila = cantpila + 1;  // AGREGADO: incrementar contador
-    
-    // Actualizar máximo si es necesario
-    if(cantpila > maxpila){
-        maxpila = cantpila;
-    }
-}
-
-struct ElementoPila pop(struct Stack *stack){
-    struct ElementoPila elementoaux;
-    elementoaux.tipo = '0'; 
-    elementoaux.posicion = 0; 
-    
-    if (isEmpty(stack)=='1'){
-        printf("Stack Underflow\n");
-        return elementoaux;
-    }
-
-    elementoaux = stack->arr[stack->top];
-    stack->top = stack->top - 1;
-    cantpila = cantpila - 1;  // AGREGADO: decrementar contador
-    return elementoaux;
-}
-
-void llenarPila(struct Stack *pila, struct L_enlazada *listaaux){
-    while(listaaux != NULL){
-        push(pila, '0', listaaux->posicion);
-        // REMOVIDO: cantpila ya se incrementa en push()
-        listaaux = listaaux->next;
-    }
-}
-
-void PrintStack(struct Stack *pila){
-    struct ElementoPila elemento;
-    for(int i = pila->top; i >= 0; i = i-1) {
-        elemento = *(pila->arr + i);
-        printf("Tipo %c, Posicion %u\n", elemento.tipo, elemento.posicion);
-    }
-    printf("\n");
-}
-
 //---------------------------Funciones principales---------------------------//
 //funcion que chequea si un numero es cuadrado perfecto
 unsigned char is_perfect_square(unsigned int x){
 
     unsigned int i;
-    //if(x%4!=0 && x%4!=1){ // los cuadrados perfectos solo pueden ser congruentes con 0 o 1 modulo 4
-    //    return '0';
-    //}
-
     i = sqrt(x);
 
     if(i*i == x){
@@ -158,7 +69,7 @@ void pares_perfectos(struct L_enlazada *Alcance[], unsigned int arrayEntrada[], 
 
 
 //Llenar alcance, vamos a tomar un valor y ver cuales son sus complementos y echarlos a una lista
-struct L_enlazada *llenarAlcance(struct L_enlazada *listaaux, struct L_enlazada *Alcance[], unsigned int posicion, struct AVLPATH *Camino_tree){
+struct tipStack *llenarAlcance(struct tipStack *stackaux, struct L_enlazada *Alcance[], unsigned int posicion, struct AVLPATH *Camino_tree){
     //Con el valor dado, buscamos en el arbol cual es la lista y la guardamos en aux
     //Dado el alcance tendremos que verificar en el arbol camino que estos elementos no esten ahi
     struct L_enlazada *aux = NULL;
@@ -167,11 +78,11 @@ struct L_enlazada *llenarAlcance(struct L_enlazada *listaaux, struct L_enlazada 
     //buscamos que no esten en el arbol camino
     while(aux != NULL){
         if(searchPath(Camino_tree, aux->posicion) == '0'){ //si no existe en el arbol camino
-            listaaux = insertaLista(listaaux, aux->posicion);
+            tipPush(stackaux, aux->posicion);
         }
         aux = aux->next;
     }
-    return listaaux;
+    return stackaux;
 }
 
 
@@ -189,21 +100,14 @@ unsigned char RevisaInput(unsigned int arrayEntrada[], unsigned int n){
     return valido;
 }
 
-void destroyStack(struct Stack *stack) {
-    if (stack->arr != NULL) {
-        free(stack->arr);
-        stack->arr = NULL;
-    }
-    stack->maxSize = 0;
-    stack->top = -1;
-}
+
 
 int main(int argc, char *argv[]){
     //leer los elemetentos de la lista de entrada. Los guardamos en un array estatico.
-    struct L_enlazada *listaaux = NULL;
+    struct tipStack *stackaux;
     struct ElementoPila elementoPilaAux;
     struct ElementoPila verificador;
-    struct Stack pila;
+    struct Stack *pila;
 
     struct AVLPATH *Camino_tree = NULL;
 
@@ -214,7 +118,7 @@ int main(int argc, char *argv[]){
     unsigned int posicion;
     unsigned int n;
     mpz_t cont;
-
+    
     posicion = 0;
     seguimiento = 0;
     init = '1';
@@ -224,9 +128,9 @@ int main(int argc, char *argv[]){
     
     n = atoi(argv[1]);
     unsigned int arrayEntrada[n];
-    initialize(&pila, n*n);
     ReadData(arrayEntrada, n);
-
+    stackaux = tipCreateStack(n+1);
+    pila = createStack(n*n);
     //definimos array de listas alcance que va a contener para cada posición i los valores alcanzables desde arrayEntrada[i]
     struct L_enlazada *Alcance[n];
     
@@ -253,35 +157,32 @@ int main(int argc, char *argv[]){
     if(flag == '0'){ //Ejecutamos el algoritmo de backtracking
         for (unsigned int i = 0; i < n; i = i + 1){
         cantpila = 0;
-        push(&pila, '0', i);
+        push(pila, '0', i);
         // REMOVIDO: cantpila ya se incrementa en push()
-        while(isEmpty(&pila) == '0' || init =='0'){
-            elementoPilaAux = pop(&pila);//quitamos de la pila
-            // REMOVIDO: cantpila ya se decrementa en pop()
+        while(isEmpty(pila) != '0' || init =='0'){
+            elementoPilaAux = pop(pila);//quitamos de la pila
             Camino_tree = insertPath_AVL(Camino_tree, elementoPilaAux.posicion); //ingresamos al camino
             len = len +1;
 
-            listaaux = llenarAlcance(listaaux, Alcance, elementoPilaAux.posicion, Camino_tree); //calculamos el alcance y lo guardamos en lista auxiliar
+            stackaux = llenarAlcance(stackaux, Alcance, elementoPilaAux.posicion, Camino_tree); //calculamos el alcance y lo guardamos en lista auxiliar
 
-            push(&pila, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado dsp
+            push(pila, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado dsp
             // REMOVIDO: cantpila ya se incrementa en push()
 
-            if(listaaux != NULL){//llenamos la pila con el alcance
-                llenarPila(&pila, listaaux);
-                listaaux = KillAllLista(listaaux);
+            if(tipIsEmpty(stackaux) != '0'){//llenamos la pila con el alcance
+                llenarPila(pila, stackaux);
 
             }//verificamos si la listaaux es vacía, significa que llegamos al final de una rama de computo.
-            else if(listaaux == NULL && elementoPilaAux.tipo=='0'){
+            else{
                 elementoPilaAux.tipo = '1'; 
                 if(len==n){//chequamos el largo del camino para saber si es valido o no      
                     mpz_add_ui(cont, cont, 1);
 
                 }
-                while(isEmpty(&pila)=='0'){//despues de verificar borramos elementos de la pila y del camino hasta encontrar la sgte rama de computo
-                    verificador = pop(&pila);
-                    // REMOVIDO: cantpila ya se decrementa en pop()
+                while(isEmpty(pila)!='0'){//despues de verificar borramos elementos de la pila y del camino hasta encontrar la sgte rama de computo
+                    verificador = pop(pila);
                     if(verificador.tipo == '0') {
-                        push(&pila, '0', verificador.posicion);
+                        push(pila, '0', verificador.posicion);
                         // REMOVIDO: cantpila ya se incrementa en push()
                         break;
                     }
@@ -305,8 +206,8 @@ int main(int argc, char *argv[]){
     for(int i = 0; i < n; i = i + 1){
         KillAllLista(*(Alcance + i));
     }
-
-    destroyStack(&pila);
+    tipFreeStack(stackaux);
+    FreeStack(pila);
     printf("Maximo tamaño de la pila alcanzado: %u\n", maxpila);
     //Revisamos si tenemos que restar 1 por si el input ya viene como un camino valido
     if(RevisaInput(arrayEntrada, n)=='1'){
