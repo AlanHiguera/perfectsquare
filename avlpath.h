@@ -12,36 +12,37 @@ struct AVLPATH {
     int height;
 };
 
-int getHeightPath(struct AVLPATH* n)
-{
-    if (n == NULL)
+unsigned int getHeightPath(struct AVLPATH* n){
+    if (n == NULL){
         return 0;
+    }
     return n->height;
 }
 
-// Function to create a new AVLPATH (solo key, sin lista)
-struct AVLPATH* createAVLPath(unsigned int key)
-{
+struct AVLPATH* createAVLPath(unsigned int key){
     struct AVLPATH* node = (struct AVLPATH*)calloc(1, sizeof(struct AVLPATH));
     node->key = key;
-    node->height = 1; // New node is initially added at leaf
+    node->height = 1;
     return node;
 }
 
-// Utility function to get the maximum of two integers
-int maxPath(int a, int b) { return (a > b) ? a : b; }
+int maxPath(int a, int b){ 
+    if(a > b) {
+        return a; 
+    } else {
+        return b; 
+    }
+}
 
 // Function to get balance factor of AVLPATH
-int getBalanceFactorPath(struct AVLPATH* n)
-{
+int getBalanceFactorPath(struct AVLPATH* n){
     if (n == NULL)
         return 0;
     return getHeightPath(n->left) - getHeightPath(n->right);
 }
 
 // Right rotation function
-struct AVLPATH* rightRotatePath(struct AVLPATH* y)
-{
+struct AVLPATH* rightRotatePath(struct AVLPATH* y){
     struct AVLPATH* x = y->left;
     struct AVLPATH* T2 = x->right;
 
@@ -57,8 +58,7 @@ struct AVLPATH* rightRotatePath(struct AVLPATH* y)
 }
 
 // Left rotation function
-struct AVLPATH* leftRotatePath(struct AVLPATH* x)
-{
+struct AVLPATH* leftRotatePath(struct AVLPATH* x){
     struct AVLPATH* y = x->right;
     struct AVLPATH* T2 = y->left;
 
@@ -74,8 +74,7 @@ struct AVLPATH* leftRotatePath(struct AVLPATH* x)
 }
 
 // Function to insert a key into AVLPATH tree (solo key, sin lista)
-struct AVLPATH* insertPath_AVL(struct AVLPATH* node, unsigned int key)
-{
+struct AVLPATH* insertPath_AVL(struct AVLPATH* node, unsigned int key){
     // 1. Perform standard BST insertion
     if (node == NULL)
         return createAVLPath(key);
@@ -121,8 +120,7 @@ struct AVLPATH* insertPath_AVL(struct AVLPATH* node, unsigned int key)
 }
 
 // Function to perform inorder traversal of AVLPATH tree (solo keys)
-void inOrderPath(struct AVLPATH* root)
-{
+void inOrderPath(struct AVLPATH* root){
     if (root != NULL) {
         inOrderPath(root->left);
         printf("%u ", root->key);  // Solo imprimir la key del nodo
@@ -131,8 +129,7 @@ void inOrderPath(struct AVLPATH* root)
 }
 
 // Function to search for a key in AVLPATH tree
-unsigned char searchPath(struct AVLPATH* root, unsigned int key)
-{
+unsigned char searchPath(struct AVLPATH* root, unsigned int key){
     if (root == NULL) {
         return '0';
     }
@@ -155,8 +152,7 @@ struct AVLPATH* findMinPath(struct AVLPATH* node)
     return node;
 }
 
-struct AVLPATH* DeletePath(struct AVLPATH* root, unsigned int key)
-{
+struct AVLPATH* DeletePath(struct AVLPATH* root, unsigned int key){
     // Caso base: árbol vacío
     if (root == NULL) {
         return NULL;
@@ -204,9 +200,9 @@ struct AVLPATH* DeletePath(struct AVLPATH* root, unsigned int key)
     }
 
     // Si el árbol tenía solo un nodo, ya se eliminó
-    if (root == NULL)
+    if (root == NULL){
         return root;
-
+    }
     // Actualizar altura del nodo actual
     root->height = 1 + maxPath(getHeightPath(root->left), getHeightPath(root->right));
 
@@ -226,11 +222,11 @@ struct AVLPATH* DeletePath(struct AVLPATH* root, unsigned int key)
     }
 
     // Caso Right Right
-    if (balance < -1 && getBalanceFactorPath(root->right) <= 0)
+    if (balance < -1 && getBalanceFactorPath(root->right) <= 0){
         return leftRotatePath(root);
-
+    }
     // Caso Right Left
-    if (balance < -1 && getBalanceFactorPath(root->right) > 0) {
+    if (balance < -1 && getBalanceFactorPath(root->right) > 0){
         root->right = rightRotatePath(root->right);
         return leftRotatePath(root);
     }
@@ -240,9 +236,8 @@ struct AVLPATH* DeletePath(struct AVLPATH* root, unsigned int key)
 }
 
 // Function to free memory of AVLPATH tree (solo nodos, sin listas)
-void freePath_AVL(struct AVLPATH* root)
-{
-    if (root != NULL) {
+void freePath_AVL(struct AVLPATH* root){
+    if(root != NULL){
         freePath_AVL(root->left);
         freePath_AVL(root->right);
         free(root);

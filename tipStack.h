@@ -51,7 +51,6 @@ unsigned int tipPop(struct tipStack* stack) {
         stack->top = stack->top - 1;
         return stack->array[stack->top];
     }
-    return;
 }
 
 

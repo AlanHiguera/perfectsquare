@@ -92,12 +92,10 @@ void FreeStack(struct Stack* stack){
 
 void PrintStack(struct Stack *pila){
     struct ElementoPila elemento;
-    
+
     if(pila == NULL || isEmpty(pila) == '0') {
-        printf("Pila vacía\n");
         return;
     }
-    printf("Contenido de la pila (desde el tope):\n");
     // Recorremos desde el tope hacia abajo sin modificar la pila
     for(int i = pila->top; i >= 1; i = i - 1) {
         struct ElementoPila elemento = pila->array[i];
