@@ -13,9 +13,6 @@
 
 
 unsigned char flag = '0'; //flag que indica si la lista de alcanzabilidad se puede permutar o no
-unsigned int cantpila = 0; //contador de la cantidad de elementos en la pila
-unsigned int maxpila = 0; //máximo tamaño de pila alcanzado
-//------------------------------Pila------------------------------//
 //---------------------------Funciones principales---------------------------//
 //funcion que chequea si un numero es cuadrado perfecto
 unsigned char is_perfect_square(unsigned int x){
@@ -152,13 +149,10 @@ int main(int argc, char *argv[]){
     double cpu_time_used;
     start = clock();
 
-    // maxpila ya está declarada globalmente
 
     if(flag == '0'){ //Ejecutamos el algoritmo de backtracking
         for (unsigned int i = 0; i < n; i = i + 1){
-        cantpila = 0;
         push(pila, '0', i);
-        // REMOVIDO: cantpila ya se incrementa en push()
         while(isEmpty(pila) != '0' || init =='0'){
             elementoPilaAux = pop(pila);//quitamos de la pila
             Camino_tree = insertPath_AVL(Camino_tree, elementoPilaAux.posicion); //ingresamos al camino
@@ -167,7 +161,6 @@ int main(int argc, char *argv[]){
             stackaux = llenarAlcance(stackaux, Alcance, elementoPilaAux.posicion, Camino_tree); //calculamos el alcance y lo guardamos en lista auxiliar
 
             push(pila, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado dsp
-            // REMOVIDO: cantpila ya se incrementa en push()
 
             if(tipIsEmpty(stackaux) != '0'){//llenamos la pila con el alcance
                 llenarPila(pila, stackaux);
@@ -183,7 +176,6 @@ int main(int argc, char *argv[]){
                     verificador = pop(pila);
                     if(verificador.tipo == '0') {
                         push(pila, '0', verificador.posicion);
-                        // REMOVIDO: cantpila ya se incrementa en push()
                         break;
                     }
                     else{
@@ -195,7 +187,6 @@ int main(int argc, char *argv[]){
             init = '1';
             seguimiento = seguimiento + 1;
 
-        // maxpila se actualiza automáticamente en push()
         }
         }
     }
@@ -208,7 +199,6 @@ int main(int argc, char *argv[]){
     }
     tipFreeStack(stackaux);
     FreeStack(pila);
-    printf("Maximo tamaño de la pila alcanzado: %u\n", maxpila);
     //Revisamos si tenemos que restar 1 por si el input ya viene como un camino valido
     if(RevisaInput(arrayEntrada, n)=='1'){
         mpz_sub_ui(cont, cont, 1); 

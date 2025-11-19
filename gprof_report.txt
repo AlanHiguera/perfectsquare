@@ -1,0 +1,347 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ns/call  ns/call  name    
+ 33.33      0.01     0.01   767200    13.03    13.03  searchPath
+ 33.33      0.02     0.01   109600    91.24    91.24  DeletePath
+ 33.33      0.03     0.01                             main
+  0.00      0.03     0.00  2444200     0.00     0.00  getHeightPath
+  0.00      0.03     0.00   657866     0.00     0.00  maxPath
+  0.00      0.03     0.00   564234     0.00     0.00  getBalanceFactorPath
+  0.00      0.03     0.00   519040     0.00     0.00  isEmpty
+  0.00      0.03     0.00   398064     0.00     0.00  tipIsEmpty
+  0.00      0.03     0.00   259512     0.00     0.00  isFull
+  0.00      0.03     0.00   259512     0.00     0.00  pop
+  0.00      0.03     0.00   259512     0.00     0.00  push
+  0.00      0.03     0.00   109600     0.00     0.00  createAVLPath
+  0.00      0.03     0.00   109600     0.00     0.00  insertPath_AVL
+  0.00      0.03     0.00   109600     0.00    91.24  llenarAlcance
+  0.00      0.03     0.00   109592     0.00     0.00  tipIsFull
+  0.00      0.03     0.00   109592     0.00     0.00  tipPop
+  0.00      0.03     0.00   109592     0.00     0.00  tipPush
+  0.00      0.03     0.00    69280     0.00     0.00  llenarPila
+  0.00      0.03     0.00    24349     0.00     0.00  rightRotatePath
+  0.00      0.03     0.00    23115     0.00     0.00  leftRotatePath
+  0.00      0.03     0.00    16750     0.00     0.00  findMinPath
+  0.00      0.03     0.00       63     0.00     0.00  is_perfect_square
+  0.00      0.03     0.00       56     0.00     0.00  DeleteFirstLista
+  0.00      0.03     0.00       56     0.00     0.00  insertaLista
+  0.00      0.03     0.00        8     0.00     0.00  KillAllLista
+  0.00      0.03     0.00        1     0.00     0.00  FreeStack
+  0.00      0.03     0.00        1     0.00     0.00  ReadData
+  0.00      0.03     0.00        1     0.00     0.00  RevisaInput
+  0.00      0.03     0.00        1     0.00     0.00  createStack
+  0.00      0.03     0.00        1     0.00     0.00  freePath_AVL
+  0.00      0.03     0.00        1     0.00     0.00  pares_perfectos
+  0.00      0.03     0.00        1     0.00     0.00  tipCreateStack
+  0.00      0.03     0.00        1     0.00     0.00  tipFreeStack
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2024 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 33.33% of 0.03 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]    100.0    0.01    0.02                 main [1]
+                0.00    0.01  109600/109600      llenarAlcance [4]
+                0.01    0.00  109600/109600      DeletePath [3]
+                0.00    0.00  259528/519040      isEmpty [8]
+                0.00    0.00  259512/259512      pop [11]
+                0.00    0.00  149920/259512      push [12]
+                0.00    0.00  109600/109600      insertPath_AVL [14]
+                0.00    0.00  109600/398064      tipIsEmpty [9]
+                0.00    0.00   69280/69280       llenarPila [18]
+                0.00    0.00       8/8           KillAllLista [25]
+                0.00    0.00       1/1           ReadData [27]
+                0.00    0.00       1/1           tipCreateStack [32]
+                0.00    0.00       1/1           createStack [29]
+                0.00    0.00       1/1           pares_perfectos [31]
+                0.00    0.00       1/1           freePath_AVL [30]
+                0.00    0.00       1/1           tipFreeStack [33]
+                0.00    0.00       1/1           FreeStack [26]
+                0.00    0.00       1/1           RevisaInput [28]
+-----------------------------------------------
+                             1219028             searchPath [2]
+                0.01    0.00  767200/767200      llenarAlcance [4]
+[2]     33.3    0.01    0.00  767200+1219028 searchPath [2]
+                             1219028             searchPath [2]
+-----------------------------------------------
+                              262138             DeletePath [3]
+                0.01    0.00  109600/109600      main [1]
+[3]     33.3    0.01    0.00  109600+262138  DeletePath [3]
+                0.00    0.00  524276/2444200     getHeightPath [5]
+                0.00    0.00  263434/564234      getBalanceFactorPath [7]
+                0.00    0.00  262138/657866      maxPath [6]
+                0.00    0.00   16750/16750       findMinPath [21]
+                0.00    0.00    1092/24349       rightRotatePath [19]
+                0.00    0.00     204/23115       leftRotatePath [20]
+                              262138             DeletePath [3]
+-----------------------------------------------
+                0.00    0.01  109600/109600      main [1]
+[4]     33.3    0.00    0.01  109600         llenarAlcance [4]
+                0.01    0.00  767200/767200      searchPath [2]
+                0.00    0.00  109592/109592      tipPush [17]
+-----------------------------------------------
+                0.00    0.00   92460/2444200     leftRotatePath [20]
+                0.00    0.00   97396/2444200     rightRotatePath [19]
+                0.00    0.00  524276/2444200     DeletePath [3]
+                0.00    0.00  601600/2444200     insertPath_AVL [14]
+                0.00    0.00 1128468/2444200     getBalanceFactorPath [7]
+[5]      0.0    0.00    0.00 2444200         getHeightPath [5]
+-----------------------------------------------
+                0.00    0.00   46230/657866      leftRotatePath [20]
+                0.00    0.00   48698/657866      rightRotatePath [19]
+                0.00    0.00  262138/657866      DeletePath [3]
+                0.00    0.00  300800/657866      insertPath_AVL [14]
+[6]      0.0    0.00    0.00  657866         maxPath [6]
+-----------------------------------------------
+                0.00    0.00  263434/564234      DeletePath [3]
+                0.00    0.00  300800/564234      insertPath_AVL [14]
+[7]      0.0    0.00    0.00  564234         getBalanceFactorPath [7]
+                0.00    0.00 1128468/2444200     getHeightPath [5]
+-----------------------------------------------
+                0.00    0.00  259512/519040      pop [11]
+                0.00    0.00  259528/519040      main [1]
+[8]      0.0    0.00    0.00  519040         isEmpty [8]
+-----------------------------------------------
+                0.00    0.00  109592/398064      tipPop [16]
+                0.00    0.00  109600/398064      main [1]
+                0.00    0.00  178872/398064      llenarPila [18]
+[9]      0.0    0.00    0.00  398064         tipIsEmpty [9]
+-----------------------------------------------
+                0.00    0.00  259512/259512      push [12]
+[10]     0.0    0.00    0.00  259512         isFull [10]
+-----------------------------------------------
+                0.00    0.00  259512/259512      main [1]
+[11]     0.0    0.00    0.00  259512         pop [11]
+                0.00    0.00  259512/519040      isEmpty [8]
+-----------------------------------------------
+                0.00    0.00  109592/259512      llenarPila [18]
+                0.00    0.00  149920/259512      main [1]
+[12]     0.0    0.00    0.00  259512         push [12]
+                0.00    0.00  259512/259512      isFull [10]
+-----------------------------------------------
+                0.00    0.00  109600/109600      insertPath_AVL [14]
+[13]     0.0    0.00    0.00  109600         createAVLPath [13]
+-----------------------------------------------
+                              300800             insertPath_AVL [14]
+                0.00    0.00  109600/109600      main [1]
+[14]     0.0    0.00    0.00  109600+300800  insertPath_AVL [14]
+                0.00    0.00  601600/2444200     getHeightPath [5]
+                0.00    0.00  300800/657866      maxPath [6]
+                0.00    0.00  300800/564234      getBalanceFactorPath [7]
+                0.00    0.00  109600/109600      createAVLPath [13]
+                0.00    0.00   23257/24349       rightRotatePath [19]
+                0.00    0.00   22911/23115       leftRotatePath [20]
+                              300800             insertPath_AVL [14]
+-----------------------------------------------
+                0.00    0.00  109592/109592      tipPush [17]
+[15]     0.0    0.00    0.00  109592         tipIsFull [15]
+-----------------------------------------------
+                0.00    0.00  109592/109592      llenarPila [18]
+[16]     0.0    0.00    0.00  109592         tipPop [16]
+                0.00    0.00  109592/398064      tipIsEmpty [9]
+-----------------------------------------------
+                0.00    0.00  109592/109592      llenarAlcance [4]
+[17]     0.0    0.00    0.00  109592         tipPush [17]
+                0.00    0.00  109592/109592      tipIsFull [15]
+-----------------------------------------------
+                0.00    0.00   69280/69280       main [1]
+[18]     0.0    0.00    0.00   69280         llenarPila [18]
+                0.00    0.00  178872/398064      tipIsEmpty [9]
+                0.00    0.00  109592/109592      tipPop [16]
+                0.00    0.00  109592/259512      push [12]
+-----------------------------------------------
+                0.00    0.00    1092/24349       DeletePath [3]
+                0.00    0.00   23257/24349       insertPath_AVL [14]
+[19]     0.0    0.00    0.00   24349         rightRotatePath [19]
+                0.00    0.00   97396/2444200     getHeightPath [5]
+                0.00    0.00   48698/657866      maxPath [6]
+-----------------------------------------------
+                0.00    0.00     204/23115       DeletePath [3]
+                0.00    0.00   22911/23115       insertPath_AVL [14]
+[20]     0.0    0.00    0.00   23115         leftRotatePath [20]
+                0.00    0.00   92460/2444200     getHeightPath [5]
+                0.00    0.00   46230/657866      maxPath [6]
+-----------------------------------------------
+                0.00    0.00   16750/16750       DeletePath [3]
+[21]     0.0    0.00    0.00   16750         findMinPath [21]
+-----------------------------------------------
+                0.00    0.00       7/63          RevisaInput [28]
+                0.00    0.00      56/63          pares_perfectos [31]
+[22]     0.0    0.00    0.00      63         is_perfect_square [22]
+-----------------------------------------------
+                0.00    0.00      56/56          KillAllLista [25]
+[23]     0.0    0.00    0.00      56         DeleteFirstLista [23]
+-----------------------------------------------
+                0.00    0.00      56/56          pares_perfectos [31]
+[24]     0.0    0.00    0.00      56         insertaLista [24]
+-----------------------------------------------
+                0.00    0.00       8/8           main [1]
+[25]     0.0    0.00    0.00       8         KillAllLista [25]
+                0.00    0.00      56/56          DeleteFirstLista [23]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[26]     0.0    0.00    0.00       1         FreeStack [26]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[27]     0.0    0.00    0.00       1         ReadData [27]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[28]     0.0    0.00    0.00       1         RevisaInput [28]
+                0.00    0.00       7/63          is_perfect_square [22]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[29]     0.0    0.00    0.00       1         createStack [29]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[30]     0.0    0.00    0.00       1         freePath_AVL [30]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[31]     0.0    0.00    0.00       1         pares_perfectos [31]
+                0.00    0.00      56/63          is_perfect_square [22]
+                0.00    0.00      56/56          insertaLista [24]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[32]     0.0    0.00    0.00       1         tipCreateStack [32]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[33]     0.0    0.00    0.00       1         tipFreeStack [33]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2024 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [23] DeleteFirstLista        [5] getHeightPath          [31] pares_perfectos
+   [3] DeletePath             [14] insertPath_AVL         [11] pop
+  [26] FreeStack              [24] insertaLista           [12] push
+  [25] KillAllLista            [8] isEmpty                [19] rightRotatePath
+  [27] ReadData               [10] isFull                  [2] searchPath
+  [28] RevisaInput            [22] is_perfect_square      [32] tipCreateStack
+  [13] createAVLPath          [20] leftRotatePath         [33] tipFreeStack
+  [29] createStack             [4] llenarAlcance           [9] tipIsEmpty
+  [21] findMinPath            [18] llenarPila             [15] tipIsFull
+  [30] freePath_AVL            [1] main                   [16] tipPop
+   [7] getBalanceFactorPath    [6] maxPath                [17] tipPush

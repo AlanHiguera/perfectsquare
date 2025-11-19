@@ -49,12 +49,7 @@ void push(struct Stack *stack, unsigned char tipo, unsigned int posicion){
 
     stack->top = stack->top + 1;
     stack->array[stack->top] = nuevoElemento;
-    //cantpila = cantpila + 1;
-    
-    // Actualizar máximo si es necesario
-    //if(cantpila > maxpila){
-    //   maxpila = cantpila;
-    //
+
 }
 
 struct ElementoPila pop(struct Stack *stack){
@@ -68,7 +63,6 @@ struct ElementoPila pop(struct Stack *stack){
 
     elementoaux = stack->array[stack->top];
     stack->top = stack->top - 1;
-    //cantpila = cantpila - 1;  // AGREGADO: decrementar contador
     return elementoaux;
 }
 
