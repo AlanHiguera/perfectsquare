@@ -112,11 +112,11 @@ int main(int argc, char *argv[]){
     unsigned int len;
     unsigned char init;
     unsigned int seguimiento;
-    unsigned int posicion;
+    //unsigned int posicion;
     unsigned int n;
     mpz_t cont;
     
-    posicion = 0;
+    //posicion = 0;
     seguimiento = 0;
     init = '1';
     len = 0; 
