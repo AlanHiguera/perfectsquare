@@ -1,4 +1,0 @@
-Tiempo de ejecucion: 0.000160 segundos
-Cantidad de caminos encontrados: 119
-Tiempo de ejecucion: 0.000119 segundos
-Cantidad de caminos encontrados: 119
