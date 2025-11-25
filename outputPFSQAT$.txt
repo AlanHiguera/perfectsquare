@@ -2,32 +2,32 @@ tamaño: 1
 Hay un elemento que no forma cuadrado perfecto con ningun otro.
 Cantidad de caminos encontrados: 0
 tamaño: 2
-Tiempo de ejecucion: 0.000005 segundos
+Tiempo de ejecucion: 0.000003 segundos
 Cantidad de caminos encontrados: 1
 tamaño: 3
-Tiempo de ejecucion: 0.000009 segundos
+Tiempo de ejecucion: 0.000005 segundos
 Cantidad de caminos encontrados: 5
 tamaño: 4
-Tiempo de ejecucion: 0.000021 segundos
+Tiempo de ejecucion: 0.000012 segundos
 Cantidad de caminos encontrados: 23
 tamaño: 5
-Tiempo de ejecucion: 0.000071 segundos
+Tiempo de ejecucion: 0.000043 segundos
 Cantidad de caminos encontrados: 119
 tamaño: 6
-Tiempo de ejecucion: 0.000411 segundos
+Tiempo de ejecucion: 0.000395 segundos
 Cantidad de caminos encontrados: 719
 tamaño: 7
-Tiempo de ejecucion: 0.002916 segundos
+Tiempo de ejecucion: 0.002796 segundos
 Cantidad de caminos encontrados: 5039
 tamaño: 8
-Tiempo de ejecucion: 0.014111 segundos
+Tiempo de ejecucion: 0.020186 segundos
 Cantidad de caminos encontrados: 40319
 tamaño: 9
-Tiempo de ejecucion: 0.146685 segundos
+Tiempo de ejecucion: 0.153766 segundos
 Cantidad de caminos encontrados: 362879
 tamaño: 10
-Tiempo de ejecucion: 1.510670 segundos
+Tiempo de ejecucion: 1.566555 segundos
 Cantidad de caminos encontrados: 3628799
 tamaño: 11
-Tiempo de ejecucion: 12.913245 segundos
+Tiempo de ejecucion: 13.386962 segundos
 Cantidad de caminos encontrados: 39916799
