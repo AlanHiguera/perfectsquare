@@ -2,39 +2,39 @@ tamaño: 1
 Hay un elemento que no forma cuadrado perfecto con ningun otro.
 Cantidad de caminos encontrados: 0
 tamaño: 2
-Tiempo de ejecucion: 0.000004 segundos
+Tiempo de ejecucion: 0.000002 segundos
 Cantidad de caminos encontrados: 1
 tamaño: 3
-Tiempo de ejecucion: 0.000010 segundos
+Tiempo de ejecucion: 0.000007 segundos
 Cantidad de caminos encontrados: 5
 tamaño: 4
-Tiempo de ejecucion: 0.000020 segundos
+Tiempo de ejecucion: 0.000007 segundos
 Cantidad de caminos encontrados: 23
 tamaño: 5
-Tiempo de ejecucion: 0.000084 segundos
+Tiempo de ejecucion: 0.000057 segundos
 Cantidad de caminos encontrados: 119
 tamaño: 6
-Tiempo de ejecucion: 0.000228 segundos
+Tiempo de ejecucion: 0.000307 segundos
 Cantidad de caminos encontrados: 719
 tamaño: 7
-Tiempo de ejecucion: 0.002902 segundos
+Tiempo de ejecucion: 0.001024 segundos
 Cantidad de caminos encontrados: 5039
 tamaño: 8
-Tiempo de ejecucion: 0.021637 segundos
+Tiempo de ejecucion: 0.008595 segundos
 Cantidad de caminos encontrados: 40319
 tamaño: 9
-Tiempo de ejecucion: 0.145274 segundos
+Tiempo de ejecucion: 0.087232 segundos
 Cantidad de caminos encontrados: 362879
 tamaño: 10
-Tiempo de ejecucion: 1.516728 segundos
+Tiempo de ejecucion: 0.923899 segundos
 Cantidad de caminos encontrados: 3628799
 tamaño: 11
-Tiempo de ejecucion: 13.297001 segundos
+Tiempo de ejecucion: 10.387198 segundos
 Cantidad de caminos encontrados: 39916799
 tamaño: 12
-Tiempo de ejecucion: 128.146110 segundos
+Tiempo de ejecucion: 128.308062 segundos
 Cantidad de caminos encontrados: 479001599
 tamaño: 13
-tamaño: 6
-Tiempo de ejecucion: 0.000022 segundos
-Cantidad de caminos encontrados: 4
+Tiempo de ejecucion: 1716.469019 segundos
+Cantidad de caminos encontrados: 6227020799
+tamaño: 14 
