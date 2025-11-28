@@ -525,7 +525,7 @@ unsigned char is_perfect_square(unsigned int x){
         return '1';
     }
     
-    if((i+1)*(i+1) == x){
+    if(((i+1)*(i+1)) == x){
         return '1';
     }
     
@@ -591,7 +591,7 @@ unsigned char RevisaInput(unsigned int arrayEntrada[], unsigned int n){
     valido = '1';
     for(i = 0; i < n-1; i = i + 1){
         if(is_perfect_square((*(arrayEntrada + i)) + (*(arrayEntrada + i + 1)))=='0'){
-            valido = '0';//si no es perfect square entonces no es valido
+            valido = '0';//si no es cuadrado perfecto entonces no es valido
             return valido;
         }
     }
@@ -613,6 +613,7 @@ int main(int argc, char *argv[]){
     unsigned int len;
     unsigned char init;
     unsigned int seguimiento;
+    unsigned char modo;
     //unsigned int posicion;
     unsigned int n;
     mpz_t cont;
@@ -623,7 +624,10 @@ int main(int argc, char *argv[]){
     len = 0; 
     mpz_init(cont);
     mpz_set_ui(cont, 0);
-    
+    if (strcmp(argv[2],"S") == 0)
+	    modo = '0';
+    if (strcmp(argv[2],"V") == 0)
+        modo = '1';
     n = atoi(argv[1]);
     unsigned int arrayEntrada[n];
     ReadData(arrayEntrada, n);
@@ -666,7 +670,9 @@ int main(int argc, char *argv[]){
                 elementoPilaAux.tipo = '1'; 
                 if(len==n){//chequamos el largo del camino para saber si es valido o no      
                     mpz_add_ui(cont, cont, 1);
-
+                }
+                if(modo=='1'){
+                    printf("Camino encontrado: ");
                 }
                 while(isEmpty(pila)!='0'){//despues de verificar borramos elementos de la pila y del camino hasta encontrar la sgte rama de computo
                     verificador = pop(pila);
@@ -675,10 +681,17 @@ int main(int argc, char *argv[]){
                         break;
                     }
                     else{
+                        if(modo=='1'){
+                            printf("%u ", arrayEntrada[verificador.posicion]);
+                        }
                         Camino_tree = DeletePath(Camino_tree, verificador.posicion);
                         len = len - 1;
                     }
                 }
+                if(modo=='1'){
+                  printf("\n");
+                }
+
             }
             init = '1';
             seguimiento = seguimiento + 1;
