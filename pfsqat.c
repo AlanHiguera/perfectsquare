@@ -20,7 +20,7 @@ struct L_enlazada {
     struct L_enlazada *next;
 };
 
-// Funciones para L_enlazada (lista simple)
+// Funciones para L_enlazada
 struct L_enlazada *insertaLista(struct L_enlazada *p, unsigned int x) {
     struct L_enlazada *q, *l;
     if (p == NULL) { // p is an empty list
@@ -39,7 +39,7 @@ struct L_enlazada *insertaLista(struct L_enlazada *p, unsigned int x) {
     }
     return p;
 }
-
+// Deletea el primero de la lista
 struct L_enlazada *DeleteFirstLista(struct L_enlazada *p){
     struct L_enlazada *q;
     if (p != NULL) {
@@ -107,12 +107,12 @@ struct L_enlazada *copiarLista(struct L_enlazada *original) {
     return nuevaLista;
 }
 //---------------------------avlpath--------------------------------//
-
+// Definimos el struct para el nodo del AVLPATH
 struct AVLPATH {
     unsigned int key;              
     struct AVLPATH* left;
     struct AVLPATH* right;
-    int height;
+    unsigned int height;
 };
 
 unsigned int getHeightPath(struct AVLPATH* n){
@@ -137,48 +137,48 @@ int maxPath(int a, int b){
     }
 }
 
-// Function to get balance factor of AVLPATH
+// Funcion para obtener el factor de balance del AVLPATH
 int getBalanceFactorPath(struct AVLPATH* n){
     if (n == NULL)
         return 0;
     return getHeightPath(n->left) - getHeightPath(n->right);
 }
 
-// Right rotation function
+// Rotacion a la derecha
 struct AVLPATH* rightRotatePath(struct AVLPATH* y){
     struct AVLPATH* x = y->left;
     struct AVLPATH* T2 = x->right;
 
-    // Perform rotation
+    // Se hace la rotacion
     x->right = y;
     y->left = T2;
 
-    // Update heights
+    // Actualizar alturas
     y->height = maxPath(getHeightPath(y->left), getHeightPath(y->right)) + 1;
     x->height = maxPath(getHeightPath(x->left), getHeightPath(x->right)) + 1;
 
     return x;
 }
 
-// Left rotation function
+// Rotacion a la izquierda
 struct AVLPATH* leftRotatePath(struct AVLPATH* x){
     struct AVLPATH* y = x->right;
     struct AVLPATH* T2 = y->left;
 
-    // Perform rotation
+    // Se hace la rotacion
     y->left = x;
     x->right = T2;
 
-    // Update heights
+    // Actualizar alturas
     x->height = maxPath(getHeightPath(x->left), getHeightPath(x->right)) + 1;
     y->height = maxPath(getHeightPath(y->left), getHeightPath(y->right)) + 1;
 
     return y;
 }
 
-// Function to insert a key into AVLPATH tree (solo key, sin lista)
+// Funcion para insertar una key en el AVLPATH
 struct AVLPATH* insertPath_AVL(struct AVLPATH* node, unsigned int key){
-    // 1. Perform standard BST insertion
+    // Se hace la insercion normal de BST
     if (node == NULL)
         return createAVLPath(key);
 
@@ -186,17 +186,17 @@ struct AVLPATH* insertPath_AVL(struct AVLPATH* node, unsigned int key){
         node->left = insertPath_AVL(node->left, key);
     else if (key > node->key)
         node->right = insertPath_AVL(node->right, key);
-    else // Equal keys are not allowed in BST
+    else // llaves duplicadas no permitidas
         return node;
 
-    // 2. Update height of this ancestor node
+    // 2. Actualizar la altura de este nodo ancestro
     node->height = 1 + maxPath(getHeightPath(node->left), getHeightPath(node->right));
 
-    // 3. Get the balance factor of this ancestor node to
-    // check whether this node became unbalanced
+    // 3. Obtener el factor de balance de este nodo ancestro para
+    // verificar si este nodo se volvió desequilibrado
     int balance = getBalanceFactorPath(node);
 
-    // 4. If the node becomes unbalanced, then there are 4 cases
+    // 4. Si el nodo se vuelve desequilibrado, entonces hay 4 casos
 
     // Left Left Case
     if (balance > 1 && key < node->left->key)
@@ -218,20 +218,20 @@ struct AVLPATH* insertPath_AVL(struct AVLPATH* node, unsigned int key){
         return leftRotatePath(node);
     }
 
-    // Return the (unchanged) node pointer
+    // Retornamos el nodo
     return node;
 }
 
-// Function to perform inorder traversal of AVLPATH tree (solo keys)
+// Funcion para realizar un recorrido inorder del arbol AVLPATH
 void inOrderPath(struct AVLPATH* root){
     if (root != NULL) {
         inOrderPath(root->left);
-        printf("%u ", root->key);  // Solo imprimir la key del nodo
+        printf("%u ", root->key);
         inOrderPath(root->right);
     }
 }
 
-// Function to search for a key in AVLPATH tree
+// Funcion para buscar una key en el arbol AVLPATH
 unsigned char searchPath(struct AVLPATH* root, unsigned int key){
     if (root == NULL) {
         return '0';
@@ -247,7 +247,7 @@ unsigned char searchPath(struct AVLPATH* root, unsigned int key){
         return searchPath(root->right, key);
 }
 
-// Función auxiliar para encontrar el nodo con valor mínimo (más a la izquierda)
+// Funcion auxiliar para encontrar el nodo con valor minimo (mas a la izquierda)
 struct AVLPATH* findMinPath(struct AVLPATH* node)
 {
     while (node->left != NULL)
@@ -338,7 +338,7 @@ struct AVLPATH* DeletePath(struct AVLPATH* root, unsigned int key){
     return root;
 }
 
-// Function to free memory of AVLPATH tree (solo nodos, sin listas)
+// Funcion para liberar la memoria del arbol AVLPATH
 void freePath_AVL(struct AVLPATH* root){
     if(root != NULL){
         freePath_AVL(root->left);
@@ -422,13 +422,13 @@ struct ElementoPila{
     unsigned char tipo; //0 para no revisado, 1 para revisado
     unsigned int posicion; //posicion en la lista de alcanzabilidad
 };
-
+// definimos la estructura de la pila
 struct Stack{
     unsigned int top;
     unsigned int capacity;
     struct ElementoPila* array;
 };
-
+// Funcion para chequear si la pila esta vacia
 unsigned char isEmpty(struct Stack* stack){
     if(stack->top == 0) {
         return '0';
@@ -436,7 +436,7 @@ unsigned char isEmpty(struct Stack* stack){
         return '1';
     }
 }
-
+// Funcion para crear una pila de capacidad dada
 struct Stack* createStack(unsigned int capacity){
     struct Stack* stack = (struct Stack*)calloc(1, sizeof(struct Stack));
 
@@ -447,6 +447,7 @@ struct Stack* createStack(unsigned int capacity){
     return stack;
 }
 
+// Funcion para chequear si la pila esta llena
 unsigned char isFull(struct Stack* stack){
     if(stack->top == stack->capacity) {
         return '1';
@@ -454,7 +455,7 @@ unsigned char isFull(struct Stack* stack){
         return '0';
     }
 }
-
+// Funcion para agregar un elemento a la pila
 void push(struct Stack *stack, unsigned char tipo, unsigned int posicion){
     if(isFull(stack)=='1'){
         return;
@@ -468,7 +469,7 @@ void push(struct Stack *stack, unsigned char tipo, unsigned int posicion){
     stack->array[stack->top] = nuevoElemento;
 
 }
-
+//Funcion para quitar un elemento de la pila
 struct ElementoPila pop(struct Stack *stack){
     struct ElementoPila elementoaux;
     elementoaux.tipo = '0'; 
@@ -482,7 +483,7 @@ struct ElementoPila pop(struct Stack *stack){
     stack->top = stack->top - 1;
     return elementoaux;
 }
-
+// Funcion para llenar la pila con los elementos de la tipStack auxiliar(contiene el alcance temporal)
 void llenarPila(struct Stack *pila, struct tipStack *tipstackaux){
     unsigned int posicion;
     posicion = 0;
@@ -491,7 +492,7 @@ void llenarPila(struct Stack *pila, struct tipStack *tipstackaux){
         push(pila, '0', posicion);
     }
 }
-
+// Funcion para liberar la memoria de la pila
 void FreeStack(struct Stack* stack){
     if(stack->array != NULL) {
         free(stack->array);
@@ -501,6 +502,7 @@ void FreeStack(struct Stack* stack){
     free(stack);
 }
 
+// Funcion para imprimir la pila
 void PrintStack(struct Stack *pila){
     struct ElementoPila elemento;
     
@@ -525,7 +527,7 @@ unsigned char is_perfect_square(unsigned int x){
         return '1';
     }
     
-    if(((i+1)*(i+1)) == x){
+    if(((i+1)*(i+1)) == x){ // solo por si hay error de redondeo
         return '1';
     }
     
@@ -601,7 +603,7 @@ unsigned char RevisaInput(unsigned int arrayEntrada[], unsigned int n){
 
 
 int main(int argc, char *argv[]){
-    //leer los elemetentos de la lista de entrada. Los guardamos en un array estatico.
+    //leer los elementos de la lista de entrada. Los guardamos en un array estatico.
     struct tipStack *stackaux;
     struct ElementoPila elementoPilaAux;
     struct ElementoPila verificador;
@@ -701,7 +703,8 @@ int main(int argc, char *argv[]){
     }
     end = clock();
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-    printf("Tiempo de ejecucion: %f segundos\n", cpu_time_used);
+    printf("Tiempo: %f seg\n", cpu_time_used);
+    //Limpiamos la memoria que utilizamos
     freePath_AVL(Camino_tree);
     for(int i = 0; i < n; i = i + 1){
         KillAllLista(*(Alcance + i));
@@ -713,8 +716,8 @@ int main(int argc, char *argv[]){
         mpz_sub_ui(cont, cont, 1); 
     }
 
-    printf("Cantidad de caminos encontrados: ");
-    
+    printf("Caminos encontrados: ");
+    //Por ultimo resolvemos el problema del tipo de dato e imprimimos la respuesta   
     str = mpz_get_str(NULL, 10, cont);
     printf("%s\n", str);
     free(str);

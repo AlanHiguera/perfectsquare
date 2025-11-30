@@ -37,4 +37,9 @@ Cantidad de caminos encontrados: 479001599
 tamaño: 13
 Tiempo de ejecucion: 1716.469019 segundos
 Cantidad de caminos encontrados: 6227020799
-tamaño: 14 
+tamaño: 14
+Tiempo: 24744.881537 seg
+Caminos encontrados: 87178291199
+
+
+$BIN $n "$MODO" < "$INPUT" >> "$OUT" 2>&1

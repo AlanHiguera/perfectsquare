@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "stdlib.h": "c",
-        "avlpath.h": "c",
-        "listaenlazada.h": "c",
-        "tipstack.h": "c",
-        "stdbool.h": "c"
-    }
-}
