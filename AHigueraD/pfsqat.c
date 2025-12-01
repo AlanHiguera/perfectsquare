@@ -15,7 +15,7 @@ struct L_enlazada {
 // Funciones para L_enlazada
 struct L_enlazada *insertaLista(struct L_enlazada *p, unsigned int x) {
     struct L_enlazada *q, *l;
-    if (p == NULL) {
+    if (p == NULL) { // p is an empty list
         q = calloc(1, sizeof(struct L_enlazada));
         q->posicion = x;
         q->next = NULL;
@@ -519,7 +519,7 @@ unsigned char is_perfect_square(unsigned int x){
         return '1';
     }
     
-    if(((i+1)*(i+1)) == x){//solo por si hay error de redondeo
+    if(((i+1)*(i+1)) == x){ // solo por si hay error de redondeo
         return '1';
     }
     
@@ -546,10 +546,11 @@ void pares_perfectos(struct L_enlazada *Alcance[], unsigned int arrayEntrada[], 
         // Buscamos los valores que forman cuadrado perfecto con el elemento i
         for(j = 0; j < n; j = j + 1){
             if(i != j && is_perfect_square(*(arrayEntrada + i) + *(arrayEntrada + j))=='1'){//si no es el mismo elemento y si la suma es cuadrado perfecto
-                *(Alcance + i) = insertaLista(*(Alcance+i), j); //inserto la posicion del complemento
+                //printf("cuadrado perfecto encontrado entre %u y %u\n", arrayEntrada[i], arrayEntrada[j]);
+                *(Alcance + i) = insertaLista(*(Alcance+i), j); //inserto el VALOR del complemento
                 imposiblepermutar = '1';
             }
-        }//si no tiene complementos, lo detectamos a traves del char sin signo. Asi, detectaremos que no hay solucion.
+        }//si no tiene complementos, habrá un pivote seguido de otro. Asi, detectaremos que no hay solucion.
         if(imposiblepermutar=='0'){
             flag = '1'; //la lista no se puede permutar porque hay un elemento que no forma cuadrado perfecto con ningun otro
             return;
@@ -557,10 +558,12 @@ void pares_perfectos(struct L_enlazada *Alcance[], unsigned int arrayEntrada[], 
     }
 }
 
-//Llenar alcance, vamos a tomar una posicion y ver cuales son sus complementos y guardarlos a un stack
+
+
+//Llenar alcance, vamos a tomar un valor y ver cuales son sus complementos y echarlos a un stack
 struct tipStack *llenarAlcance(struct tipStack *stackaux, struct L_enlazada *Alcance[], unsigned int posicion, struct AVLPATH *Camino_tree){
-    //Con el valor dado, buscamos en el array estatico cual es la lista y la guardamos en aux
-    //Dado el alcance, tendremos que verificar en el arbol camino que estos elementos no esten ahi
+    //Con el valor dado, buscamos en el arbol cual es la lista y la guardamos en aux
+    //Dado el alcance tendremos que verificar en el arbol camino que estos elementos no esten ahi
     struct L_enlazada *aux = NULL;
 
     aux = *(Alcance + posicion);
@@ -649,13 +652,13 @@ int main(int argc, char *argv[]){
 
             push(pila, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado después
 
-            if(tipIsEmpty(stackaux) != '0'){//llenamos la pila principal con el alcance almacenado en el stack auxiliar
+            if(tipIsEmpty(stackaux) != '0'){//llenamos la pila principal con el alcance almacenado en el satck auxiliar
                 llenarPila(pila, stackaux);
 
-            }//verificamos si la stackaux es vacío, si es así, significa que llegamos al final de una rama de computo.
+            }//verificamos si la listaaux es vacía, si es así, significa que llegamos al final de una rama de computo.
             else{
                 elementoPilaAux.tipo = '1'; 
-                if(len==n){//chequeamos el largo del camino para saber si es valido o no      
+                if(len==n){//chequamos el largo del camino para saber si es valido o no      
                     cont = cont +1;
                 }
                 if(modo=='1'){
@@ -680,7 +683,7 @@ int main(int argc, char *argv[]){
                 }
 
             }
-            init = '1';//representa la idea del do while
+            init = '1';
             seguimiento = seguimiento + 1;
 
         }

@@ -1,0 +1,133 @@
+tamaño: 1
+Hay un elemento que no forma cuadrado perfecto con ningun otro.
+Cantidad de caminos encontrados: 0
+
+ Performance counter stats for 'system wide':
+
+              0,07 Joules power/energy-pkg/                                                     
+              0,04 Joules power_core/energy-core/                                               
+
+       0,002940362 seconds time elapsed
+
+tamaño: 2
+Tiempo: 0.000004 seg
+Caminos encontrados: 1
+
+ Performance counter stats for 'system wide':
+
+              0,05 Joules power/energy-pkg/                                                     
+              0,03 Joules power_core/energy-core/                                               
+
+       0,003845238 seconds time elapsed
+
+tamaño: 3
+Tiempo: 0.000007 seg
+Caminos encontrados: 5
+
+ Performance counter stats for 'system wide':
+
+              0,07 Joules power/energy-pkg/                                                     
+              0,04 Joules power_core/energy-core/                                               
+
+       0,002966971 seconds time elapsed
+
+tamaño: 4
+Tiempo: 0.000017 seg
+Caminos encontrados: 23
+
+ Performance counter stats for 'system wide':
+
+              0,06 Joules power/energy-pkg/                                                     
+              0,02 Joules power_core/energy-core/                                               
+
+       0,001727759 seconds time elapsed
+
+tamaño: 5
+Tiempo: 0.000060 seg
+Caminos encontrados: 119
+
+ Performance counter stats for 'system wide':
+
+              0,07 Joules power/energy-pkg/                                                     
+              0,04 Joules power_core/energy-core/                                               
+
+       0,003035626 seconds time elapsed
+
+tamaño: 6
+Tiempo: 0.000180 seg
+Caminos encontrados: 719
+
+ Performance counter stats for 'system wide':
+
+              0,04 Joules power/energy-pkg/                                                     
+              0,03 Joules power_core/energy-core/                                               
+
+       0,002964946 seconds time elapsed
+
+tamaño: 7
+Tiempo: 0.002453 seg
+Caminos encontrados: 5039
+
+ Performance counter stats for 'system wide':
+
+              0,10 Joules power/energy-pkg/                                                     
+              0,08 Joules power_core/energy-core/                                               
+
+       0,005964533 seconds time elapsed
+
+tamaño: 8
+Tiempo: 0.016766 seg
+Caminos encontrados: 40319
+
+ Performance counter stats for 'system wide':
+
+              0,30 Joules power/energy-pkg/                                                     
+              0,21 Joules power_core/energy-core/                                               
+
+       0,020030914 seconds time elapsed
+
+tamaño: 9
+Tiempo: 0.108286 seg
+Caminos encontrados: 362879
+
+ Performance counter stats for 'system wide':
+
+              1,72 Joules power/energy-pkg/                                                     
+              1,37 Joules power_core/energy-core/                                               
+
+       0,110117649 seconds time elapsed
+
+tamaño: 10
+Tiempo: 1.005532 seg
+Caminos encontrados: 3628799
+
+ Performance counter stats for 'system wide':
+
+             15,12 Joules power/energy-pkg/                                                     
+             12,43 Joules power_core/energy-core/                                               
+
+       1,007983871 seconds time elapsed
+
+tamaño: 11
+Tiempo: 11.580964 seg
+Caminos encontrados: 39916799
+
+ Performance counter stats for 'system wide':
+
+            173,67 Joules power/energy-pkg/                                                     
+            138,28 Joules power_core/energy-core/                                               
+
+      11,615916906 seconds time elapsed
+
+tamaño: 12
+Tiempo: 137.403178 seg
+Caminos encontrados: 479001599
+
+ Performance counter stats for 'system wide':
+
+          2.050,78 Joules power/energy-pkg/                                                     
+          1.659,65 Joules power_core/energy-core/                                               
+
+     137,534785567 seconds time elapsed
+
+tamaño: 13

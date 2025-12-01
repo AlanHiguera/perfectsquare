@@ -4,153 +4,168 @@ Cantidad de caminos encontrados: 0
 
  Performance counter stats for 'system wide':
 
-              0,01 Joules power/energy-pkg/                                                     
-              0,00 Joules power_core/energy-core/                                               
+              0,03 Joules power/energy-pkg/                                                     
+              0,03 Joules power_core/energy-core/                                               
 
-       0,001935228 seconds time elapsed
+       0,002957052 seconds time elapsed
 
 tamaño: 2
-Tiempo: 0.000005 seg
+Tiempo: 0.000003 seg
 Caminos encontrados: 1
 
  Performance counter stats for 'system wide':
 
-              0,01 Joules power/energy-pkg/                                                     
-              0,00 Joules power_core/energy-core/                                               
+              0,06 Joules power/energy-pkg/                                                     
+              0,04 Joules power_core/energy-core/                                               
 
-       0,001800290 seconds time elapsed
+       0,002964315 seconds time elapsed
 
 tamaño: 3
-Tiempo: 0.000009 seg
+Tiempo: 0.000006 seg
 Caminos encontrados: 5
 
  Performance counter stats for 'system wide':
 
-              0,01 Joules power/energy-pkg/                                                     
-              0,00 Joules power_core/energy-core/                                               
+              0,08 Joules power/energy-pkg/                                                     
+              0,06 Joules power_core/energy-core/                                               
 
-       0,002150276 seconds time elapsed
+       0,003883929 seconds time elapsed
 
 tamaño: 4
-Tiempo: 0.000013 seg
+Tiempo: 0.000014 seg
 Caminos encontrados: 23
 
  Performance counter stats for 'system wide':
 
-              0,01 Joules power/energy-pkg/                                                     
-              0,00 Joules power_core/energy-core/                                               
+              0,08 Joules power/energy-pkg/                                                     
+              0,04 Joules power_core/energy-core/                                               
 
-       0,001514350 seconds time elapsed
+       0,003012088 seconds time elapsed
 
 tamaño: 5
-Tiempo: 0.000043 seg
+Tiempo: 0.000055 seg
 Caminos encontrados: 119
 
  Performance counter stats for 'system wide':
 
-              0,00 Joules power/energy-pkg/                                                     
-              0,00 Joules power_core/energy-core/                                               
+              0,05 Joules power/energy-pkg/                                                     
+              0,04 Joules power_core/energy-core/                                               
 
-       0,001938650 seconds time elapsed
+       0,003033181 seconds time elapsed
 
 tamaño: 6
-Tiempo: 0.000424 seg
+Tiempo: 0.000309 seg
 Caminos encontrados: 719
 
  Performance counter stats for 'system wide':
 
-              0,01 Joules power/energy-pkg/                                                     
-              0,00 Joules power_core/energy-core/                                               
+              0,05 Joules power/energy-pkg/                                                     
+              0,04 Joules power_core/energy-core/                                               
 
-       0,002652659 seconds time elapsed
+       0,002979751 seconds time elapsed
 
 tamaño: 7
-Tiempo: 0.001691 seg
+Tiempo: 0.002095 seg
 Caminos encontrados: 5039
 
  Performance counter stats for 'system wide':
 
-              0,02 Joules power/energy-pkg/                                                     
-              0,00 Joules power_core/energy-core/                                               
+              0,09 Joules power/energy-pkg/                                                     
+              0,08 Joules power_core/energy-core/                                               
 
-       0,003908727 seconds time elapsed
+       0,004891893 seconds time elapsed
 
 tamaño: 8
-Tiempo: 0.014381 seg
+Tiempo: 0.008192 seg
 Caminos encontrados: 40319
 
  Performance counter stats for 'system wide':
 
-              0,08 Joules power/energy-pkg/                                                     
-              0,02 Joules power_core/energy-core/                                               
+              0,27 Joules power/energy-pkg/                                                     
+              0,22 Joules power_core/energy-core/                                               
 
-       0,016152586 seconds time elapsed
+       0,009740204 seconds time elapsed
 
 tamaño: 9
-Tiempo: 0.145698 seg
+Tiempo: 0.083414 seg
 Caminos encontrados: 362879
 
  Performance counter stats for 'system wide':
 
-              0,72 Joules power/energy-pkg/                                                     
-              0,23 Joules power_core/energy-core/                                               
+              1,81 Joules power/energy-pkg/                                                     
+              1,54 Joules power_core/energy-core/                                               
 
-       0,148127913 seconds time elapsed
+       0,086002526 seconds time elapsed
 
 tamaño: 10
-Tiempo: 1.533993 seg
+Tiempo: 0.860431 seg
 Caminos encontrados: 3628799
 
  Performance counter stats for 'system wide':
 
-              7,54 Joules power/energy-pkg/                                                     
-              2,35 Joules power_core/energy-core/                                               
+             17,81 Joules power/energy-pkg/                                                     
+             15,07 Joules power_core/energy-core/                                               
 
-       1,535954410 seconds time elapsed
+       0,872048676 seconds time elapsed
 
 tamaño: 11
-Tiempo: 13.176315 seg
+Tiempo: 9.806858 seg
 Caminos encontrados: 39916799
 
  Performance counter stats for 'system wide':
 
-            103,12 Joules power/energy-pkg/                                                     
-             57,65 Joules power_core/energy-core/                                               
+            191,03 Joules power/energy-pkg/                                                     
+            157,85 Joules power_core/energy-core/                                               
 
-      13,192903580 seconds time elapsed
+       9,817969873 seconds time elapsed
 
 tamaño: 12
-Tiempo: 126.349165 seg
-Caminos encontrados: 479001599
+./pf.exe: Interrupción
 
  Performance counter stats for 'system wide':
 
-          1.409,55 Joules power/energy-pkg/                                                     
-            926,38 Joules power_core/energy-core/                                               
+            240,75 Joules power/energy-pkg/                                                     
+            199,02 Joules power_core/energy-core/                                               
 
-     126,376090217 seconds time elapsed
+      12,202344372 seconds time elapsed
 
 tamaño: 13
-tamaño: 6
-Tiempo: 0.000018 seg
-Caminos encontrados: 4
+./pf.exe: Interrupción
 
  Performance counter stats for 'system wide':
 
-              0,13 Joules power/energy-pkg/                                                     
-              0,09 Joules power_core/energy-core/                                               
+          8.143,41 Joules power/energy-pkg/                                                     
+          6.631,14 Joules power_core/energy-core/                                               
 
-       0,009557280 seconds time elapsed
-
-Tiempo: 1732.933546 seg
-Caminos encontrados: 6227020799
-
- Performance counter stats for 'system wide':
-
-         22.033,07 Joules power/energy-pkg/                                                     
-         15.162,98 Joules power_core/energy-core/                                               
-
-    1733,830522553 seconds time elapsed
+     523,501265630 seconds time elapsed
 
 tamaño: 14
+./pf.exe: Interrupción
+
+ Performance counter stats for 'system wide':
+
+             15,53 Joules power/energy-pkg/                                                     
+             13,01 Joules power_core/energy-core/                                               
+
+       1,035210870 seconds time elapsed
+
 tamaño: 15
+./pf.exe: Interrupción
+
+ Performance counter stats for 'system wide':
+
+             69,24 Joules power/energy-pkg/                                                     
+             57,74 Joules power_core/energy-core/                                               
+
+       4,625972858 seconds time elapsed
+
+tamaño: 16
+./pf.exe: Interrupción
+
+ Performance counter stats for 'system wide':
+
+              4,69 Joules power/energy-pkg/                                                     
+              3,98 Joules power_core/energy-core/                                               
+
+       0,311266903 seconds time elapsed
+
