@@ -1,15 +1,9 @@
-//estructura para la fila bivariada
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "time.h"
 #include <math.h>
-//#include "listaEnlazada.h"
-//#include "avlpath.h"
-//#include "Stack.h"
-//#include "tipStack.h"
 #include <stdbool.h>
-#include <gmp.h>  
 
 
 unsigned char flag = '0'; //flag que indica si la lista de alcanzabilidad se puede permutar o no
@@ -568,7 +562,7 @@ void pares_perfectos(struct L_enlazada *Alcance[], unsigned int arrayEntrada[], 
 
 
 
-//Llenar alcance, vamos a tomar un valor y ver cuales son sus complementos y echarlos a una lista
+//Llenar alcance, vamos a tomar un valor y ver cuales son sus complementos y echarlos a un stack
 struct tipStack *llenarAlcance(struct tipStack *stackaux, struct L_enlazada *Alcance[], unsigned int posicion, struct AVLPATH *Camino_tree){
     //Con el valor dado, buscamos en el arbol cual es la lista y la guardamos en aux
     //Dado el alcance tendremos que verificar en el arbol camino que estos elementos no esten ahi
@@ -611,21 +605,18 @@ int main(int argc, char *argv[]){
 
     struct AVLPATH *Camino_tree = NULL;
 
-    char *str;
     unsigned int len;
     unsigned char init;
     unsigned int seguimiento;
     unsigned char modo;
-    //unsigned int posicion;
     unsigned int n;
-    mpz_t cont;
+    unsigned long long cont;
     
-    //posicion = 0;
     seguimiento = 0;
     init = '1';
     len = 0; 
-    mpz_init(cont);
-    mpz_set_ui(cont, 0);
+    cont = 0;
+
     if (strcmp(argv[2],"S") == 0)
 	    modo = '0';
     if (strcmp(argv[2],"V") == 0)
@@ -651,27 +642,26 @@ int main(int argc, char *argv[]){
     double cpu_time_used;
     start = clock();
 
-
     if(flag == '0'){ //Ejecutamos el algoritmo de backtracking
         for (unsigned int i = 0; i < n; i = i + 1){
         push(pila, '0', i);
         while(isEmpty(pila) != '0' || init =='0'){
             elementoPilaAux = pop(pila);//quitamos de la pila
             Camino_tree = insertPath_AVL(Camino_tree, elementoPilaAux.posicion); //ingresamos al camino
-            len = len +1;
+            len = len +1;//Mantenemos registro del largo del camino
 
-            stackaux = llenarAlcance(stackaux, Alcance, elementoPilaAux.posicion, Camino_tree); //calculamos el alcance y lo guardamos en lista auxiliar
+            stackaux = llenarAlcance(stackaux, Alcance, elementoPilaAux.posicion, Camino_tree); //Buscamos el alcance y lo guardamos en stack auxiliar
 
-            push(pila, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado dsp
+            push(pila, '1', elementoPilaAux.posicion); //vuelvo a poner k en la pila para marcarlo como revisado después
 
-            if(tipIsEmpty(stackaux) != '0'){//llenamos la pila con el alcance
+            if(tipIsEmpty(stackaux) != '0'){//llenamos la pila principal con el alcance almacenado en el satck auxiliar
                 llenarPila(pila, stackaux);
 
-            }//verificamos si la listaaux es vacía, significa que llegamos al final de una rama de computo.
+            }//verificamos si la listaaux es vacía, si es así, significa que llegamos al final de una rama de computo.
             else{
                 elementoPilaAux.tipo = '1'; 
                 if(len==n){//chequamos el largo del camino para saber si es valido o no      
-                    mpz_add_ui(cont, cont, 1);
+                    cont = cont +1;
                 }
                 if(modo=='1'){
                     printf("Camino encontrado: ");
@@ -713,14 +703,11 @@ int main(int argc, char *argv[]){
     FreeStack(pila);
     //Revisamos si tenemos que restar 1 por si el input ya viene como un camino valido
     if(RevisaInput(arrayEntrada, n)=='1'){
-        mpz_sub_ui(cont, cont, 1); 
+        cont = cont - 1;
     }
 
     printf("Caminos encontrados: ");
-    //Por ultimo resolvemos el problema del tipo de dato e imprimimos la respuesta   
-    str = mpz_get_str(NULL, 10, cont);
-    printf("%s\n", str);
-    free(str);
-    mpz_clear(cont);
+    //Por ultimo resolvemos el problema del tipo de dato e imprimimos la respuesta
+    printf("%llu\n", cont);
     return 0;
 }
