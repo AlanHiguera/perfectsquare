@@ -654,7 +654,7 @@ int main(int argc, char *argv[]){
 
             }//verificamos si la stackaux es vacío, si es así, significa que llegamos al final de una rama de computo.
             else{
-                elementoPilaAux.tipo = '1'; 
+                elementoPilaAux.tipo = '1'; //esto sobra
                 if(len==n){//chequeamos el largo del camino para saber si es valido o no      
                     cont = cont +1;
                 }
